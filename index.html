@@ -54,6 +54,8 @@
   .nav-links a { text-decoration:none; color:var(--text-light); font-size:0.875rem; font-weight:500; transition:color 0.2s; }
   .nav-links a:hover { color:var(--white); }
   .nav-cta { background:var(--yellow)!important; color:var(--dark)!important; padding:0.5rem 1.35rem!important; border-radius:6px!important; font-weight:700!important; }
+  .nav-login { border:1px solid rgba(255,255,255,0.25); border-radius:6px; padding:0.45rem 1rem!important; }
+  .nav-login:hover { border-color:rgba(255,255,255,0.5); }
 
   /* ── HERO ── */
   .hero { position:relative; overflow:hidden; background:var(--navy); padding:7rem 2rem 6rem; text-align:center; }
@@ -661,7 +663,7 @@
   .nav-burger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
 
   /* ── RESPONSIVE NAV (HEADER) ── */
-  @media(max-width:600px){
+  @media(max-width:1095px){
     nav { padding:0 1.25rem; }
     .nav-burger { display:flex; }
     .nav-links {
@@ -679,6 +681,10 @@
     .nav-links a { display:block; padding:0.85rem 1.5rem; font-size:0.95rem; color:var(--text-light); }
     .nav-links a:hover { color:var(--white); background:rgba(255,255,255,0.04); }
     .nav-links .nav-cta { margin:0.5rem 1.5rem 0; display:block; text-align:center; border-radius:6px; }
+    .nav-links .nav-login { margin:0.5rem 1.5rem 0; display:block; text-align:center; padding:0.6rem 1rem!important; }
+  }
+
+  @media(max-width:600px){
     section { padding:3.5rem 1.25rem; }
     .hero { padding:4.5rem 1.25rem 0.7rem; }
     .hero h1 { font-size:1.6rem; line-height:1.25; }
@@ -868,7 +874,8 @@
     <li><a href="#temoignage" onclick="closeNav()">Témoignages</a></li>
     <li><a href="#formateur" onclick="closeNav()">Le formateur</a></li>
     <li><a href="#faq" onclick="closeNav()">FAQ</a></li>
-    <li><a href="#offre" class="nav-cta" onclick="closeNav()">Accéder à la formation →</a></li>
+    <li><a href="https://www.python-pour-les-metiers.fr/school/course/formation" class="nav-login" onclick="closeNav()">Se connecter</a></li>
+    <li><a href="#offre" class="nav-cta" onclick="closeNav()">Rejoindre la formation →</a></li>
   </ul>
   <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleNav()">
     <span></span><span></span><span></span>

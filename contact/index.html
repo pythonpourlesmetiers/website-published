@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demande générale — Python pour les métiers</title>
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ ══ -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark:#1E2229; --dark-soft:#252B34; --navy:#0f1a2e;
+    --yellow:#FFD43B; --yellow-dim:rgba(255,212,59,0.12);
+    --text-dark:#1e293b; --text-mid:#475569; --text-light:#94a3b8;
+    --white:#ffffff; --border-dark:rgba(255,255,255,0.08); --border-light:#e2e8f0;
+    --green:#10b981; --surface:#f8fafc;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Open Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;}
+  h1,h2,h3,h4{font-family:'Montserrat',sans-serif;line-height:1.2;}
+  nav{position:sticky;top:0;z-index:200;background:rgba(30,34,41,0.97);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-dark);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:66px;}
+  .nav-logo{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:var(--white);text-decoration:none;}
+  .nav-logo span{color:var(--yellow);}
+  .nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+  .nav-links a{text-decoration:none;color:var(--text-light);font-size:0.875rem;font-weight:500;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--white);}
+  .nav-cta{background:var(--yellow)!important;color:var(--dark)!important;padding:0.5rem 1.35rem!important;border-radius:6px!important;font-weight:700!important;}
+  .nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:0.4rem;z-index:201;}
+  .nav-burger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:transform 0.25s,opacity 0.25s;}
+  .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-burger.open span:nth-child(2){opacity:0;}
+  .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  footer{background:#131720;color:#475569;text-align:center;padding:2.25rem;font-size:0.8rem;margin-top:auto;}
+  footer a{color:#475569;text-decoration:none;margin:0 0.5rem;transition:color 0.2s;}
+  footer a:hover{color:#94a3b8;}
+  @media(max-width:600px){
+    nav{padding:0 1.25rem;}
+    .nav-burger{display:flex;}
+    .nav-links{display:none;position:absolute;top:66px;left:0;right:0;background:rgba(30,34,41,0.98);flex-direction:column;gap:0;padding:0.5rem 0 1rem;border-bottom:1px solid var(--border-dark);z-index:199;}
+    .nav-links.open{display:flex;}
+    .nav-links li{width:100%;}
+    .nav-links a{display:block;padding:0.85rem 1.5rem;font-size:0.95rem;color:var(--text-light);}
+    .nav-links a:hover{color:var(--white);background:rgba(255,255,255,0.04);}
+    .nav-links .nav-cta{margin:0.5rem 1.5rem 0;display:block;text-align:center;border-radius:6px;}
+  }
+  /* ══ FIN DU BLOC PARTAGÉ ══ */
+
+  /* ── MISE EN PAGE CONTACT ── */
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:4rem 1.5rem;}
+
+/* CARTE */
+.contact-card{background:var(--white);border:1px solid var(--border-light);border-radius:16px;padding:3rem 3.5rem;width:100%;max-width:560px;box-shadow:0 8px 40px rgba(0,0,0,0.06);}
+@media(max-width:600px){.contact-card{padding:2rem 1.5rem;border-radius:12px;}}
+
+.back-link{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.8rem;color:var(--text-light);text-decoration:none;font-family:'Montserrat',sans-serif;font-weight:600;margin-bottom:1.75rem;transition:color 0.15s;}
+.back-link:hover{color:var(--text-mid);}
+.contact-tag{display:inline-block;background:rgba(16,185,129,0.08);color:#065f46;border:1px solid rgba(16,185,129,0.2);padding:0.3rem 1rem;border-radius:100px;font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1.25rem;font-family:'Montserrat',sans-serif;}
+.contact-card h1{font-size:clamp(1.4rem,2.8vw,1.85rem);font-weight:800;color:var(--dark);letter-spacing:-0.02em;margin-bottom:0.6rem;}
+.contact-card h1 span{color:var(--yellow);}
+.contact-card .subtitle{font-size:0.875rem;color:var(--text-mid);line-height:1.75;margin-bottom:1.75rem;}
+.divider{height:1px;background:var(--border-light);margin-bottom:2rem;}
+
+/* PILLS */
+.objet-label{display:block;font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--dark);margin-bottom:0.65rem;}
+.pills{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.5rem;}
+.pill{padding:0.45rem 1rem;border-radius:100px;border:1.5px solid var(--border-light);background:var(--white);font-size:0.8rem;font-weight:600;font-family:'Montserrat',sans-serif;color:var(--text-mid);cursor:pointer;transition:border-color 0.15s,color 0.15s,background 0.15s;-webkit-appearance:none;}
+.pill:hover{border-color:#94a3b8;color:var(--dark);}
+.pill.active{border-color:var(--yellow);background:var(--yellow-dim);color:var(--dark);}
+
+/* CHAMPS */
+.field{margin-bottom:1.25rem;}
+.field label{display:block;font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--dark);margin-bottom:0.45rem;}
+.field input,.field textarea{width:100%;font-family:'Open Sans',sans-serif;font-size:0.9rem;color:var(--text-dark);background:var(--surface);border:1.5px solid var(--border-light);border-radius:8px;padding:0.8rem 1rem;transition:border-color 0.2s,background 0.2s;outline:none;-webkit-appearance:none;}
+.field input::placeholder,.field textarea::placeholder{color:#b0bec5;}
+.field input:focus,.field textarea:focus{border-color:rgba(255,212,59,0.7);background:var(--white);box-shadow:0 0 0 3px rgba(255,212,59,0.12);}
+.field textarea{resize:vertical;min-height:130px;line-height:1.65;}
+
+/* BOUTON */
+.btn-send{display:block;width:100%;background:var(--yellow);color:var(--dark);font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.95rem;padding:0.95rem 2rem;border-radius:8px;border:none;cursor:pointer;text-align:center;margin-top:0.5rem;transition:transform 0.15s,box-shadow 0.15s;box-shadow:0 4px 18px rgba(255,212,59,0.3);letter-spacing:0.02em;}
+.btn-send:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,212,59,0.42);}
+.btn-send:active{transform:translateY(0);}
+.btn-send:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+
+/* BARRE DE PROGRESSION */
+.progress-wrap{height:3px;background:var(--border-light);border-radius:100px;margin-top:0.75rem;overflow:hidden;display:none;}
+.progress-bar{height:100%;width:0%;background:var(--yellow);border-radius:100px;transition:width 0.3s ease;}
+
+/* FEEDBACK */
+.feedback{display:none;margin-top:1.25rem;padding:0.9rem 1.1rem;border-radius:8px;font-size:0.85rem;line-height:1.6;font-family:'Montserrat',sans-serif;font-weight:600;}
+.feedback.success{background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);color:#065f46;}
+.feedback.error{background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2);color:#991b1b;}
+
+.rgpd-note{margin-top:1.1rem;font-size:0.73rem;color:var(--text-light);text-align:center;line-height:1.6;}
+</style>
+</head>
+
+<body>
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ (NAV / HEADER) ══ -->
+<nav>
+  <a href="/" class="nav-logo">Python <span>pour les métiers</span></a>
+  <ul class="nav-links">
+    <li><a href="/#programme" onclick="closeNav()">Programme</a></li>
+    <li><a href="/#temoignage" onclick="closeNav()">Témoignages</a></li>
+    <li><a href="/#formateur" onclick="closeNav()">Le formateur</a></li>
+    <li><a href="/#faq" onclick="closeNav()">FAQ</a></li>
+    <li><a href="/#offre" class="nav-cta" onclick="closeNav()">Accéder à la formation →</a></li>
+  </ul>
+  <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<!-- ══ FIN DU BLOC PARTAGÉ (NAV / HEADER) ══ -->
+
+<main>
+  <div class="contact-card">
+
+    <a href="/" class="back-link">← Retour</a>
+
+    <h1>Une question ou <span>une demande ?</span></h1>
+    <p class="subtitle">Besoin d'un devis, d'un paiement par virement, d'un service différent ou d'une demande particulière ? Je réponds personnellement à chaque message.</p>
+
+    <div class="divider"></div>
+
+    <span class="objet-label">Objet de votre message</span>
+    <div class="pills">
+      <button type="button" class="pill" onclick="selectPill(this)">Demande de devis</button>
+      <button type="button" class="pill" onclick="selectPill(this)">Paiement par virement</button>
+      <button type="button" class="pill" onclick="selectPill(this)">Service différent</button>
+      <button type="button" class="pill" onclick="selectPill(this)">Autre</button>
+    </div>
+
+    <div class="field">
+      <label for="email">Votre email</label>
+      <input type="email" id="email" name="email" placeholder="vous@exemple.com" autocomplete="email" required>
+    </div>
+
+    <div class="field">
+      <label for="message">Votre message</label>
+      <textarea id="message" name="message" placeholder="Décrivez votre demande, votre contexte, vos questions…" required></textarea>
+    </div>
+
+    <button type="button" class="btn-send" id="btnSend" onclick="submitForm()">Envoyer mon message →</button>
+    <div class="progress-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
+
+    <div class="feedback" id="feedback"></div>
+
+    <p class="rgpd-note">
+      Vos données ne sont utilisées que pour répondre à votre demande, conformément à notre <a href="#" style="color:var(--text-mid);text-decoration:underline;">politique de confidentialité</a>.
+    </p>
+
+  </div>
+</main>
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ (FOOTER) ══ -->
+<footer>
+  <p>
+    © <span id="footer-year"></span> Erwan Delanne — Training &amp; Consulting &nbsp;·&nbsp;
+    <a href="/cgu/">CGU</a><a href="/cgv/">CGV</a><a href="/mentions-legales/">Mentions légales</a><a href="/politique-confidentialite/">Politique de confidentialité</a><a href="/contact/">Contact</a>
+  </p>
+</footer>
+<!-- ══ FIN DU BLOC PARTAGÉ (FOOTER) ══ -->
+
+<script>
+  // ── CONFIGURATION ──────────────────────────────────────────
+  var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwg7DgziRXBLRRZFRsmer7u8WYuuJgJs2dl63WTQAgsJFyWOjz3lWSLtlyIchdOLjNlKQ/exec';
+  var TOKEN           = 'tknHsmP2qwXtRtR7';
+
+  // ── SÉLECTION DE PILL ──────────────────────────────────────
+  var objetSelectionne = '';
+
+  function selectPill(btn) {
+    document.querySelectorAll('.pill').forEach(function(p) { p.classList.remove('active'); });
+    btn.classList.add('active');
+    objetSelectionne = btn.textContent.trim();
+  }
+
+  // ── SOUMISSION ─────────────────────────────────────────────
+  function submitForm() {
+    var email   = document.getElementById('email').value.trim();
+    var message = document.getElementById('message').value.trim();
+    var btn     = document.getElementById('btnSend');
+    var feedback = document.getElementById('feedback');
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showFeedback('error', 'Veuillez saisir une adresse email valide.');
+      return;
+    }
+    if (!message) {
+      showFeedback('error', 'Veuillez écrire un message avant d\'envoyer.');
+      return;
+    }
+
+    btn.disabled    = true;
+    btn.textContent = 'Envoi en cours…';
+    feedback.style.display = 'none';
+    startProgress();
+
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({
+        token:   TOKEN,
+        page:    'contact_general',
+        objet:   objetSelectionne || 'Non précisé',
+        email:   email,
+        message: message
+      })
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      stopProgress();
+      if (data.success) {
+        showFeedback('success', '✓ Message envoyé ! Je vous réponds personnellement sous 24 h.');
+        document.getElementById('email').value   = '';
+        document.getElementById('message').value = '';
+        objetSelectionne = '';
+        document.querySelectorAll('.pill').forEach(function(p) { p.classList.remove('active'); });
+        btn.textContent = 'Message envoyé ✓';
+      } else {
+        showFeedback('error', 'Une erreur est survenue : ' + (data.error || 'réessayez dans quelques instants.'));
+        btn.disabled    = false;
+        btn.textContent = 'Envoyer mon message →';
+      }
+    })
+    .catch(function() {
+      stopProgress();
+      showFeedback('error', 'Impossible de joindre le serveur. Vérifiez votre connexion et réessayez.');
+      btn.disabled    = false;
+      btn.textContent = 'Envoyer mon message →';
+    });
+  }
+
+  function showFeedback(type, message) {
+    var el = document.getElementById('feedback');
+    el.className  = 'feedback ' + type;
+    el.textContent = message;
+    el.style.display = 'block';
+  }
+
+  // ── PROGRESSION ────────────────────────────────────────────
+  var progressTimer = null;
+  var progressVal   = 0;
+
+  function startProgress() {
+    var wrap = document.getElementById('progressWrap');
+    var bar  = document.getElementById('progressBar');
+    wrap.style.display = 'block';
+    progressVal = 0;
+    bar.style.width = '0%';
+    // Monte rapidement à 30%, puis ralentit pour simuler l'attente
+    progressTimer = setInterval(function() {
+      if (progressVal < 30)       { progressVal += 3; }
+      else if (progressVal < 60)  { progressVal += 1; }
+      else if (progressVal < 85)  { progressVal += 0.4; }
+      // S'arrête à 85% — la réponse serveur complétera jusqu'à 100%
+      bar.style.width = Math.min(progressVal, 85) + '%';
+    }, 120);
+  }
+
+  function stopProgress() {
+    clearInterval(progressTimer);
+    var bar  = document.getElementById('progressBar');
+    var wrap = document.getElementById('progressWrap');
+    bar.style.width = '100%';
+    setTimeout(function() { wrap.style.display = 'none'; bar.style.width = '0%'; }, 400);
+  }
+</script>
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ (SCRIPT) ══ -->
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  function toggleNav(){
+    document.getElementById('navBurger').classList.toggle('open');
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  function closeNav(){
+    document.getElementById('navBurger').classList.remove('open');
+    document.querySelector('.nav-links').classList.remove('open');
+  }
+</script>
+<!-- ══ FIN DU BLOC PARTAGÉ (SCRIPT) ══ -->
+
+</body>
+</html>

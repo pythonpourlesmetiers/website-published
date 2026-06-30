@@ -1,0 +1,16 @@
+# Archives locales
+Archive locale/
+
+# VS Code
+.vscode/
+
+# Fichiers Windows
+Thumbs.db
+Desktop.ini
+
+# Fichiers temporaires
+*.tmp
+*.temp
+
+# Logs
+*.log

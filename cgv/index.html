@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conditions Générales de Vente — Python pour les métiers</title>
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ ══ -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark:#1E2229; --dark-soft:#252B34; --navy:#0f1a2e;
+    --yellow:#FFD43B; --yellow-dim:rgba(255,212,59,0.12);
+    --text-dark:#1e293b; --text-mid:#475569; --text-light:#94a3b8;
+    --white:#ffffff; --border-dark:rgba(255,255,255,0.08); --border-light:#e2e8f0;
+    --green:#10b981; --surface:#f8fafc;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Open Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;}
+  h1,h2,h3,h4{font-family:'Montserrat',sans-serif;line-height:1.2;}
+  nav{position:sticky;top:0;z-index:200;background:rgba(30,34,41,0.97);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-dark);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:66px;}
+  .nav-logo{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:var(--white);text-decoration:none;}
+  .nav-logo span{color:var(--yellow);}
+  .nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+  .nav-links a{text-decoration:none;color:var(--text-light);font-size:0.875rem;font-weight:500;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--white);}
+  .nav-cta{background:var(--yellow)!important;color:var(--dark)!important;padding:0.5rem 1.35rem!important;border-radius:6px!important;font-weight:700!important;}
+  .nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:0.4rem;z-index:201;}
+  .nav-burger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:transform 0.25s,opacity 0.25s;}
+  .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-burger.open span:nth-child(2){opacity:0;}
+  .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  footer{background:#131720;color:#475569;text-align:center;padding:2.25rem;font-size:0.8rem;margin-top:auto;}
+  footer a{color:#475569;text-decoration:none;margin:0 0.5rem;transition:color 0.2s;}
+  footer a:hover{color:#94a3b8;}
+  @media(max-width:600px){
+    nav{padding:0 1.25rem;}
+    .nav-burger{display:flex;}
+    .nav-links{display:none;position:absolute;top:66px;left:0;right:0;background:rgba(30,34,41,0.98);flex-direction:column;gap:0;padding:0.5rem 0 1rem;border-bottom:1px solid var(--border-dark);z-index:199;}
+    .nav-links.open{display:flex;}
+    .nav-links li{width:100%;}
+    .nav-links a{display:block;padding:0.85rem 1.5rem;font-size:0.95rem;color:var(--text-light);}
+    .nav-links a:hover{color:var(--white);background:rgba(255,255,255,0.04);}
+    .nav-links .nav-cta{margin:0.5rem 1.5rem 0;display:block;text-align:center;border-radius:6px;}
+  }
+  /* ══ FIN DU BLOC PARTAGÉ ══ */
+
+  main{flex:1;padding:4rem 1.5rem 5rem;}
+  .legal-wrap{max-width:760px;margin:0 auto;}
+
+  .page-header{margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid var(--border-light);}
+  .page-tag{display:inline-block;background:var(--yellow-dim);color:#7a5c00;border:1px solid rgba(255,212,59,0.35);padding:0.28rem 0.85rem;border-radius:100px;font-size:0.67rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;font-family:'Montserrat',sans-serif;}
+  .page-header h1{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;color:var(--dark);letter-spacing:-0.02em;margin-bottom:0.5rem;}
+  .page-header .meta{font-size:0.8rem;color:var(--text-light);}
+
+  /* Sommaire */
+  .toc{background:var(--surface);border:1px solid var(--border-light);border-radius:10px;padding:1.5rem 1.75rem;margin-bottom:3rem;}
+  .toc-title{font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--dark);margin-bottom:1rem;}
+  .toc ol{padding-left:1.25rem;}
+  .toc li{margin-bottom:0.35rem;}
+  .toc a{font-size:0.875rem;color:var(--text-mid);text-decoration:none;transition:color 0.15s;}
+  .toc a:hover{color:var(--dark);}
+
+  /* Sections */
+  .legal-section{margin-bottom:2.75rem;scroll-margin-top:80px;}
+  .legal-section h2{font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:2px solid var(--yellow);display:inline-block;}
+  .legal-section h3{font-size:0.875rem;font-weight:700;color:var(--dark);margin:1.25rem 0 0.6rem;}
+  .legal-section p{font-size:0.925rem;color:var(--text-mid);line-height:1.85;margin-bottom:0.85rem;}
+  .legal-section p:last-child{margin-bottom:0;}
+  .legal-section ul,.legal-section ol{padding-left:1.4rem;margin-bottom:0.85rem;}
+  .legal-section li{font-size:0.925rem;color:var(--text-mid);line-height:1.85;margin-bottom:0.4rem;}
+
+  /* Sous-sections numérotées (ex: 4.1, 5.2…) */
+  .subsection{margin-bottom:1.5rem;padding-left:1rem;border-left:2px solid var(--border-light);}
+  .subsection-num{font-family:'Montserrat',sans-serif;font-size:0.7rem;font-weight:700;color:var(--text-light);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.35rem;}
+  .subsection h3{font-size:0.9rem;font-weight:700;color:var(--dark);margin:0 0 0.6rem;}
+
+  /* Tableau TVA */
+  .tva-table{width:100%;border-collapse:collapse;font-size:0.875rem;margin:1rem 0;}
+  .tva-table th{background:var(--surface);padding:0.65rem 0.85rem;text-align:left;font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:700;color:var(--dark);letter-spacing:0.05em;text-transform:uppercase;border-bottom:2px solid var(--border-light);}
+  .tva-table td{padding:0.65rem 0.85rem;color:var(--text-mid);border-bottom:1px solid var(--border-light);vertical-align:top;line-height:1.6;}
+  .tva-table tr:last-child td{border-bottom:none;}
+  .tva-table .case-label{font-weight:600;color:var(--dark);}
+
+  a.mail{color:var(--dark);font-weight:600;text-decoration:none;border-bottom:1px solid var(--yellow);}
+  a.mail:hover{color:var(--text-mid);}
+
+  @media(max-width:600px){.tva-table{font-size:0.8rem;}.tva-table th,.tva-table td{padding:0.5rem;}}
+</style>
+</head>
+<body>
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ (NAV / HEADER) ══ -->
+<nav>
+  <a href="/" class="nav-logo">Python <span>pour les métiers</span></a>
+  <ul class="nav-links">
+    <li><a href="/#programme" onclick="closeNav()">Programme</a></li>
+    <li><a href="/#temoignage" onclick="closeNav()">Témoignages</a></li>
+    <li><a href="/#formateur" onclick="closeNav()">Le formateur</a></li>
+    <li><a href="/#faq" onclick="closeNav()">FAQ</a></li>
+    <li><a href="/#offre" class="nav-cta" onclick="closeNav()">Accéder à la formation →</a></li>
+  </ul>
+  <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<!-- ══ FIN DU BLOC PARTAGÉ (NAV / HEADER) ══ -->
+
+<main>
+  <div class="legal-wrap">
+
+    <div class="page-header">
+      <h1>Conditions Générales de Vente</h1>
+      <p class="meta">Version en vigueur au 13/06/2026 &nbsp;·&nbsp; www.python-pour-les-metiers.fr</p>
+    </div>
+
+    <!-- ═══ SOMMAIRE ═══ -->
+    <div class="toc">
+      <div class="toc-title">Sommaire</div>
+      <ol>
+        <li><a href="#cgv-1">Objet et champ d'application</a></li>
+        <li><a href="#cgv-2">Description de l'offre</a></li>
+        <li><a href="#cgv-3">Nature pédagogique de l'offre</a></li>
+        <li><a href="#cgv-4">Accès à la formation</a></li>
+        <li><a href="#cgv-5">Sessions de coaching individuel</a></li>
+        <li><a href="#cgv-6">Canal d'échange privé</a></li>
+        <li><a href="#cgv-7">Compte utilisateur</a></li>
+        <li><a href="#cgv-8">Propriété intellectuelle</a></li>
+        <li><a href="#cgv-9">Prix et paiement</a></li>
+        <li><a href="#cgv-10">Droit de rétractation</a></li>
+        <li><a href="#cgv-11">Garantie commerciale satisfait ou remboursé</a></li>
+        <li><a href="#cgv-12">Responsabilité</a></li>
+        <li><a href="#cgv-13">Modification des CGV</a></li>
+        <li><a href="#cgv-14">Loi applicable</a></li>
+      </ol>
+    </div>
+
+    <!-- ═══ ART. 1 ═══ -->
+    <div class="legal-section" id="cgv-1">
+      <h2>1. Objet et champ d'application</h2>
+      <p>Les présentes Conditions Générales de Vente (CGV) régissent toute commande passée sur le site Python pour les métiers (www.python-pour-les-metiers.fr et ses sous-domaines), édité par Erwan Delanne — Training &amp; Consulting. Elles s'appliquent à l'exclusion de toute autre condition, sauf accord préalable et écrit de l'éditeur.</p>
+      <p>Les présentes CGV distinguent :</p>
+      <ul>
+        <li><strong>l'Acheteur</strong> : la personne physique ou morale qui procède à l'achat ;</li>
+        <li><strong>l'Utilisateur (ou Bénéficiaire)</strong> : la personne qui bénéficie effectivement de l'accès à la formation et aux services associés.</li>
+      </ul>
+      <p>Dans le cadre d'un achat BtoC, l'Acheteur est également l'Utilisateur. Dans le cadre d'un achat BtoB, l'Acheteur est l'entreprise ; l'Utilisateur est le salarié ou collaborateur désigné.</p>
+    </div>
+
+    <!-- ═══ ART. 2 ═══ -->
+    <div class="legal-section" id="cgv-2">
+      <h2>2. Description de l'offre</h2>
+      <p>L'offre comprend, pour un paiement unique :</p>
+      <div class="subsection">
+        <div class="subsection-num">2.1</div>
+        <p>L'accès à la formation en ligne Python pour les métiers, hébergée sur la plateforme Systeme.io, comprenant l'intégralité des modules, vidéos, exercices et ressources pédagogiques.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">2.2</div>
+        <p>Trois (3) sessions de coaching individuel avec l'éditeur, dans les conditions définies à l'article 5.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">2.3</div>
+        <p>Un accès à un canal d'échange privé dédié à la formation, dans les conditions définies à l'article 6.</p>
+      </div>
+    </div>
+
+    <!-- ═══ ART. 3 — NOUVEAU ═══ -->
+    <div class="legal-section" id="cgv-3">
+      <h2>3. Nature pédagogique de l'offre</h2>
+      <p>La formation constitue une prestation de moyens pédagogiques. L'éditeur s'engage à mettre à disposition des contenus structurés et à accompagner l'Utilisateur de bonne foi, sans garantir un résultat déterminé. Les exemples, illustrations et témoignages présentés sur le site décrivent des résultats obtenus dans des contextes particuliers ; ils ne constituent pas une promesse de résultat individuel, lequel dépend notamment de l'investissement personnel de l'Utilisateur, de ses données propres et de son contexte professionnel.</p>
+    </div>
+
+    <!-- ═══ ART. 4 (ex-3) ═══ -->
+    <div class="legal-section" id="cgv-4">
+      <h2>4. Accès à la formation</h2>
+      <div class="subsection">
+        <div class="subsection-num">4.1 — Modalités d'accès</div>
+        <p>L'accès à la formation est accordé à l'Utilisateur après réception du paiement intégral par l'Acheteur, à l'adresse e-mail fournie lors de la commande. Il est de la responsabilité de l'Acheteur de fournir une adresse email correcte. En cas d'erreur, l'éditeur ne pourra être tenu responsable de la non-réception des informations d'accès. Si l'Utilisateur ne reçoit pas les informations d'accès dans les 24 heures suivant son inscription, ou s'il rencontre une difficulté pour accéder à son espace de formation, il peut contacter l'éditeur à <a href="mailto:contact@python-pour-les-metiers.fr" class="mail">contact@python-pour-les-metiers.fr</a> pour obtenir ses accès dans les meilleurs délais.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">4.2 — Accès à vie</div>
+        <p>Sauf mention contraire, la formation est accessible à l'Utilisateur à vie à compter de la date d'accès, tant qu'elle est disponible en ligne sur la plateforme.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">4.3 — Mises à jour</div>
+        <p>L'éditeur peut, à sa seule discrétion, faire bénéficier l'Utilisateur des évolutions et mises à jour apportées à la formation Python pour les métiers, sans supplément de prix. Cette mise à disposition est une faculté et non une obligation contractuelle : l'éditeur se réserve le droit de ne pas inclure certaines évolutions dans l'accès existant, notamment en cas de refonte substantielle, de scission de la formation en plusieurs produits distincts, ou de tout autre motif relevant de son appréciation exclusive.</p>
+        <p>En tout état de cause, les mises à jour visées au présent article s'entendent exclusivement des évolutions de la formation Python pour les métiers telle que définie à l'article 2.1 à la date de la commande de l'Utilisateur. Elles ne comprennent pas les contenus ou formations distincts que l'éditeur pourrait créer ou commercialiser ultérieurement, même si ceux-ci portent sur des sujets connexes.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">4.4 — Modification ou retrait de la formation</div>
+        <p>L'éditeur se réserve le droit de modifier, faire évoluer ou retirer tout ou partie de la formation. En cas de retrait définitif rendant la formation indisponible en ligne, l'éditeur s'engage à mettre à disposition de l'Utilisateur un moyen de télécharger l'ensemble des éléments pédagogiques, accessible pendant au moins trois (3) mois à compter de la communication. L'Utilisateur peut conserver ces éléments sans limitation de durée pour un usage strictement personnel et non commercial.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">4.5 — Évolution du site et des accès</div>
+        <p>En cas de changement d'URL affectant l'accès à la formation, le nouvel accès est communiqué à l'Utilisateur à l'adresse e-mail associée à son compte dans un délai maximum d'une semaine.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">4.6 — Adresse e-mail et exactitude des informations</div>
+        <p>L'accès à la formation est accordé exclusivement à l'adresse e-mail fournie lors de la commande. L'Acheteur garantit l'exactitude et la validité de cette adresse ainsi que de l'ensemble des informations communiquées (données d'identification, de facturation, numéro de TVA intracommunautaire le cas échéant).</p>
+        <p>En cas d'erreur ou d'omission, l'éditeur ne peut être tenu responsable d'un accès retardé ou d'une facturation non conforme. L'Acheteur est invité à contacter l'éditeur pour correction. Des justificatifs complémentaires peuvent être demandés, notamment pour les corrections affectant la TVA ou l'adresse e-mail du compte. L'éditeur se réserve le droit de refuser toute modification a posteriori lorsque les règles fiscales, légales ou techniques ne le permettent pas.</p>
+      </div>
+    </div>
+
+    <!-- ═══ ART. 5 (ex-4) ═══ -->
+    <div class="legal-section" id="cgv-5">
+      <h2>5. Sessions de coaching individuel</h2>
+      <div class="subsection">
+        <div class="subsection-num">5.1 — Nombre et durée</div>
+        <p>L'Utilisateur dispose de trois (3) sessions de coaching individuel avec l'éditeur. Chaque session fait l'objet d'une invitation d'une heure.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">5.2 — Fenêtre de réservation</div>
+        <p>Les sessions doivent être réservées dans les trois (3) mois suivant la date d'accès à la formation. Une session peut se tenir au-delà de cette période dès lors que sa réservation a été confirmée avant l'expiration du délai.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">5.3 — Prorogation en cas d'indisponibilité de l'éditeur</div>
+        <p>En cas d'indisponibilité prolongée de l'éditeur, celui-ci en informe les Utilisateurs concernés, notamment via le canal d'échange visé à l'article 6. La fenêtre de réservation est alors prorogée de la durée de cette indisponibilité.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">5.4 — Planification des créneaux</div>
+        <p>La date et l'heure de chaque session sont fixées d'un commun accord entre l'Utilisateur et l'éditeur, selon les disponibilités respectives des deux parties. L'éditeur ne peut être contraint à se rendre disponible à une date ou heure déterminée unilatéralement par l'Utilisateur.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">5.5 — Format</div>
+        <p>Les sessions se déroulent par vidéoconférence, via l'outil au choix de l'éditeur. L'enregistrement d'une session n'est possible qu'avec l'accord explicite préalable des deux parties. Aucun compte-rendu n'est prévu de façon systématique.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">5.6 — Absence d'obligation de résultat</div>
+        <p>Les sessions de coaching constituent des prestations de moyens. L'éditeur s'engage à accompagner l'Utilisateur de bonne foi sur les sujets abordés, sans garantir un résultat déterminé. L'éditeur ne peut être tenu responsable de l'absence d'une réponse jugée satisfaisante par l'Utilisateur à toute question posée.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">5.7 — Sessions non réservées dans les délais</div>
+        <p>Toute session non réservée dans le délai prévu à l'article 5.2 — ou dans le délai prorogé en application de l'article 5.3 — est définitivement perdue, sans droit à remboursement partiel.</p>
+      </div>
+    </div>
+
+    <!-- ═══ ART. 6 (ex-5) ═══ -->
+    <div class="legal-section" id="cgv-6">
+      <h2>6. Canal d'échange privé</h2>
+      <div class="subsection">
+        <div class="subsection-num">6.1 — Description</div>
+        <p>L'Utilisateur bénéficie d'un accès à un canal d'échange privé dédié à la formation (actuellement hébergé sur Discord), lui permettant de poser des questions à l'éditeur à tout moment pendant la durée de l'accès garanti définie à l'article 6.2.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">6.2 — Durée d'accès garantie</div>
+        <p>L'accès au canal est garanti pendant les trois (3) premiers mois suivant la date d'accès à la formation. Au-delà, l'éditeur ne garantit pas le maintien de cet accès.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">6.3 — Évolution de la plateforme</div>
+        <p>La plateforme hébergeant le canal est susceptible d'être remplacée par tout autre outil similaire (notamment Slack ou équivalent) sans préavis ni droit à compensation. En cas de changement, l'éditeur en informe les Utilisateurs via le canal existant ou par e-mail.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">6.4 — Conservation de l'historique</div>
+        <p>Aucune garantie n'est donnée quant à la conservation de l'historique des échanges, quelle que soit la plateforme utilisée.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">6.5 — Absence d'obligation de résultat</div>
+        <p>L'éditeur s'engage à répondre de bonne foi aux questions posées sur le canal, sans garantir un résultat déterminé. L'éditeur ne peut être tenu responsable de l'absence d'une réponse jugée satisfaisante par l'Utilisateur à toute question posée.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">6.6 — Délais de réponse</div>
+        <p>L'éditeur s'efforce de répondre aux messages postés sur le canal dans les meilleurs délais. Aucun délai de réponse n'est garanti. En cas d'absence ou d'indisponibilité prolongée, l'éditeur s'engage à en informer les Utilisateurs via le canal ou par e-mail.</p>
+      </div>
+    </div>
+
+    <!-- ═══ ART. 7 (ex-6) ═══ -->
+    <div class="legal-section" id="cgv-7">
+      <h2>7. Compte utilisateur</h2>
+      <p>Le compte attribué pour accéder à la formation est strictement personnel et lié à l'adresse e-mail déclarée lors de l'inscription. Il est interdit de partager ses identifiants ou de permettre l'accès à la formation à un tiers. Toute violation pourra entraîner la suspension immédiate du compte sans remboursement.</p>
+      <p>L'adresse e-mail associée au compte ne peut être modifiée qu'à la demande expresse de l'Acheteur, sous réserve de l'accord de l'éditeur et de la fourniture d'une adresse dont l'Utilisateur a la maîtrise effective. En cas d'achat BtoB, toute demande de changement d'adresse doit être formulée par l'Acheteur (l'entreprise) ou accompagnée de son accord explicite.</p>
+    </div>
+
+    <!-- ═══ ART. 8 (ex-7) ═══ -->
+    <div class="legal-section" id="cgv-8">
+      <h2>8. Propriété intellectuelle</h2>
+      <div class="subsection">
+        <div class="subsection-num">8.1 — Titularité</div>
+        <p>L'ensemble des contenus de la formation (vidéos, textes, exercices, fichiers sources, supports téléchargeables, scripts, images, sons, éléments graphiques, structures pédagogiques, et tout élément associé) est protégé par le droit d'auteur et demeure la propriété exclusive de l'éditeur et/ou de ses ayants droit.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">8.2 — Licence d'utilisation</div>
+        <p>Sous réserve du paiement intégral du prix, l'Utilisateur bénéficie d'une licence personnelle, non exclusive, non transférable et non commerciale d'accès et d'utilisation des contenus de la formation :</p>
+        <ul>
+          <li>en ligne, via la plateforme, tant que la formation est disponible ;</li>
+          <li>hors ligne, sur la base des éléments mis à disposition au téléchargement en cas de retrait définitif de la formation (article 4.4).</li>
+        </ul>
+        <p>Cette licence n'emporte aucune cession de droits au profit de l'Utilisateur.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">8.3 — Usages interdits</div>
+        <p>Sont notamment interdits, sans que cette liste soit limitative :</p>
+        <ul>
+          <li>toute reproduction, représentation, diffusion, mise à disposition ou publication des contenus, en tout ou partie, sur quelque support que ce soit, y compris toute traduction, adaptation, transformation ou extraction substantielle, toute communication au public, tout partage sur des plateformes de diffusion ou des réseaux sociaux ;</li>
+          <li>tout partage d'accès ou d'identifiants, y compris au sein d'une même entreprise, sauf autorisation écrite préalable de l'éditeur ;</li>
+          <li>toute utilisation commerciale ou promotionnelle ;</li>
+          <li>l'intégration des contenus dans des bases de données, logiciels, produits ou services tiers ;</li>
+          <li>l'utilisation des contenus pour entraîner des modèles d'intelligence artificielle ou des outils automatisés d'analyse ou de crawling, sans autorisation expresse et préalable ;</li>
+          <li>la suppression ou modification des mentions de droit d'auteur, marques et notices afférentes ;</li>
+          <li>le contournement ou la neutralisation de toute mesure technique de protection.</li>
+        </ul>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">8.4 — Mesures de contrôle</div>
+        <p>L'éditeur se réserve la possibilité de mettre en œuvre des dispositifs raisonnables de sécurisation et de traçabilité (par exemple : filigranes, marquages invisibles) afin de prévenir les usages frauduleux.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">8.5 — Sanctions</div>
+        <p>Toute violation des présentes stipulations pourra entraîner, sans préjudice de toute action judiciaire :</p>
+        <ul>
+          <li>la suspension ou la suppression du compte de l'Utilisateur ;</li>
+          <li>l'annulation de la licence, y compris pour les contenus téléchargés en cas de violation grave ;</li>
+          <li>l'engagement de la responsabilité de l'Utilisateur pour réparation du préjudice.</li>
+        </ul>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">8.6 — Survie</div>
+        <p>Les présentes stipulations relatives à la propriété intellectuelle, ainsi que les limitations d'usage applicables aux contenus téléchargés en cas de retrait, survivent à l'expiration ou à la cessation de l'accès en ligne.</p>
+      </div>
+    </div>
+
+    <!-- ═══ ART. 9 (ex-8) ═══ -->
+    <div class="legal-section" id="cgv-9">
+      <h2>9. Prix et paiement</h2>
+      <div class="subsection">
+        <div class="subsection-num">9.1 — Prix</div>
+        <p>Le prix de la formation est exprimé en euros, toutes taxes comprises (TTC), et est ferme au moment de la commande. Il est publié sur le site et peut être modifié à tout moment pour les commandes futures, sans effet sur les commandes déjà validées.</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">9.2 — Traitement de la TVA</div>
+        <p>Les modalités de traitement de la TVA applicables à chaque commande dépendent de la situation de l'Acheteur (particulier ou professionnel, pays de résidence ou d'établissement) et sont susceptibles d'évoluer en fonction de la réglementation fiscale applicable et du statut de l'éditeur. Les informations communiquées à ce titre sont données à titre indicatif.</p>
+        <p>Dans tous les cas, le prix affiché sur le site est le prix effectivement facturé à l'Acheteur, toutes taxes comprises le cas échéant. Lorsque la TVA est applicable, elle est incluse dans ce prix et supportée par l'éditeur. L'Acheteur paie le prix affiché quelle que soit sa catégorie fiscale.</p>
+        <p>L'Acheteur est seul responsable de l'exactitude des informations fiscales qu'il communique lors de la commande (notamment le numéro de TVA intracommunautaire le cas échéant).</p>
+      </div>
+      <div class="subsection">
+        <div class="subsection-num">9.3 — Modalités de paiement</div>
+        <p>Le paiement est exigé avant tout accès à la formation. Les moyens de paiement acceptés sont ceux proposés lors de la commande sur la plateforme (notamment paiement par carte bancaire). Les éventuels frais liés au mode de paiement choisi sont à la charge de l'Acheteur.</p>
+      </div>
+    </div>
+
+    <!-- ═══ ART. 10 (ex-9, reformulé) ═══ -->
+    <div class="legal-section" id="cgv-10">
+      <h2>10. Droit de rétractation</h2>
+      <p>Conformément à l'article L221-28 13° du Code de la consommation, le consommateur reconnaît que la fourniture du contenu numérique commence immédiatement après la validation du paiement et que, en finalisant sa commande et en acceptant les présentes CGV, il consent expressément à cette exécution immédiate et renonce expressément à son droit légal de rétractation de quatorze (14) jours.</p>
+      <p>Cette renonciation est distincte de la garantie commerciale volontaire décrite à l'article 11, qui reste applicable dans les conditions qui y sont définies.</p>
+    </div>
+
+    <!-- ═══ ART. 11 (ex-10, références mises à jour) ═══ -->
+    <div class="legal-section" id="cgv-11">
+      <h2>11. Garantie commerciale satisfait ou remboursé</h2>
+      <p>Indépendamment du droit de rétractation visé à l'article 10, l'éditeur propose une garantie commerciale volontaire de trente (30) jours à compter de la date d'accès à la formation.</p>
+      <p>Dans ce délai, l'Acheteur peut demander un remboursement intégral en contactant l'éditeur à <a href="mailto:contact@python-pour-les-metiers.fr" class="mail">contact@python-pour-les-metiers.fr</a>, sans avoir à en justifier la raison.</p>
+      <p>Cette garantie vise à permettre à l'Utilisateur d'évaluer les contenus accessibles en autonomie. Elle cesse d'être applicable dès lors que l'une des conditions suivantes est réunie :</p>
+      <ul>
+        <li>l'éditeur a apporté au moins une réponse personnalisée à l'Utilisateur sur le canal d'échange privé visé à l'article 6, allant au-delà d'une simple information d'ordre technique ou logistique (notamment : orientation sur un problème de code, explication pédagogique, retour sur une situation professionnelle) ;</li>
+        <li>au moins une session de coaching visée à l'article 5 a été réalisée.</li>
+      </ul>
+      <p>Ces deux éléments constituent une délivrance de valeur personnalisée incompatible avec l'objet de cette garantie.</p>
+      <p>En cas de remboursement accordé au titre de cette garantie, l'Acheteur s'engage à supprimer immédiatement toute ressource éventuellement téléchargée dans le cadre de la formation. L'accès à la plateforme est révoqué dès le traitement du remboursement.</p>
+      <p>Cette garantie est valable une seule fois par personne. Si vous avez déjà été remboursé pour cette formation dans le passé, vous ne pourrez pas bénéficier d'un second remboursement en cas de réinscription ultérieure.</p>
+    </div>
+
+    <!-- ═══ ART. 12 (ex-11) ═══ -->
+    <div class="legal-section" id="cgv-12">
+      <h2>12. Responsabilité</h2>
+      <p>L'éditeur s'engage à fournir un accès à la formation et aux services associés dans les conditions définies aux présentes CGV. Il ne peut être tenu responsable des interruptions temporaires liées à la maintenance des plateformes ou à des causes extérieures indépendantes de sa volonté.</p>
+      <p>L'éditeur ne saurait être tenu responsable de tout préjudice indirect, manque à gagner ou perte de données résultant de l'utilisation ou de l'impossibilité d'utiliser les services.</p>
+    </div>
+
+    <!-- ═══ ART. 13 (ex-12) ═══ -->
+    <div class="legal-section" id="cgv-13">
+      <h2>13. Modification des CGV</h2>
+      <p>L'éditeur se réserve le droit de modifier les présentes CGV à tout moment. La version applicable à une commande est celle en vigueur à la date de validation de cette commande. Les versions antérieures sont archivées et communicables sur demande à <a href="mailto:contact@python-pour-les-metiers.fr" class="mail">contact@python-pour-les-metiers.fr</a>.</p>
+      <p>En cas de modification substantielle affectant les droits des Utilisateurs ayant déjà accès à la formation, l'éditeur s'engage à les en informer par e-mail dans un délai raisonnable avant l'entrée en vigueur des modifications.</p>
+    </div>
+
+    <!-- ═══ ART. 14 (ex-13) ═══ -->
+    <div class="legal-section" id="cgv-14">
+      <h2>14. Loi applicable</h2>
+      <p>Les présentes CGV sont régies par le droit polonais. En cas de litige, une solution amiable sera recherchée en priorité. À défaut d'accord, les juridictions polonaises seront compétentes, sous réserve des dispositions d'ordre public applicables en matière de protection des consommateurs.</p>
+    </div>
+
+  </div>
+</main>
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ (FOOTER) ══ -->
+<footer>
+  <p>
+    © <span id="footer-year"></span> Erwan Delanne — Training &amp; Consulting &nbsp;·&nbsp;
+    <a href="/cgu/">CGU</a><a href="/cgv/">CGV</a><a href="/mentions-legales/">Mentions légales</a><a href="/politique-confidentialite/">Politique de confidentialité</a><a href="/contact/">Contact</a>
+  </p>
+</footer>
+<!-- ══ FIN DU BLOC PARTAGÉ (FOOTER) ══ -->
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ (SCRIPT) ══ -->
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  function toggleNav(){
+    document.getElementById('navBurger').classList.toggle('open');
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  function closeNav(){
+    document.getElementById('navBurger').classList.remove('open');
+    document.querySelector('.nav-links').classList.remove('open');
+  }
+</script>
+<!-- ══ FIN DU BLOC PARTAGÉ (SCRIPT) ══ -->
+
+</body>
+</html>

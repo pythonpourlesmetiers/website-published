@@ -1,0 +1,2027 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python pour les métiers | Analysez mieux, automatisez plus</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<style>
+  :root {
+    --dark:        #1E2229;
+    --dark-soft:   #252B34;
+    --navy:        #0f1a2e;
+    --yellow:      #FFD43B;
+    --yellow-pale: #FFF9E6;
+    --yellow-dim:  rgba(255,212,59,0.12);
+    --blue-mid:    #2563eb;
+    --blue-light:  #93c5fd;
+    --text-dark:   #1e293b;
+    --text-mid:    #475569;
+    --text-light:  #94a3b8;
+    --white:       #ffffff;
+    --border-dark: rgba(255,255,255,0.08);
+    --border-light:#e2e8f0;
+    --green:       #10b981;
+    --surface:     #f8fafc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Open Sans', sans-serif;
+    color: var(--text-dark);
+    background: var(--white);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page-wrapper { overflow-x: hidden; }
+  h1,h2,h3,h4 { font-family: 'Montserrat', sans-serif; line-height: 1.2; }
+
+  /* ── NAV (HEADER) ── */
+  nav {
+    position: sticky; top: 0; z-index: 200;
+    background: rgba(30,34,41,0.97);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-dark);
+    padding: 0 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 66px;
+  }
+  .nav-logo { font-family:'Montserrat',sans-serif; font-weight:800; font-size:1rem; color:var(--white); text-decoration:none; }
+  .nav-logo span { color:var(--yellow); }
+  .nav-links { display:flex; gap:2rem; list-style:none; align-items:center; }
+  .nav-links a { text-decoration:none; color:var(--text-light); font-size:0.875rem; font-weight:500; transition:color 0.2s; }
+  .nav-links a:hover { color:var(--white); }
+  .nav-cta { background:var(--yellow)!important; color:var(--dark)!important; padding:0.5rem 1.35rem!important; border-radius:6px!important; font-weight:700!important; }
+
+  /* ── HERO ── */
+  .hero { position:relative; overflow:hidden; background:var(--navy); padding:7rem 2rem 6rem; text-align:center; }
+  .hero-bg { display:none; }
+  .hero-overlay { position:absolute; inset:0; background:linear-gradient(180deg,rgba(15,26,46,0.55) 0%,rgba(15,26,46,0.9) 65%,var(--navy) 100%); }
+  .hero-inner { position:relative; z-index:2; }
+  .hero-tag {
+    display:inline-block; background:rgba(255,212,59,0.15); color:var(--yellow);
+    border:1px solid rgba(255,212,59,0.3); padding:0.35rem 1.1rem; border-radius:100px;
+    font-size:0.75rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+    margin-bottom:2rem; font-family:'Montserrat',sans-serif;
+  }
+  .hero h1 {
+    font-size:clamp(2rem,5vw,3.4rem); font-weight:800; color:var(--white);
+    max-width:820px; margin:0 auto 1.25rem; letter-spacing:-0.02em; line-height:1.15;
+  }
+  .hero-sub { font-size:1.1rem; color:#94a3b8; max-width:580px; margin:0 auto 1.1rem; line-height:1.75; }
+  .hero-sub2 { font-size:0.975rem; color:#64748b; max-width:520px; margin:0 auto 2.75rem; font-style:italic; }
+  .hero-ctas { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-bottom:3.5rem; }
+  .btn-primary {
+    display:inline-block; background:var(--yellow); color:var(--dark);
+    font-weight:700; font-size:1rem; padding:0.95rem 2.25rem; border-radius:8px; text-decoration:none;
+    transition:transform 0.15s, box-shadow 0.15s;
+    box-shadow:0 4px 24px rgba(255,212,59,0.35); font-family:'Montserrat',sans-serif;
+  }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 36px rgba(255,212,59,0.45); }
+  .btn-ghost {
+    display:inline-block; border:1.5px solid rgba(255,255,255,0.2); color:var(--white);
+    font-weight:500; font-size:1rem; padding:0.95rem 2.25rem; border-radius:8px; text-decoration:none;
+    transition:border-color 0.2s, background 0.2s;
+  }
+  .btn-ghost:hover { border-color:rgba(255,255,255,0.45); background:rgba(255,255,255,0.05); }
+  .hero-pills { display:flex; justify-content:center; flex-wrap:wrap; gap:1.5rem; }
+  .hero-pills span { font-size:0.82rem; color:#64748b; display:flex; align-items:center; gap:0.4rem; }
+  .hero-pills span::before { content:'✓'; color:var(--green); font-weight:700; }
+
+  /* ── GENERIQUE ── */
+  section { padding:5.5rem 2rem; }
+  .container { max-width:960px; margin:0 auto; }
+  .container-wide { max-width:1140px; margin:0 auto; }
+  .label { font-family:'Montserrat',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:0.9rem; }
+  .label-yellow { color:var(--yellow); }
+  .label-blue { color:var(--blue-mid); }
+  .section-title { font-size:clamp(1.6rem,3.5vw,2.3rem); font-weight:800; margin-bottom:1.1rem; letter-spacing:-0.02em; }
+  .title-light { color:var(--white); }
+  .title-dark { color:var(--dark); }
+  .section-intro { font-size:1.05rem; line-height:1.8; color:var(--text-mid); }
+  .intro-light { color:#94a3b8; }
+  .intro-light strong { color:var(--white); }
+  .s-dark { background:var(--dark); }
+  .s-dark-soft { background:var(--dark-soft); }
+  .s-light { background:var(--white); }
+  .s-pale { background:var(--yellow-pale); }
+  .s-surface { background:var(--surface); }
+  .s-gray { background:#e8eaed; }
+
+  /* ── IA ANGLE ── */
+  .ia-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:2.5rem; }
+  @media(max-width:720px){ .ia-grid { grid-template-columns:1fr; } }
+  .ia-grid-split { display:grid; grid-template-columns:48% 52%; gap:2.5rem; margin-top:2.5rem; align-items:stretch; }
+  @media(max-width:1279px){ .ia-grid-split { grid-template-columns:1fr; gap:1.5rem; } .ia-cards-col { gap:1.25rem; height:auto; } .ia-image-col { min-width:0; width:100%; } }
+  .ia-cards-col { display:flex; flex-direction:column; justify-content:space-between; height:100%; }
+  .ia-image-col { display:flex; align-items:center; justify-content:center; }
+  .ia-image-col img { width:100%; height:auto; object-fit:contain; display:block; font-size:0.75rem; color:var(--text-light); font-style:italic; }
+
+  /* ── NOTEBOOK ILLUSTRATION ── */
+  .notebook-wrap { border-radius:12px; overflow:hidden; border:1px solid var(--border-dark); width:100%; max-width:100%; }
+  .notebook-caption { padding:0.5rem 1.1rem; border-top:1px solid var(--border-dark); font-size:0.78rem; color:#64748b; line-height:1.5; font-style:italic; background:#161b22; }
+  .notebook-caption strong { color:var(--yellow); font-style:normal; }
+  .nb-mobile { display:none; }
+  .nb-mobile-table { display:none; }
+  .nb { background:#161b22; font-family:'Menlo','Consolas','Monaco',monospace; font-size:0.63rem; line-height:1.35; padding:0.6rem 0; overflow:hidden; }
+  .nb-cell { display:flex; gap:0; min-width:0; }
+  .nb-gutter { width:38px; flex-shrink:0; padding:0.2rem 0.4rem 0.2rem 0.75rem; color:#3b4a5a; font-size:0.63rem; text-align:right; user-select:none; }
+  .nb-body { flex:1; padding:0.2rem 0.75rem 0.2rem 0; min-width:0; white-space:pre; overflow-x:auto; }
+  .nb-cell-md .nb-body { color:#c9d1d9; font-family:'Open Sans',sans-serif; font-size:0.76rem; white-space:normal; }
+  .nb-cell-md h2 { font-size:1.05rem; font-weight:800; color:#e6edf3; margin:0 0 0.4rem; }
+  .nb-cell-md h2.nb-title-main { font-size:1.12rem; margin-bottom:0.6rem; }
+  @media(max-width:1279px){
+    .nb-desktop { display:none; }
+    .nb-mobile { display:block; }
+    .nb-mobile h2.nb-title-main { font-size:0.85rem; }
+    .nb-mobile .nb-cell:not(.nb-cell-md) .nb-body { padding-right:0.5rem; }
+    .nb-mobile ~ .notebook-caption { font-size:0.68rem; }
+    .nb-desktop-table { display:none; }
+    .nb-mobile-table { display:table; }
+    div.nb-mobile-table.notebook-caption { display:block; }
+  }
+  .nb-cell-md p  { margin:0 0 0.25rem; color:#8b949e; font-style:italic; }
+  .nb-cell-md table { border-collapse:collapse; width:100%; font-size:0.72rem; margin-top:0.45rem; margin-bottom:0.35rem; }
+  .nb-cell-md th { color:#58a6ff; font-weight:600; padding:0.2rem 0.6rem 0.2rem 0; text-align:left; border-bottom:1px solid #30363d; }
+  .nb-cell-md td { color:#c9d1d9; padding:0.15rem 0.6rem 0.15rem 0; vertical-align:top; }
+  .nb-sep { height:1px; background:#21262d; margin:0.15rem 0; }
+  /* syntax colours */
+  .nb-kw  { color:#ff7b72; }  /* keywords: import, def, if, return … */
+  .nb-fn  { color:#d2a8ff; }  /* function names */
+  .nb-str { color:#a5d6ff; }  /* strings */
+  .nb-cm  { color:#6e7f8f; font-style:italic; }  /* comments */
+  .nb-num { color:#79c0ff; }  /* numbers */
+  .nb-bi  { color:#ffa657; }  /* builtins: print, len … */
+  .nb-op  { color:#c9d1d9; }  /* operators / punctuation */
+  .nb-pl  { color:#e6edf3; }  /* plain text */
+  /* mini-blocs : commentaire + ligne(s) de code associées, espacés sans ligne vide en dur */
+  .nb-blk { display:block; margin-bottom:0.45rem; }
+  .nb-blk:last-child { margin-bottom:0; }
+  .nb-blk-end { display:block; margin-bottom:0; }
+  .nb-section { display:block; margin-bottom:0; }
+  .ia-card { border:1px solid var(--border-dark); border-radius:14px; padding:1.75rem; background:rgba(255,255,255,0.03); transition:border-color 0.2s; min-width:0; }
+  .ia-card:hover { border-color:rgba(255,212,59,0.3); }
+  .ia-icon { font-size:1.6rem; margin-bottom:0.9rem; }
+  .ia-card h3 { font-size:1rem; font-weight:700; color:var(--white); margin-bottom:0.5rem; }
+  .ia-card p { font-size:0.9rem; color:#94a3b8; line-height:1.65; }
+  .ia-card .hl-yellow { color:var(--yellow); }
+  .ia-highlight { margin-top:2.5rem; border:1px solid rgba(255,212,59,0.25); border-radius:14px; padding:1.75rem 2rem; background:var(--yellow-dim); }
+  .ia-highlight p { font-size:1.05rem; color:var(--white); line-height:1.8; }
+  .ia-highlight strong { color:var(--yellow); }
+  /* variante fond clair */
+  .ia-card-light { border-color:var(--border-light); background:var(--white); box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+  .ia-card-light:hover { border-color:rgba(255,212,59,0.5); box-shadow:0 0 0 1px rgba(255,212,59,0.15), 0 8px 24px rgba(0,0,0,0.08); }
+  .ia-card-light h3 { color:var(--dark); }
+  .ia-card-light p { color:var(--text-mid); }
+  .ia-highlight-light { border-color:rgba(255,212,59,0.4); background:var(--yellow-pale); }
+  .ia-highlight-light p { color:var(--text-dark); }
+  .ia-highlight-light strong { color:var(--dark); }
+
+  /* ── PAIN (6 cartes) ── */
+  .pain-intro { font-size:1.1rem; line-height:1.85; color:var(--text-dark); margin-bottom:2.5rem; }
+  .pain-intro strong { color:var(--dark); font-weight:700; }
+  .pain-intro-light { color:#94a3b8; }
+  .pain-intro-light strong { color:var(--white); }
+  .pain-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
+  @media(max-width:760px){ .pain-cards { grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:500px){ .pain-cards { grid-template-columns:1fr; } }
+  .pain-card { background:var(--white); border:1px solid var(--border-light); border-radius:12px; padding:1.5rem; transition:box-shadow 0.2s; }
+  .pain-card:hover { box-shadow:0 4px 20px rgba(0,0,0,0.07); }
+  .pain-card-icon { font-size:1.5rem; margin-bottom:0.75rem; }
+  .pain-card h3 { font-size:0.95rem; font-weight:700; color:var(--dark); margin-bottom:0.5rem; }
+  .pain-card p { font-size:0.875rem; color:var(--text-mid); line-height:1.65; }
+  /* variante fond sombre */
+  .pain-card-dark { background:rgba(255,255,255,0.04); border-color:var(--border-dark); }
+  .pain-card-dark:hover { box-shadow:0 0 0 1px rgba(255,212,59,0.18), 0 8px 30px rgba(0,0,0,0.2); border-color:rgba(255,212,59,0.35); }
+  .pain-card-dark h3 { color:var(--white); }
+  .pain-card-dark p { color:#94a3b8; }
+  .tools-verdict { margin-top:2.5rem; padding:1.5rem 2rem; background:var(--yellow-dim); border:1px solid rgba(255,212,59,0.25); border-radius:12px; font-size:1rem; color:#cbd5e1; line-height:1.75; }
+  .tools-verdict strong { color:var(--yellow); }
+
+  /* ── BEFORE / AFTER ── */
+  .ba-grid { display:grid; grid-template-columns:1fr 1fr; gap:0; border-radius:14px; overflow:hidden; border:1px solid var(--border-dark); margin-top:2.5rem; }
+  @media(max-width:640px){
+    .ba-grid {
+      display:flex;
+      flex-direction:column;
+    }
+    /* En-têtes */
+    .ba-col-head-before { order:1; border-right:none; border-bottom:1px solid var(--border-light); }
+    .ba-col-head-after  { order:3; border-left:none; border-top:1px solid rgba(255,212,59,0.25); }
+    /* Toutes les cellules Avant groupées, puis toutes les Après */
+    .ba-cell-before { order:2; border-right:none; border-bottom:1px solid rgba(100,116,139,0.12); }
+    .ba-cell-after  { order:4; border-left:none; border-top:none; border-bottom:1px solid rgba(255,212,59,0.1); }
+    /* Retirer le padding spécial last-of-type sur mobile, on gère autrement */
+    .ba-cell:last-of-type { padding-bottom:0.6rem; }
+    .ba-cell-after:last-of-type { padding-bottom:1.5rem; }
+    .ba-col-head { padding:1rem 1.25rem 0.6rem; }
+    .ba-cell { padding:0.6rem 1.25rem; }
+  }
+  .ba-head-row { display:contents; }
+  .ba-row { display:contents; }
+  .ba-col-head { padding:1.5rem 2rem 0.75rem; }
+  .ba-col-head-before { background:#f1f5f9; border-right:1px solid var(--border-light); }
+  .ba-col-head-after { background:var(--dark-soft); border-left:1px solid rgba(255,212,59,0.25); }
+  .ba-cell { padding:0.6rem 2rem; display:flex; align-items:flex-start; gap:0.75rem; font-size:0.9rem; line-height:1.6; }
+  .ba-cell:last-of-type { padding-bottom:1.5rem; }
+  .ba-cell-before { background:#f1f5f9; border-right:1px solid var(--border-light); color:var(--text-mid); }
+  .ba-cell-after { background:var(--dark-soft); border-left:1px solid rgba(255,212,59,0.25); color:#cbd5e1; }
+  .ba-cell-after strong { color:var(--yellow); }
+  .ba-head { font-size:0.7rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; font-family:'Montserrat',sans-serif; }
+  .ba-head-before { color:var(--text-light); }
+  .ba-head-after { color:var(--yellow); }
+  .ba-bullet { width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; flex-shrink:0; margin-top:0.1rem; }
+  .ba-bullet-before { background:rgba(100,116,139,0.12); color:var(--text-light); }
+  .ba-bullet-after { background:rgba(255,212,59,0.2); color:var(--yellow); font-weight:700; }
+
+  /* ── RASSURANT ── */
+  .reassurance { text-align:center; }
+  .reassurance h2 { font-size:clamp(1.6rem,3vw,2.1rem); color:var(--dark); margin-bottom:1rem; }
+  .reassurance .lead { font-size:1.05rem; color:var(--text-mid); max-width:640px; margin:0 auto 1.5rem; line-height:1.8; }
+  .reassurance .lead strong { color:var(--dark); }
+  .reassurance-pills { display:flex; flex-wrap:wrap; gap:0.75rem; justify-content:center; margin-top:2rem; }
+  .reassurance .reassurance-pills { max-width:65%; margin:4rem auto 0; }
+  .pill { background:var(--white); border:1.5px solid rgba(255,212,59,0.5); color:#7a5c00; padding:0.5rem 1.15rem; border-radius:100px; font-size:0.82rem; font-weight:600; }
+
+  /* ── POUR QUI + PLOTLY inline ── */
+  .pour-qui-grid {
+    display:grid; grid-template-columns:1fr 420px; gap:3.5rem; align-items:start; margin-top:2.5rem;
+  }
+  @media(max-width:880px){ .pour-qui-grid { grid-template-columns:1fr; } }
+  .profils { display:flex; flex-direction:column; gap:1.5rem; }
+  .profil { border-left:3px solid var(--yellow); padding-left:1.25rem; }
+  .profil h3 { font-size:0.95rem; font-weight:700; color:var(--white); margin-bottom:0.4rem; }
+  .profil p { font-size:0.875rem; color:#94a3b8; line-height:1.65; }
+  .not-for { margin-top:2rem; padding:1.1rem 1.4rem; background:rgba(255,255,255,0.04); border:1px solid var(--border-dark); border-radius:10px; font-size:0.85rem; color:#64748b; line-height:1.65; }
+  .not-for strong { color:#94a3b8; }
+  /* variante fond clair */
+  .profil-light h3 { color:var(--dark); }
+  .profil-light p { color:var(--text-mid); }
+  .not-for-light { background:var(--white); border:1.5px solid #cbd5e1; color:var(--text-mid); border-radius:10px; }
+  .not-for-light strong { color:var(--dark); }
+
+  /* Plotly sidebar */
+  .plotly-sidebar { position:sticky; top:80px; }
+  .plotly-sidebar-wrap { border-radius:12px; overflow:hidden; border:1px solid var(--border-dark); background:#161b22; }
+  .plotly-sidebar-caption { padding:0.85rem 1.1rem; border-top:1px solid var(--border-dark); font-size:0.78rem; color:#64748b; line-height:1.6; font-style:italic; }
+  .plotly-sidebar-caption strong { color:var(--yellow); font-style:normal; }
+  #chart { width:100%; height:300px; }
+
+  /* ── UNIQUE EN FRANCE ── */
+  .unique-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center; margin-top:2.5rem; }
+  @media(max-width:720px){ .unique-grid { grid-template-columns:1fr; } }
+  .unique-text p { font-size:1rem; color:var(--text-dark); line-height:1.85; margin-bottom:1.1rem; }
+  .unique-text p strong { color:var(--dark); font-weight:700; }
+  .unique-text-light p { color:#94a3b8; }
+  .unique-text-light p strong { color:var(--white); font-weight:700; }
+  .unique-compare { border:1px solid var(--border-light); border-radius:14px; overflow:hidden; }
+  .uc-head { display:grid; grid-template-columns:1fr 1fr 1fr; background:var(--dark); }
+  .uc-head div { padding:0.75rem 1rem; font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; font-family:'Montserrat',sans-serif; }
+  .uc-head div:first-child { color:#64748b; }
+  .uc-head div:nth-child(2) { color:#94a3b8; text-align:center; border-left:1px solid var(--border-dark); }
+  .uc-head div:nth-child(3) { color:var(--yellow); text-align:center; border-left:1px solid var(--border-dark); }
+  .uc-row { display:grid; grid-template-columns:1fr 1fr 1fr; border-top:1px solid var(--border-light); background:var(--white); }
+  .uc-row div { padding:0.85rem 1rem; font-size:0.85rem; }
+  .uc-row div:first-child { color:var(--text-mid); font-weight:500; }
+  .uc-row div:nth-child(2) { text-align:center; color:var(--text-light); border-left:1px solid var(--border-light); }
+  .uc-row div:nth-child(3) { text-align:center; color:var(--green); font-weight:600; border-left:1px solid var(--border-light); }
+  .uc-row div.no { color:#ef4444; }
+
+  /* ── SOLUTION ── */
+  .solution-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; margin-top:2.5rem; }
+  @media(max-width:720px){ .solution-grid { grid-template-columns:1fr; } }
+  .solution-text p { font-size:1rem; color:var(--text-dark); line-height:1.85; margin-bottom:1.1rem; }
+  .solution-text p strong { color:var(--dark); font-weight:700; }
+  .ep-table { background:var(--surface); border:1px solid var(--border-light); border-radius:14px; overflow:hidden; }
+  .ep-row { display:flex; align-items:center; gap:1rem; padding:1.05rem 1.4rem; border-bottom:1px solid var(--border-light); transition:background 0.15s; }
+  .ep-row:last-child { border-bottom:none; }
+  .ep-row:hover { background:rgba(37,99,235,0.03); }
+  .ep-badge { font-size:0.65rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:0.25rem 0.65rem; border-radius:4px; white-space:nowrap; font-family:'Montserrat',sans-serif; }
+  .ep-py { background:rgba(255,212,59,0.15); color:#7a5c00; }
+  .ep-xl { background:rgba(16,185,129,0.12); color:#065f46; }
+  .ep-text { font-size:0.875rem; color:var(--text-dark); line-height:1.5; }
+  .solution-note { margin-top:1.75rem; font-size:0.95rem; color:var(--text-mid); line-height:1.75; font-style:italic; }
+
+  /* ── PROGRAMME ── */
+  .modules { display:flex; flex-direction:column; gap:0.75rem; margin-top:2.5rem; }
+  .module { background:var(--white); border:1px solid var(--border-light); border-radius:12px; padding:1.5rem 1.75rem; display:flex; gap:1.25rem; align-items:flex-start; transition:box-shadow 0.2s, transform 0.15s; }
+  .module:hover { box-shadow:0 4px 20px rgba(0,0,0,0.07); transform:translateX(4px); }
+  .module-num { background:var(--dark); color:var(--yellow); font-weight:800; font-size:0.85rem; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Montserrat',sans-serif; }
+  .module h3 { font-size:1rem; font-weight:700; color:var(--dark); margin-bottom:0.4rem; }
+  .module p { font-size:0.875rem; color:var(--text-mid); line-height:1.65; }
+  .prog-meta { display:flex; flex-wrap:wrap; gap:1.5rem; margin-top:2.5rem; }
+  .prog-meta-item { display:flex; align-items:center; gap:0.5rem; font-size:0.875rem; color:var(--text-mid); }
+  .compl-card { background:var(--white); border:1.5px solid var(--border-light); border-radius:12px; padding:1.25rem; transition:box-shadow 0.2s, border-color 0.2s; }
+  .compl-card:hover { box-shadow:0 4px 20px rgba(0,0,0,0.07); border-color:#94a3b8; }
+
+  /* ── RÉSULTATS ── */
+  .resultats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.25rem; margin-top:2.5rem; }
+  .res-card { background:var(--dark-soft); border:1px solid var(--border-dark); border-radius:12px; padding:1.5rem; transition:border-color 0.2s; }
+  .res-card:hover { border-color:rgba(255,212,59,0.25); }
+  .res-icon { font-size:1.4rem; margin-bottom:0.75rem; }
+  .res-card h3 { font-size:0.95rem; font-weight:700; color:var(--white); margin-bottom:0.4rem; }
+  .res-card p { font-size:0.875rem; color:#94a3b8; line-height:1.6; }
+
+  /* ── TÉMOIGNAGES ── */
+  .temo-carousel { position:relative; margin-top:2.5rem; display:flex; align-items:center; gap:0.75rem; }
+  .temo-outer { overflow:hidden; flex:1; min-width:0; }
+  .temo-track { display:flex; gap:1.25rem; transition:transform 0.45s cubic-bezier(0.4,0,0.2,1); will-change:transform; }
+  .temo-card {
+    flex:0 0 calc(100% - 200px); width:calc(100% - 200px);
+    border-radius:14px; padding:2.25rem 2.5rem; box-sizing:border-box;
+    transition:opacity 0.4s ease, transform 0.4s ease;
+    transform:scale(0.97);
+    background:var(--white);
+    border-top:3px solid var(--yellow);
+    border-right:1px solid var(--border-light);
+    border-bottom:1px solid var(--border-light);
+    border-left:1px solid var(--border-light);
+    box-shadow:0 2px 12px rgba(255,212,59,0.08);
+    position:relative; overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+  .temo-card.temo-active { opacity:1; transform:scale(1); box-shadow:0 6px 32px rgba(255,212,59,0.18), 0 2px 12px rgba(0,0,0,0.06); }
+  .temo-card.temo-inactive { opacity:0.4; transform:scale(0.97); pointer-events:none; }
+  .temo-guillemet { position:absolute; top:0.75rem; left:1.25rem; font-size:120px; line-height:1; color:var(--yellow); opacity:0.23; font-family:Georgia,serif; pointer-events:none; user-select:none; }
+  .temo-excerpt { font-size:0.975rem; color:var(--text-dark); line-height:1.85; font-style:italic; flex:1; }
+  .temo-footer { margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid var(--border-light); display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+  .temo-name { font-size:0.875rem; font-weight:700; color:var(--dark); font-family:'Montserrat',sans-serif; }
+  .temo-role { font-size:0.8rem; color:var(--text-light); margin-top:0.1rem; }
+  .temo-btn { font-size:0.78rem; font-weight:600; color:var(--text-light); background:none; border:1px solid var(--border-light); border-radius:100px; padding:0.35rem 0.85rem; cursor:pointer; white-space:nowrap; transition:border-color 0.2s, color 0.2s; font-family:'Montserrat',sans-serif; }
+  .temo-btn:hover { border-color:var(--yellow); color:var(--dark); }
+  .temo-arrow { background:none; border:none; cursor:pointer; padding:0.4rem 0.6rem; font-size:2rem; color:#cbd5e1; transition:color 0.2s; flex-shrink:0; line-height:1; user-select:none; }
+  .temo-arrow:hover { color:var(--text-dark); }
+  .temo-dots { display:flex; gap:0.5rem; align-items:center; justify-content:center; margin-top:1.5rem; }
+  .temo-dot { width:8px; height:8px; border-radius:50%; background:var(--border-light); cursor:pointer; transition:all 0.25s; border:none; padding:0; }
+  .temo-dot.active { background:var(--yellow); transform:scale(1.3); }
+  @media(max-width:600px){
+    /* Carte pleine largeur, pas d'aperçu des cartes adjacentes */
+    .temo-card { flex:0 0 100%; width:100%; padding:1.5rem 1.25rem; }
+    /* Masquer les flèches : le swipe tactile suffit */
+    .temo-arrow { display:none; }
+    /* Le carousel prend toute la largeur sans les flèches */
+    .temo-carousel { gap:0; }
+    /* Autoriser le retour à la ligne du bouton */
+    .temo-btn { white-space:normal; text-align:center; }
+  }
+
+  /* ── MODALE TÉMOIGNAGE ── */
+  .temo-modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:1000; align-items:center; justify-content:center; padding:1.5rem; box-sizing:border-box; }
+  .temo-modal-overlay.open { display:flex; }
+  .temo-modal { background:var(--white); border-radius:16px; max-width:860px; width:100%; padding:2.5rem; position:relative; max-height:85vh; overflow-y:auto; box-sizing:border-box; }
+  @media(max-width:600px){
+    .temo-modal-overlay { padding:1rem; }
+    .temo-modal { padding:1.5rem 1.25rem; }
+  }
+  .temo-modal-close { position:absolute; top:1.25rem; right:1.25rem; background:none; border:none; font-size:1.4rem; cursor:pointer; color:var(--text-light); line-height:1; transition:color 0.2s; }
+  .temo-modal-close:hover { color:var(--dark); }
+  .temo-modal-guillemet { font-size:6rem; color:var(--yellow); line-height:1; margin-bottom:-1.5rem; font-family:Georgia,serif; opacity:0.99; }
+  .temo-modal-text { font-size:0.975rem; color:var(--text-dark); line-height:1.85; font-style:italic; }
+  .temo-modal-footer { margin-top:1.75rem; padding-top:1.25rem; border-top:1px solid var(--border-light); }
+  .temo-modal-name { font-size:0.9rem; font-weight:700; color:var(--dark); font-family:'Montserrat',sans-serif; }
+  .temo-modal-role { font-size:0.82rem; color:var(--text-light); margin-top:0.1rem; }
+
+
+  /* ── FORMATEUR ── */
+  .formateur-grid { display:grid; grid-template-columns:280px 1fr; gap:3rem; align-items:stretch; margin-top:2.5rem; }
+  @media(max-width:640px){ .formateur-grid { grid-template-columns:1fr; } }
+  .formateur-photo { width:170px; height:170px; border-radius:14px; background:var(--dark-soft); border:1px solid var(--border-dark); display:flex; align-items:center; justify-content:center; font-size:0.8rem; color:#64748b; text-align:center; padding:1rem; }
+  .formateur-text p { font-size:0.975rem; color:#4a5568; line-height:1.85; margin-bottom:1rem; }
+  .formateur-text strong { color:#1a202c; }
+  .formateur-tags { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:1.25rem; }
+  .f-tag { background:rgba(255,255,255,0.05); border:1px solid var(--border-dark); color:#94a3b8; font-size:0.78rem; padding:0.3rem 0.85rem; border-radius:100px; }
+  .formateur-photo-col {
+    position: relative;
+    overflow: visible;
+    min-height: 120px;
+  }
+  .formateur-photo-clip {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,0.3) 8%, black 20%);
+    mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,0.3) 8%, black 20%);
+  }
+  .formateur-photo-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .formateur-photo-caption {
+    position: absolute;
+    top: 0;
+    right: -1rem;
+    font-family: 'Caveat', cursive;
+    font-size: 1.15rem;
+    color: var(--text-mid);
+    text-align: right;
+    line-height: 1.35;
+    transform: rotate(-1.5deg);
+    display: inline-block;
+    white-space: nowrap;
+  }
+  @media(max-width:600px){
+    /* Photo pleine hauteur, fondu vers le bas */
+    .formateur-photo-col { min-height: 0; }
+    .formateur-photo-clip {
+      position: static;
+      overflow: visible;
+      -webkit-mask-image: linear-gradient(to bottom, black 47%, rgba(0,0,0,0.16) 60%, rgba(0,0,0,0.13) 75%, rgba(0,0,0,0.08) 90%, transparent 99%);
+      mask-image: linear-gradient(to bottom, black 47%, rgba(0,0,0,0.16) 60%, rgba(0,0,0,0.13) 75%, rgba(0,0,0,0.08) 90%, transparent 99%);
+    }
+    .formateur-photo-img {
+      position: static;
+      width: 100%;
+      height: auto;
+    }
+    /* Texte remonte pour se superposer sur la partie transparente de la photo */
+    .formateur-text { margin-top: -24rem; position: relative; z-index: 2; }
+    /* Caption repositionnée à droite de la tête */
+    .formateur-photo-caption { right: 0.5rem; font-size: 1rem; white-space: normal; max-width: 130px; text-align: right; }
+  }
+
+  /* ── OFFRE ── */
+  .offre-grid { display:grid; grid-template-columns:1fr 370px; gap:3rem; align-items:start; margin-top:2.5rem; }
+  @media(max-width:760px){ .offre-grid { grid-template-columns:1fr; } }
+  .offre-inclus { display:flex; flex-direction:column; }
+  .offre-inclus h3 { font-size:0.9rem; font-weight:700; color:var(--yellow); margin-bottom:1.25rem; }
+  .offre-video { margin-top:2rem; }
+  .offre-video video { width:100%; max-height:180px; object-fit:contain; border-radius:10px; display:block; }
+  .offre-video-block { display:flex; flex-direction:row; align-items:center; justify-content:center; margin-top:2rem; gap:0; }
+  .offre-video-text {
+    font-family: 'Caveat', cursive;
+    font-size: 1.15rem;
+    color: var(--yellow);
+    text-align: left;
+    line-height: 1.35;
+    display: inline-block;
+    transform: rotate(-1.5deg);
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4));
+    flex-shrink: 0;
+    margin-left: 0.25rem;
+    margin-top: -2.5rem
+  }
+  .offre-video-arrow {
+    width: 80px;
+    height: 30px;
+    opacity: 0.9;
+    flex-shrink: 0;
+    margin-left: -12px;
+  }
+  .offre-video-block video { max-width:100%; max-height:180px; object-fit:contain; border-radius:10px; display:block; flex-shrink:0; }
+  @media(max-width:600px){
+    .offre-video-block {
+      flex-direction: column-reverse;
+      align-items: center;
+      gap: 0;
+    }
+    .offre-video-arrow {
+      width: 30px;
+      height: 80px;
+      transform: rotate(-90deg);
+      margin-left: 0;
+      margin-top: -20px;
+      margin-bottom: -35px;
+    }
+    .offre-video-text {
+      font-size: 0.85rem;
+      margin-left: 0;
+      margin-top: 0;
+      margin-bottom: -0.5rem;
+      text-align: center;
+    }
+  }
+  .offre-list { list-style:none; display:flex; flex-direction:column; gap:0.8rem; }
+  .offre-list li { display:flex; align-items:flex-start; gap:0.75rem; font-size:0.925rem; color:#cbd5e1; line-height:1.55; }
+  .offre-list li::before { content:'✓'; color:var(--green); font-weight:700; flex-shrink:0; margin-top:0.05rem; }
+  .offre-card { background:var(--white); border-radius:18px; padding:2.25rem; box-shadow:0 20px 60px rgba(0,0,0,0.25); }
+  .offre-card-name { font-family:'Montserrat',sans-serif; font-size:1rem; font-weight:800; color:var(--dark); margin-bottom:0.5rem; }
+  .offre-price { font-family:'Montserrat',sans-serif; font-size:2.75rem; font-weight:800; color:var(--dark); margin:1rem 0 0.25rem; letter-spacing:-0.03em; }
+  .offre-price-sub { font-size:0.825rem; color:var(--text-mid); margin-bottom:0rem; }
+  .mention-tva { font-size:0.75rem; font-style:italic; color:#64748b; margin-top:0; margin-bottom:1.25rem; line-height:1.6; }
+  .offre-card .btn-primary { width:100%; text-align:center; margin-bottom:0.9rem; }
+  .offre-guarantee { font-size:0.78rem; color:var(--text-mid); text-align:center; line-height:1.55; }
+  .offre-details { margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid var(--border-light); display:flex; flex-direction:column; gap:0.6rem; }
+  .offre-detail { display:flex; align-items:center; gap:0.5rem; font-size:0.825rem; color:var(--text-mid); }
+  .offre-detail::before { content:'·'; color:var(--blue-mid); font-size:1.2rem; font-weight:700; }
+
+  /* ── ACCOMPAGNEMENT ── */
+  .accomp-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:1.5rem; align-items:stretch; }
+  @media(max-width:720px){ .accomp-grid { grid-template-columns:1fr; } }
+  .accomp-card {
+    border-radius:16px; padding:2rem;
+    border:1px solid var(--border-dark);
+    background:rgba(255,255,255,0.03);
+    transition:border-color 0.2s, box-shadow 0.2s;
+  }
+  .accomp-card:hover { border-color:rgba(255,212,59,0.6) !important; box-shadow:0 0 0 1px rgba(255,212,59,0.18), 0 8px 30px rgba(0,0,0,0.2); }
+  .accomp-card.featured {
+    border-color:rgba(255,212,59,0.35);
+    background:var(--yellow-dim);
+    grid-column: 1 / -1;
+  }
+  .accomp-icon { font-size:1.8rem; margin-bottom:1rem; }
+  .accomp-card h3 { font-size:1.05rem; font-weight:700; color:var(--white); margin-bottom:0.6rem; }
+  .accomp-card.featured h3 { font-size:1.15rem; color:var(--yellow); }
+  .accomp-card p { font-size:0.9rem; color:#94a3b8; line-height:1.7; }
+  .accomp-card.featured p { color:#cbd5e1; }
+  .accomp-detail {
+    margin-top:1.1rem;
+    display:flex; flex-direction:column; gap:0.5rem;
+  }
+  .accomp-detail-item {
+    display:flex; align-items:flex-start; gap:0.6rem;
+    font-size:0.875rem; color:#94a3b8; line-height:1.55;
+  }
+  .accomp-detail-item::before { content:'→'; color:var(--yellow); font-weight:700; flex-shrink:0; }
+  .accomp-badge {
+    display:inline-block;
+    background:rgba(255,212,59,0.15); color:var(--yellow);
+    border:1px solid rgba(255,212,59,0.3);
+    font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    padding:0.2rem 0.7rem; border-radius:100px;
+    font-family:'Montserrat',sans-serif;
+    margin-bottom:0.85rem; display:inline-block;
+  }
+
+  /* ── FAQ ── */
+  .faq-list { margin-top:2.5rem; display:flex; flex-direction:column; gap:0.6rem; }
+  .faq-item { border:1px solid var(--border-light); border-radius:12px; background:var(--white); overflow:hidden; transition:box-shadow 0.2s; }
+  .faq-item:hover { box-shadow:0 4px 16px rgba(0,0,0,0.06); }
+  .faq-item:last-child { border-bottom:1px solid var(--border-light); }
+  .faq-q { width:100%; background:none; border:none; text-align:left; padding:1.3rem 1.6rem; cursor:pointer; font-family:'Montserrat',sans-serif; font-size:0.925rem; font-weight:700; color:var(--dark); display:flex; justify-content:space-between; align-items:center; gap:1rem; transition:background 0.15s; }
+  .faq-q:hover { background:var(--surface); }
+  .faq-arrow { font-size:0.65rem; color:var(--text-light); transition:transform 0.25s; flex-shrink:0; }
+  .faq-item.open .faq-arrow { transform:rotate(180deg); }
+  .faq-a { max-height:0; overflow:hidden; transition:max-height 0.3s ease; }
+  .faq-item.open .faq-a { max-height:600px; }
+  .faq-a-inner { padding:0 1.6rem 1.3rem; font-size:0.9rem; color:var(--text-mid); line-height:1.75; }
+
+  /* ── SECTIONS IMAGE DE FOND ── */
+  .s-bg-image { position:relative; overflow:hidden; background-color:#0f1a2e; padding:5.5rem 2rem; }
+  .s-bg-image img.bg-img { position:absolute; top:0; right:0; height:auto; width:100%; z-index:0; }
+  .s-bg-image .container-wide { position:relative; z-index:2; }
+  .s-bg-image-inner-50 { max-width:50%; }
+  .s-bg-image-inner-65 { max-width:65%; }
+  @media(max-width:600px){
+    .s-bg-image img.bg-img { display:none; }
+    .s-bg-image-inner-50 { max-width:100%; }
+    .s-bg-image-inner-65 { max-width:100%; }
+  }
+
+  /* ── PLOTLY CHART ── */
+  .plotly-legend { display:flex; flex-wrap:wrap; gap:8px; padding:1rem 1rem 0; }
+  .plotly-chart { height:340px; }
+
+  /* ── PROGRAMME : PARCOURS PRINCIPAL ── */
+  .prog-principal { margin-top:2.5rem; background:var(--dark); border-radius:14px; padding:1.75rem 2rem; }
+  .prog-principal-header { display:flex; align-items:center; gap:1rem; margin-bottom:0.6rem; }
+  .prog-principal-title { font-family:'Montserrat',sans-serif; font-size:1rem; font-weight:700; color:var(--white); }
+  .prog-principal-badge { font-size:0.72rem; font-weight:700; font-family:'Montserrat',sans-serif; background:rgba(255,212,59,0.18); color:var(--yellow); padding:0.25rem 0.75rem; border-radius:100px; }
+  .prog-principal-desc { font-size:0.9rem; color:#94a3b8; margin-bottom:1.25rem; line-height:1.7; }
+  @media(max-width:600px){
+    .prog-principal { padding:1.25rem 1rem; }
+    .prog-principal-header { flex-direction:column; align-items:flex-start; gap:0.5rem; }
+    .prog-principal-badge { border-radius:10px; }
+    .module { padding:1rem 1rem; }
+    .module > div:last-child { min-width:0; }
+  }
+
+  /* ── PROGRAMME : PARCOURS COMPLÉMENTAIRE ── */
+  .prog-compl { margin-top:1.5rem; background:var(--yellow-pale); border-radius:14px; padding:1.75rem 2rem; }
+  .prog-compl-header { display:flex; align-items:center; gap:1rem; margin-bottom:0.6rem; }
+  .prog-compl-title { font-family:'Montserrat',sans-serif; font-size:1rem; font-weight:700; color:var(--dark); }
+  .prog-compl-badge { font-size:0.72rem; font-weight:700; font-family:'Montserrat',sans-serif; background:rgba(0,0,0,0.06); color:var(--text-mid); padding:0.25rem 0.75rem; border-radius:100px; }
+  .prog-compl-desc { font-size:0.9rem; color:var(--text-mid); margin-bottom:1.25rem; line-height:1.7; }
+  .prog-compl-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; }
+  .compl-card-icon { font-size:1.3rem; margin-bottom:0.6rem; }
+  .compl-card-title { font-family:'Montserrat',sans-serif; font-size:0.9rem; font-weight:700; color:var(--dark); margin-bottom:0.4rem; }
+  .compl-card-desc { font-size:0.82rem; color:var(--text-mid); line-height:1.6; }
+  @media(max-width:600px){
+    .prog-compl { padding:1.25rem 1rem; }
+    .prog-compl-header { flex-direction:column; align-items:flex-start; gap:0.5rem; }
+    .prog-compl-badge { border-radius:10px; }
+  }
+
+  /* ── ACCOMPAGNEMENT : CARTE PRINCIPALE ── */
+  .accomp-main { margin-top:2.5rem; display:grid; grid-template-columns:1fr 1fr; gap:0; border-radius:16px; overflow:hidden; border:1px solid var(--border-dark); }
+  @media(max-width:680px){ .accomp-main { grid-template-columns:1fr; } }
+  .accomp-main-text { padding:2.5rem; background:rgba(255,255,255,0.04); display:flex; flex-direction:column; justify-content:space-between; }
+  .accomp-main-sublabel { font-size:0.7rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#64748b; font-family:'Montserrat',sans-serif; margin-bottom:0.75rem; }
+  .accomp-main-title { font-size:1.2rem; font-weight:800; color:var(--white); margin-bottom:1rem; font-family:'Montserrat',sans-serif; line-height:1.3; }
+  .accomp-main-intro { font-size:0.925rem; color:#94a3b8; line-height:1.75; margin-bottom:1.5rem; }
+  .accomp-bullets { display:flex; flex-direction:column; gap:0.65rem; }
+  .accomp-bullet { display:flex; align-items:flex-start; gap:0.65rem; font-size:0.875rem; color:#cbd5e1; line-height:1.5; }
+  .accomp-bullet-arrow { color:var(--yellow); font-weight:700; flex-shrink:0; margin-top:0.05rem; }
+  .accomp-main-screenshot { display:flex; flex-direction:column; align-items:center; justify-content:center; background:rgba(255,255,255,0.04); padding:1.25rem; gap:0.85rem; }
+  .accomp-main-screenshot img { width:100%; height:auto; display:block; border-radius:6px; opacity:0.93; }
+  .accomp-main-caption { font-size:0.75rem; color:#64748b; font-style:italic; text-align:center; line-height:1.55; margin:0; }
+
+  /* ── ACCOMPAGNEMENT : SÉPARATEUR ── */
+  .accomp-sep { display:flex; align-items:center; gap:1rem; margin:2.5rem 0 0; }
+  .accomp-sep-line { flex:1; height:1px; background:var(--border-dark); }
+  .accomp-sep-label { font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#64748b; font-family:'Montserrat',sans-serif; text-align:center; }
+
+  /* ── ACCOMPAGNEMENT : CARTES FEATURED ── */
+  .accomp-card-featured { border-color:rgba(255,212,59,0.25); background:rgba(255,212,59,0.05); position:relative; overflow:hidden; display:flex; flex-direction:column; gap:0; }
+  .accomp-card-featured-bar { position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--yellow), rgba(255,212,59,0.3)); }
+  .accomp-card-featured h3 { color:var(--white); }
+  .accomp-card-featured p { flex:1; }
+  .accomp-card-featured-footer { margin-top:1.1rem; padding-top:1.1rem; border-top:1px solid rgba(255,212,59,0.15); font-size:0.8rem; color:var(--yellow); font-weight:600; font-family:'Montserrat',sans-serif; }
+
+  /* ── FORMATEUR : TAGS ── */
+  .f-tag-gray { background:rgba(0,0,0,0.07); border:1px solid rgba(0,0,0,0.12); color:var(--text-mid); }
+
+  /* ── TEXTE FORMATEUR ── */
+  .formateur-p { color:#4a5568; }
+  .formateur-strong { color:#1a202c; }
+  .final-cta { position:relative; overflow:hidden; background:var(--dark); text-align:center; padding:6rem 2rem; }
+  .final-cta-bg { position:absolute; inset:0; background-image:url('Gemini_Generated_Image_4ya5uh4ya5uh4ya5.png'); background-size:cover; background-position:center; opacity:0.1; }
+  .final-cta-overlay { position:absolute; inset:0; background:radial-gradient(ellipse at center,rgba(30,34,41,0.3) 0%,rgba(30,34,41,0.95) 70%); }
+  .final-cta-inner { position:relative; z-index:2; }
+  .final-cta h2 { color:var(--white); font-size:clamp(1.6rem,3.5vw,2.4rem); margin-bottom:1rem; }
+  .final-cta h2 .hl { color:var(--yellow); }
+  .final-cta p { color:#94a3b8; font-size:1.05rem; max-width:480px; margin:0 auto 2.5rem; line-height:1.75; }
+
+  /* ── FOOTER ── */
+  footer { background:#131720; color:#475569; text-align:center; padding:2.25rem; font-size:0.8rem; }
+  footer a { color:#475569; text-decoration:none; margin:0 0.5rem; transition:color 0.2s; }
+  footer a:hover { color:#94a3b8; }
+
+  /* ── BURGER ── */
+  .nav-burger { display:none; flex-direction:column; justify-content:center; gap:5px; background:none; border:none; cursor:pointer; padding:0.4rem; z-index:201; }
+  .nav-burger span { display:block; width:22px; height:2px; background:var(--white); border-radius:2px; transition:transform 0.25s, opacity 0.25s; }
+  .nav-burger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+  .nav-burger.open span:nth-child(2) { opacity:0; }
+  .nav-burger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+  /* ── RESPONSIVE NAV (HEADER) ── */
+  @media(max-width:600px){
+    nav { padding:0 1.25rem; }
+    .nav-burger { display:flex; }
+    .nav-links {
+      display:none;
+      position:absolute; top:66px; left:0; right:0;
+      background:rgba(30,34,41,0.98);
+      flex-direction:column;
+      gap:0;
+      padding:0.5rem 0 1rem;
+      border-bottom:1px solid var(--border-dark);
+      z-index:199;
+    }
+    .nav-links.open { display:flex; }
+    .nav-links li { width:100%; }
+    .nav-links a { display:block; padding:0.85rem 1.5rem; font-size:0.95rem; color:var(--text-light); }
+    .nav-links a:hover { color:var(--white); background:rgba(255,255,255,0.04); }
+    .nav-links .nav-cta { margin:0.5rem 1.5rem 0; display:block; text-align:center; border-radius:6px; }
+    section { padding:3.5rem 1.25rem; }
+    .hero { padding:4.5rem 1.25rem 0.7rem; }
+    .hero h1 { font-size:1.6rem; line-height:1.25; }
+    .hero-sub { font-size:0.95rem; margin-bottom:0.9rem; }
+    .hero-sub2 { font-size:0.85rem; margin-bottom:1.75rem; }
+    .hero-ctas { margin-bottom:2.5rem; }
+    .btn-primary, .btn-ghost { font-size:0.9rem; padding:0.85rem 1.5rem; }
+    .hero-pills { gap:0.75rem 1.25rem; }
+  }
+
+  /* ── TEXT HIGHLIGHT ── */
+  .text-highlight {
+    color: var(--yellow);
+  }
+
+  /* ── HERO HUMAN ── */
+  .hero-human {
+    position: absolute;
+    bottom: 0;
+    right: 4rem;
+    z-index: 3;
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
+    pointer-events: none;
+  }
+  .hero-human-annotation {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 11rem;
+    margin-right: -3.5rem;
+  }
+  .hero-human-text {
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem;
+    color: var(--yellow);
+    line-height: 1.35;
+    text-align: right;
+    max-width: 180px;
+    margin-bottom: 0.25rem;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4));
+  }
+  .hero-human-arrow {
+    width: 52px;
+    height: 48px;
+    flex-shrink: 0;
+    /* flip horizontally so the arrowhead points right toward the photo */
+    transform: scaleX(-1);
+    opacity: 0.9;
+  }
+  .hero-human-photo {
+    width: 220px;
+    height: 280px;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    /* soft fade at the bottom so the photo blends into the dark hero */
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, black 30%);
+    mask-image: linear-gradient(to top, transparent 0%, black 30%);
+  }
+  @media(max-width:1279px){
+    /* Hero : supprimer le padding-bottom qui crée un espace vide sous les pills */
+    .hero { padding-bottom: 0; }
+    /* Hero : photo passe sous les pills */
+    .hero-human {
+      position: static;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1.5rem;
+      gap: 0.5rem;
+    }
+    .hero-human-annotation {
+      margin-bottom: 0;
+      margin-right: 0;
+      position: relative;
+      top: -4.4rem;
+      left: 3rem;
+    }
+  }
+  @media(max-width:600px){
+    .hero-human-text {
+      font-size: 0.85rem;
+      max-width: 110px;
+    }
+    .hero-human-arrow {
+      width: 34px;
+      height: 40px;
+    }
+    .hero-human-photo {
+      width: 130px;
+      height: 165px;
+    }
+    .hero-human-annotation {
+      top: -3rem;
+      left: 2.2rem;
+    }
+  }
+
+  /* ── RASSURANT HUMAN ── */
+  .reassurance-human {
+    position: absolute;
+    bottom: 0;
+    right: 3rem;
+    z-index: 3;
+    display: flex;
+    align-items: flex-end;
+    pointer-events: none;
+  }
+  .reassurance-human-annotation {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 9.5rem;
+    margin-right: -3rem;
+  }
+  .reassurance-human-text {
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem;
+    color: var(--dark);
+    line-height: 1.35;
+    text-align: right;
+    max-width: 300px;
+    transform: rotate(-2deg);
+    display: inline-block;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.12));
+  }
+  .reassurance-human-photo {
+    width: 200px;
+    height: 260px;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,0.5) 5%, black 15%);
+    mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,0.5) 5%, black 15%);
+  }
+  @media(max-width:600px){
+    .reassurance-human-photo { width: 130px; height: 165px; }
+    .reassurance-human-text { font-size: 0.85rem; max-width: 110px; }
+  }
+  @media(max-width:1279px){
+    /* Rassurant : photo + annotation sous les pills, pas d'espace vide sous la photo */
+    .s-pale.reassurance { padding-bottom: 0; }
+    .reassurance-human {
+      position: static;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2rem;
+      gap: 0.5rem;
+    }
+    .reassurance-human-annotation {
+      margin-bottom: 0;
+      margin-right: 0;
+      position: relative;
+      top: -3rem;
+      left: 2.2rem;
+    }
+    .reassurance-human-text {
+      max-width: 180px;
+      text-align: right;
+    }
+    /* Lever la contrainte 65% sur les pills */
+    .reassurance .reassurance-pills { max-width:100%; }
+  }
+  @media(max-width:600px){
+    .reassurance-human-annotation { top: -2rem; left: 2.2rem; }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .hero-inner > * { animation:fadeUp 0.6s ease both; }
+  .hero-inner > *:nth-child(1){animation-delay:0.1s}
+  .hero-inner > *:nth-child(2){animation-delay:0.2s}
+  .hero-inner > *:nth-child(3){animation-delay:0.3s}
+  .hero-inner > *:nth-child(4){animation-delay:0.4s}
+  .hero-inner > *:nth-child(5){animation-delay:0.5s}
+  .hero-inner > *:nth-child(6){animation-delay:0.6s}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV (HEADER) ══ -->
+<nav>
+  <a href="#" class="nav-logo">Python <span>pour les métiers</span></a>
+  <ul class="nav-links">
+    <li><a href="#programme" onclick="closeNav()">Programme</a></li>
+    <li><a href="#temoignage" onclick="closeNav()">Témoignages</a></li>
+    <li><a href="#formateur" onclick="closeNav()">Le formateur</a></li>
+    <li><a href="#faq" onclick="closeNav()">FAQ</a></li>
+    <li><a href="#offre" class="nav-cta" onclick="closeNav()">Accéder à la formation →</a></li>
+  </ul>
+  <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="page-wrapper">
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="container hero-inner">
+    <h1>
+      Python s'impose partout.<br>
+      <span class="text-highlight">Faites-en votre avantage dès aujourd'hui.</span>
+    </h1>
+    <p class="hero-sub">
+      Gagnez en temps et en possibilités sur vos traitements de données et vos automatisations, en tant que professionnel métier, avec une réelle compréhension de ce que vous faites.
+    </p>
+    <p class="hero-sub2">
+      La formation Python pensée pour les profils métiers analytiques, et créée par l'un d'entre eux. Aucun prérequis en programmation.
+    </p>
+    <div class="hero-ctas">
+      <a href="#offre" class="btn-primary">Accéder à la formation →</a>
+      <a href="#programme" class="btn-ghost">Voir le programme</a>
+    </div>
+    <div class="hero-pills">
+      <span>Aucun prérequis en programmation</span>
+      <span>Compatible Windows & Mac</span>
+      <span>Python 100 % gratuit</span>
+      <span>Accès à vie</span>
+    </div>
+  </div>
+
+  <!-- annotation humaine flottante -->
+  <div class="hero-human" aria-hidden="true">
+    <div class="hero-human-annotation">
+      <span class="hero-human-text">Le formateur</span>
+      <svg class="hero-human-arrow" viewBox="91.0 743.0 939.0 1119.0" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" fill="#FFD43B" fill-opacity="0.9" d="M 789.625 1117.980469 C 791.902344 1117.980469 794.195312 1117.960938 796.476562 1117.980469 C 808.035156 1118.109375 808.320312 1117.898438 806.253906 1106.558594 C 800.640625 1075.691406 783.660156 1051.421875 761.261719 1030.550781 C 748.292969 1018.46875 733.4375 1009.191406 716 1004.839844 C 699.652344 1000.769531 685.957031 1006.601562 677.65625 1020.839844 C 671.253906 1031.808594 671.882812 1043.230469 676.125 1054.648438 C 682.488281 1071.789062 694.707031 1084.109375 709.566406 1094.078125 C 733.769531 1110.320312 760.917969 1116.671875 789.625 1117.980469 M 289.375 1750.027344 C 292.601562 1751.386719 295.472656 1749.863281 298.222656 1749.128906 C 355.125 1733.789062 413.492188 1727.757812 471.832031 1721.453125 C 479.945312 1720.574219 488.09375 1720.367188 496.050781 1722.554688 C 504.707031 1724.9375 511.222656 1729.902344 513.238281 1739.066406 C 515.261719 1748.226562 511.503906 1755.453125 504.574219 1761.238281 C 499.460938 1765.511719 493.605469 1768.605469 487.503906 1771.164062 C 385.945312 1813.886719 281.234375 1844.214844 170.644531 1851.226562 C 159.472656 1851.9375 148.304688 1852.371094 137.242188 1850.070312 C 107.621094 1843.929688 93.410156 1816.894531 106.78125 1790.550781 C 136.902344 1731.21875 167.597656 1672.148438 200.8125 1614.480469 C 224.042969 1574.148438 251.367188 1536.5 280.109375 1499.910156 C 285.921875 1492.511719 292.132812 1485.421875 299.894531 1479.960938 C 306.839844 1475.050781 314.40625 1471.921875 322.617188 1476.558594 C 331.023438 1481.300781 332.644531 1489.539062 332.027344 1498.320312 C 331.292969 1508.890625 327.480469 1518.621094 322.871094 1528 C 308.058594 1558.101562 291.066406 1587.019531 274.859375 1616.371094 C 260.003906 1643.269531 244.902344 1670.03125 229.929688 1696.871094 C 228.714844 1699.058594 227.679688 1701.351562 226.003906 1704.71875 C 230.421875 1703.785156 232.476562 1701.148438 234.882812 1699.289062 C 287.636719 1658.679688 336.6875 1613.570312 388.542969 1571.898438 C 461.390625 1513.351562 535.777344 1456.710938 610.039062 1399.941406 C 654.460938 1365.980469 697.914062 1330.859375 734.816406 1288.429688 C 760.015625 1259.449219 781.449219 1228.199219 794.5625 1191.78125 C 797.703125 1183.050781 797.746094 1183 788.4375 1183.039062 C 741.972656 1183.238281 698.707031 1172.628906 660.953125 1144.429688 C 629.777344 1121.140625 608.527344 1091.109375 603.707031 1051.761719 C 594.816406 979.28125 658.191406 920.441406 730.398438 933.511719 C 754.054688 937.78125 775.53125 947.46875 795.007812 961.28125 C 841.113281 993.980469 872.785156 1036.679688 883.925781 1093 C 885.328125 1100.121094 888.089844 1099.5 893.121094 1096.898438 C 937.195312 1074.179688 959.546875 1037.769531 961.070312 988.550781 C 963.363281 914.550781 942.113281 849.308594 888.535156 796.320312 C 882.546875 790.390625 875.929688 785.300781 869.3125 780.148438 C 861.175781 773.828125 858.808594 767.128906 862.039062 760.589844 C 865.34375 753.929688 872.945312 751.230469 882.699219 754.121094 C 903.066406 760.171875 920.898438 771.210938 935.980469 785.738281 C 984.046875 832.058594 1012.558594 888.191406 1018.070312 955.269531 C 1020.308594 982.511719 1019.640625 1009.691406 1012.730469 1036.261719 C 997.144531 1096.148438 959.253906 1136.890625 902.570312 1159.828125 C 889.183594 1165.25 883.585938 1172.191406 880.632812 1186.230469 C 868.046875 1246.050781 837.699219 1297.058594 798.773438 1343.410156 C 764.121094 1384.671875 724.039062 1420.171875 681.574219 1453.03125 C 597.800781 1517.839844 514.183594 1582.871094 429.730469 1646.78125 C 385.796875 1680.019531 339.304688 1709.816406 295.828125 1743.75 C 293.53125 1745.539062 290.457031 1746.65625 289.375 1750.027344 "/>
+      </svg>
+    </div>
+    <img class="hero-human-photo" src="assets/photo_intro.webp" alt="Erwan, formateur Python pour les métiers">
+  </div>
+
+</section>
+
+<!-- ══ IA ANGLE ══ -->
+<section class="s-surface">
+  <div class="container-wide">
+    <div class="label label-blue">L'avenir de votre métier</div>
+    <h2 class="section-title title-dark">L'IA change tout.<br>Votre compréhension métier est votre atout.</h2>
+    <p class="section-intro">
+      L'IA introduit une rupture sans précédent pour l'analytique en entreprise : la barrière technique qui tenait les métiers à l'écart de la puissance et la polyvalence de Python est tombé. Ce qui était réservé aux profils tech est maintenant à la portée de ceux qui comprennent le mieux la donnée : vous.
+    </p>
+    <div class="ia-grid-split">
+      <div class="ia-cards-col">
+        <div class="ia-card ia-card-light">
+          <div class="ia-icon">🧠</div>
+          <h3>Comprendre pour pouvoir challenger</h3>
+          <p>Vibe-coder, c'est déjà très bien. Mais sans maîtrise, c'est se soumettre à un résultat que vous ne pouvez ni vérifier, ni faire facilement évoluer. <strong>Cette formation vous rend apte à lire un script que l'IA génère, à repérer une erreur, et à adapter un script à vos propres données</strong>, pour être véritablement garant de vos productions.</p>
+        </div>
+        <div class="ia-card ia-card-light">
+          <div class="ia-icon">💡</div>
+          <h3>Le rôle data se déplace vers les métiers</h3>
+          <p>L'analyse de données et les automatisations sont en train de migrer côté métier. La barrière technique qui les a longtemps cantonnés aux équipes tech étant levée, la priorité est devenue autre : <strong>les remettre dans les mains de ceux qui comprennent le mieux ce que la donnée doit produire</strong>. Les meilleurs profils analytiques maîtrisent déjà Python. Dans quelques années, ce sera aussi naturel pour un profil métier qu'Excel l'est aujourd'hui.</p>
+        </div>
+        <div class="ia-card ia-card-light">
+          <div class="ia-icon">🚀</div>
+          <h3>Python n'a jamais été aussi accessible</h3>
+          <p><strong>Python est le langage de référence le plus accessible pour manipuler des données et automatiser des traitements</strong>. L'IA le rend encore plus accessible. Décrire un besoin, obtenir un script, le comprendre, l'adapter : ce cycle est maintenant à la portée de tout profil analytique, sans passer par une équipe IT.</p>
+        </div>
+      </div>
+      <div class="ia-image-col">
+        <div style="width:100%; max-width:100%; overflow:hidden; position:sticky; top:80px;">
+          <div class="notebook-wrap">
+            <div class="nb nb-desktop">
+
+              <!-- ── Cellule MD : en-tête ── -->
+              <div class="nb-cell nb-cell-md">
+                <div class="nb-gutter"></div>
+                <div class="nb-body">
+                  <h2 class="nb-title-main">Analyse de données de ventes</h2>
+                  <table class="nb-desktop-table"><tr>
+                    <th>Objectif</th><th>Gain métier</th>
+                  </tr><tr>
+                    <td>• Consolider plusieurs fichiers CSV<br>• Enrichir avec un référentiel produit</td>
+                    <td>• Automatisation d'un process manuel<br>• Fiabilité et contrôles intégrés</td>
+                  </tr></table>
+                  <table class="nb-mobile-table"><tr>
+                    <th>Objectif</th><th>Gain métier</th>
+                  </tr><tr>
+                    <td>• Consolider plusieurs CSV<br>• Associer un produit</td>
+                    <td>• Automatisation d'un process manuel<br>• Fiabilité et contrôles intégrés</td>
+                  </tr></table>
+                </div>
+              </div>
+              <div class="nb-sep"></div>
+
+              <!-- ── Cellule code : paramètres ── -->
+              <div class="nb-cell">
+                <div class="nb-gutter">[1]</div>
+                <div class="nb-body"><span class="nb-section nb-cm">### 1) Paramètres d'entrée</span>
+<span class="nb-blk"><span class="nb-cm"># Chemin du répertoire contenant les fichiers CSV de ventes</span>
+<span class="nb-pl">DATA_FOLDER </span><span class="nb-op">=</span> <span class="nb-str">"données/ventes"</span></span><span class="nb-blk"><span class="nb-cm"># Chemin vers le fichier Excel de référentiel produit</span>
+<span class="nb-pl">PRODUCT_FILE </span><span class="nb-op">=</span> <span class="nb-str">"données/produits.xlsx"</span></span><span class="nb-blk"><span class="nb-cm"># Chemin du fichier Excel de sortie</span>
+<span class="nb-pl">OUTPUT_FILE </span><span class="nb-op">=</span> <span class="nb-str">"output/analyse_ventes.xlsx"</span></span></div>
+              </div>
+              <div class="nb-sep"></div>
+
+              <!-- ── Cellule code : tout le traitement ── -->
+              <div class="nb-cell">
+                <div class="nb-gutter">[2]</div>
+                <div class="nb-body"><span class="nb-section nb-cm">### 2) Import des librairies et fonctions</span>
+<span class="nb-blk"><span class="nb-kw">import</span> <span class="nb-pl">pandas</span> <span class="nb-kw">as</span> <span class="nb-pl">pd</span>
+<span class="nb-kw">import</span> <span class="nb-pl">os</span><span class="nb-op">,</span> <span class="nb-pl">glob</span></span><span class="nb-blk-end"><span class="nb-kw">def</span> <span class="nb-fn">load_csv_folder</span><span class="nb-op">(</span><span class="nb-pl">folder_path</span><span class="nb-op">):</span>
+<span class="nb-pl">    </span><span class="nb-str">"""</span>
+<span class="nb-pl">    </span><span class="nb-str">Charge tous les fichiers CSV d'un dossier et les concatène dans un seul DataFrame</span>
+<span class="nb-pl">    </span><span class="nb-str">"""</span>
+<span class="nb-pl">    files </span><span class="nb-op">=</span> <span class="nb-pl">glob</span><span class="nb-op">.</span><span class="nb-fn">glob</span><span class="nb-op">(</span><span class="nb-pl">os</span><span class="nb-op">.</span><span class="nb-pl">path</span><span class="nb-op">.</span><span class="nb-fn">join</span><span class="nb-op">(</span><span class="nb-pl">folder_path</span><span class="nb-op">,</span> <span class="nb-str">"*.csv"</span><span class="nb-op">))</span>
+<span class="nb-pl">    df_concat </span><span class="nb-op">=</span> <span class="nb-pl">pd</span><span class="nb-op">.</span><span class="nb-fn">concat</span><span class="nb-op">([</span><span class="nb-pl">pd</span><span class="nb-op">.</span><span class="nb-fn">read_csv</span><span class="nb-op">(</span><span class="nb-pl">file</span><span class="nb-op">)</span> <span class="nb-kw">for</span> <span class="nb-pl">file</span> <span class="nb-kw">in</span> <span class="nb-pl">files</span><span class="nb-op">],</span> <span class="nb-pl">ignore_index</span><span class="nb-op">=</span><span class="nb-kw">True</span><span class="nb-op">)</span>
+<span class="nb-pl">    </span><span class="nb-kw">return</span> <span class="nb-pl">df_concat</span></span>
+<span class="nb-section nb-cm">### 3) Import des données</span>
+<span class="nb-blk-end"><span class="nb-pl">df_sales </span><span class="nb-op">=</span> <span class="nb-fn">load_csv_folder</span><span class="nb-op">(</span><span class="nb-pl">DATA_FOLDER</span><span class="nb-op">)</span>
+<span class="nb-pl">df_products </span><span class="nb-op">=</span> <span class="nb-pl">pd</span><span class="nb-op">.</span><span class="nb-fn">read_excel</span><span class="nb-op">(</span><span class="nb-pl">PRODUCT_FILE</span><span class="nb-op">)</span>
+<span class="nb-bi">print</span><span class="nb-op">(</span><span class="nb-str">f"[INFO] Nombre de lignes importées depuis </span><span class="nb-op">{</span><span class="nb-pl">DATA_FOLDER</span><span class="nb-op">}</span><span class="nb-str"> : </span><span class="nb-op">{</span><span class="nb-bi">len</span><span class="nb-op">(</span><span class="nb-pl">df_sales</span><span class="nb-op">)}</span><span class="nb-str">"</span><span class="nb-op">)</span></span>
+<span class="nb-section nb-cm">### 4) Traitement des données</span>
+<span class="nb-blk"><span class="nb-cm"># jointure avec le référentiel produit</span>
+<span class="nb-pl">df_all </span><span class="nb-op">=</span> <span class="nb-pl">pd</span><span class="nb-op">.</span><span class="nb-fn">merge</span><span class="nb-op">(</span><span class="nb-pl">df_sales</span><span class="nb-op">,</span> <span class="nb-pl">df_products</span><span class="nb-op">,</span> <span class="nb-pl">on</span><span class="nb-op">=</span><span class="nb-str">"id produit"</span><span class="nb-op">,</span> <span class="nb-pl">how</span><span class="nb-op">=</span><span class="nb-str">"left"</span><span class="nb-op">,</span> <span class="nb-pl">validate </span><span class="nb-op">=</span> <span class="nb-str">"m:1"</span><span class="nb-op">)</span></span><span class="nb-blk"><span class="nb-cm"># calcul du chiffre d'affaires = quantité × prix unitaire</span>
+<span class="nb-pl">df_all</span><span class="nb-op">[</span><span class="nb-str">"chiffre d'affaires"</span><span class="nb-op">] =</span> <span class="nb-pl">df_all</span><span class="nb-op">[</span><span class="nb-str">"quantité"</span><span class="nb-op">]</span> <span class="nb-op">*</span> <span class="nb-pl">df_all</span><span class="nb-op">[</span><span class="nb-str">"prix unitaire"</span><span class="nb-op">]</span></span><span class="nb-blk"><span class="nb-cm"># agrégation par catégorie</span>
+<span class="nb-pl">df_summary </span><span class="nb-op">= (</span>
+<span class="nb-pl">    df_all</span>
+<span class="nb-pl">    </span><span class="nb-op">.</span><span class="nb-fn">groupby</span><span class="nb-op">(</span><span class="nb-str">"catégorie"</span><span class="nb-op">)</span>
+<span class="nb-pl">    </span><span class="nb-op">.</span><span class="nb-fn">agg</span><span class="nb-op">({</span><span class="nb-str">"chiffre d'affaires"</span><span class="nb-op">:</span> <span class="nb-str">"sum"</span><span class="nb-op">,</span> <span class="nb-str">"quantité"</span><span class="nb-op">:</span> <span class="nb-str">"sum"</span><span class="nb-op">})</span>
+<span class="nb-pl">    </span><span class="nb-op">.</span><span class="nb-fn">sort_values</span><span class="nb-op">(</span><span class="nb-pl">by</span><span class="nb-op">=</span><span class="nb-str">"chiffre d'affaires"</span><span class="nb-op">,</span> <span class="nb-pl">ascending</span><span class="nb-op">=</span><span class="nb-kw">False</span><span class="nb-op">)</span>
+<span class="nb-op">)</span></span><span class="nb-blk-end"><span class="nb-cm"># contrôle de cohérence</span>
+<span class="nb-pl">df_missing </span><span class="nb-op">=</span> <span class="nb-pl">df_all</span><span class="nb-op">[</span><span class="nb-pl">df_all</span><span class="nb-op">[</span><span class="nb-str">"catégorie"</span><span class="nb-op">].</span><span class="nb-fn">isna</span><span class="nb-op">()]</span>
+<span class="nb-kw">if</span> <span class="nb-bi">len</span><span class="nb-op">(</span><span class="nb-pl">df_missing</span><span class="nb-op">) &gt;</span> <span class="nb-num">0</span><span class="nb-op">:</span>
+<span class="nb-pl">    </span><span class="nb-bi">print</span><span class="nb-op">(</span><span class="nb-str">f"[ALERTE] Produits sans correspondance détectés, </span><span class="nb-op">{</span><span class="nb-bi">len</span><span class="nb-op">(</span><span class="nb-pl">df_missing</span><span class="nb-op">)}</span><span class="nb-str"> lignes concernées"</span><span class="nb-op">)</span></span>
+<span class="nb-section nb-cm">### 5) Export des résultats</span>
+<span class="nb-blk"><span class="nb-pl">df_summary</span><span class="nb-op">.</span><span class="nb-fn">to_excel</span><span class="nb-op">(</span><span class="nb-pl">OUTPUT_FILE</span><span class="nb-op">,</span> <span class="nb-pl">sheet_name</span><span class="nb-op">=</span><span class="nb-str">"Bilan"</span><span class="nb-op">)</span>
+<span class="nb-bi">print</span><span class="nb-op">(</span><span class="nb-str">f"[INFO] Export terminé : </span><span class="nb-op">{</span><span class="nb-pl">OUTPUT_FILE</span><span class="nb-op">}</span><span class="nb-str">"</span><span class="nb-op">)</span></span></div>
+              </div>
+
+            </div><!-- /.nb nb-desktop -->
+
+            <!-- ── VERSION MOBILE ── -->
+            <div class="nb nb-mobile">
+
+              <!-- ── Cellule MD : en-tête ── -->
+              <div class="nb-cell nb-cell-md">
+                <div class="nb-gutter"></div>
+                <div class="nb-body">
+                  <h2 class="nb-title-main">Analyse de données de ventes</h2>
+                  <table><tr>
+                    <th>Objectif</th><th>Gain métier</th>
+                  </tr><tr>
+                    <td>• Consolider plusieurs CSV<br>• Associer un produit</td>
+                    <td>• Automatisation d'un process manuel<br>• Fiabilité et contrôles intégrés</td>
+                  </tr></table>
+                </div>
+              </div>
+              <div class="nb-sep"></div>
+
+              <!-- ── Cellule code : paramètres ── -->
+              <div class="nb-cell">
+                <div class="nb-gutter">[1]</div>
+                <div class="nb-body"><span class="nb-section nb-cm">### 1) Paramètres d'entrée</span>
+<span class="nb-blk"><span class="nb-cm"># Répertoire fichiers CSV de ventes</span>
+<span class="nb-pl">DATA_FOLDER </span><span class="nb-op">=</span> <span class="nb-str">"données/ventes"</span></span><span class="nb-blk"><span class="nb-cm"># Référentiel produit Excel</span>
+<span class="nb-pl">PRODUCT_FILE </span><span class="nb-op">=</span> <span class="nb-str">"données/produits.xlsx"</span></span><span class="nb-blk"><span class="nb-cm"># Fichier Excel de sortie</span>
+<span class="nb-pl">OUTPUT_FILE </span><span class="nb-op">=</span> <span class="nb-str">"output/analyse_ventes.xlsx"</span></span></div>
+              </div>
+              <div class="nb-sep"></div>
+
+              <!-- ── Cellule code : tout le traitement ── -->
+              <div class="nb-cell">
+                <div class="nb-gutter">[2]</div>
+                <div class="nb-body"><span class="nb-section nb-cm">### 2) Import des librairies et fonctions</span>
+<span class="nb-blk"><span class="nb-kw">import</span> <span class="nb-pl">pandas</span> <span class="nb-kw">as</span> <span class="nb-pl">pd</span>
+<span class="nb-kw">import</span> <span class="nb-pl">os</span><span class="nb-op">,</span> <span class="nb-pl">glob</span></span><span class="nb-blk-end"><span class="nb-kw">def</span> <span class="nb-fn">load_csv_folder</span><span class="nb-op">(</span><span class="nb-pl">folder_path</span><span class="nb-op">):</span>
+<span class="nb-pl">    </span><span class="nb-str">"""</span>
+<span class="nb-pl">    </span><span class="nb-str">Charge et concatène les CSV du dossier</span>
+<span class="nb-pl">    </span><span class="nb-str">"""</span>
+<span class="nb-pl">    files </span><span class="nb-op">=</span> <span class="nb-pl">glob</span><span class="nb-op">.</span><span class="nb-fn">glob</span><span class="nb-op">(</span>
+<span class="nb-pl">        </span><span class="nb-pl">os</span><span class="nb-op">.</span><span class="nb-pl">path</span><span class="nb-op">.</span><span class="nb-fn">join</span><span class="nb-op">(</span><span class="nb-pl">folder_path</span><span class="nb-op">,</span> <span class="nb-str">"*.csv"</span><span class="nb-op">))</span>
+<span class="nb-pl">    df_concat </span><span class="nb-op">=</span> <span class="nb-pl">pd</span><span class="nb-op">.</span><span class="nb-fn">concat</span><span class="nb-op">([</span>
+<span class="nb-pl">        </span><span class="nb-pl">pd</span><span class="nb-op">.</span><span class="nb-fn">read_csv</span><span class="nb-op">(</span><span class="nb-pl">f</span><span class="nb-op">)</span> <span class="nb-kw">for</span> <span class="nb-pl">f</span> <span class="nb-kw">in</span> <span class="nb-pl">files</span><span class="nb-op">],</span>
+<span class="nb-pl">        </span><span class="nb-pl">ignore_index</span><span class="nb-op">=</span><span class="nb-kw">True</span><span class="nb-op">)</span>
+<span class="nb-pl">    </span><span class="nb-kw">return</span> <span class="nb-pl">df_concat</span></span>
+<span class="nb-section nb-cm">### 3) Import des données</span>
+<span class="nb-blk-end"><span class="nb-pl">df_sales </span><span class="nb-op">=</span> <span class="nb-fn">load_csv_folder</span><span class="nb-op">(</span><span class="nb-pl">DATA_FOLDER</span><span class="nb-op">)</span>
+<span class="nb-pl">df_products </span><span class="nb-op">=</span> <span class="nb-pl">pd</span><span class="nb-op">.</span><span class="nb-fn">read_excel</span><span class="nb-op">(</span><span class="nb-pl">PRODUCT_FILE</span><span class="nb-op">)</span>
+<span class="nb-bi">print</span><span class="nb-op">(</span><span class="nb-str">f"[INFO] Lignes : </span><span class="nb-op">{</span><span class="nb-bi">len</span><span class="nb-op">(</span><span class="nb-pl">df_sales</span><span class="nb-op">)}</span><span class="nb-str">"</span><span class="nb-op">)</span></span>
+<span class="nb-section nb-cm">### 4) Traitement des données</span>
+<span class="nb-blk"><span class="nb-cm"># jointure avec le référentiel produit</span>
+<span class="nb-pl">df_all </span><span class="nb-op">=</span> <span class="nb-pl">pd</span><span class="nb-op">.</span><span class="nb-fn">merge</span><span class="nb-op">(</span>
+<span class="nb-pl">    </span><span class="nb-pl">df_sales</span><span class="nb-op">,</span> <span class="nb-pl">df_products</span><span class="nb-op">,</span>
+<span class="nb-pl">    </span><span class="nb-pl">on</span><span class="nb-op">=</span><span class="nb-str">"id produit"</span><span class="nb-op">,</span> <span class="nb-pl">how</span><span class="nb-op">=</span><span class="nb-str">"left"</span><span class="nb-op">,</span>
+<span class="nb-pl">    </span><span class="nb-pl">validate</span><span class="nb-op">=</span><span class="nb-str">"m:1"</span><span class="nb-op">,</span>
+<span class="nb-op">)</span></span><span class="nb-blk"><span class="nb-cm"># CA = quantité × prix unitaire</span>
+<span class="nb-pl">df_all</span><span class="nb-op">[</span><span class="nb-str">"chiffre d'affaires"</span><span class="nb-op">] = (</span>
+<span class="nb-pl">    </span><span class="nb-pl">df_all</span><span class="nb-op">[</span><span class="nb-str">"quantité"</span><span class="nb-op">]</span>
+<span class="nb-pl">    </span><span class="nb-op">*</span> <span class="nb-pl">df_all</span><span class="nb-op">[</span><span class="nb-str">"prix unitaire"</span><span class="nb-op">]</span>
+<span class="nb-op">)</span></span><span class="nb-blk"><span class="nb-cm"># agrégation par catégorie</span>
+<span class="nb-pl">df_summary </span><span class="nb-op">= (</span>
+<span class="nb-pl">    df_all</span>
+<span class="nb-pl">    </span><span class="nb-op">.</span><span class="nb-fn">groupby</span><span class="nb-op">(</span><span class="nb-str">"catégorie"</span><span class="nb-op">)</span>
+<span class="nb-pl">    </span><span class="nb-op">.</span><span class="nb-fn">agg</span><span class="nb-op">({</span><span class="nb-str">"chiffre d'affaires"</span><span class="nb-op">:</span> <span class="nb-str">"sum"</span><span class="nb-op">,</span>
+<span class="nb-pl">         </span><span class="nb-str">"quantité"</span><span class="nb-op">:</span> <span class="nb-str">"sum"</span><span class="nb-op">})</span>
+<span class="nb-pl">    </span><span class="nb-op">.</span><span class="nb-fn">sort_values</span><span class="nb-op">(</span>
+<span class="nb-pl">        </span><span class="nb-pl">by</span><span class="nb-op">=</span><span class="nb-str">"chiffre d'affaires"</span><span class="nb-op">,</span>
+<span class="nb-pl">        </span><span class="nb-pl">ascending</span><span class="nb-op">=</span><span class="nb-kw">False</span><span class="nb-op">)</span>
+<span class="nb-op">)</span></span><span class="nb-blk-end"><span class="nb-cm"># contrôle de cohérence</span>
+<span class="nb-pl">df_missing </span><span class="nb-op">=</span> <span class="nb-pl">df_all</span><span class="nb-op">[</span><span class="nb-pl">df_all</span><span class="nb-op">[</span><span class="nb-str">"catégorie"</span><span class="nb-op">].</span><span class="nb-fn">isna</span><span class="nb-op">()]</span>
+<span class="nb-kw">if</span> <span class="nb-bi">len</span><span class="nb-op">(</span><span class="nb-pl">df_missing</span><span class="nb-op">) &gt;</span> <span class="nb-num">0</span><span class="nb-op">:</span>
+<span class="nb-pl">    </span><span class="nb-bi">print</span><span class="nb-op">(</span><span class="nb-str">f"[ALERTE] Sans correspondance : </span><span class="nb-op">{</span><span class="nb-bi">len</span><span class="nb-op">(</span><span class="nb-pl">df_missing</span><span class="nb-op">)}</span><span class="nb-str"> lignes"</span><span class="nb-op">)</span></span>
+<span class="nb-section nb-cm">### 5) Export des résultats</span>
+<span class="nb-blk"><span class="nb-pl">df_summary</span><span class="nb-op">.</span><span class="nb-fn">to_excel</span><span class="nb-op">(</span>
+<span class="nb-pl">    </span><span class="nb-pl">OUTPUT_FILE</span><span class="nb-op">,</span> <span class="nb-pl">sheet_name</span><span class="nb-op">=</span><span class="nb-str">"Bilan"</span><span class="nb-op">,</span>
+<span class="nb-op">)</span>
+<span class="nb-bi">print</span><span class="nb-op">(</span><span class="nb-str">f"[INFO] Export terminé : </span><span class="nb-op">{</span><span class="nb-pl">OUTPUT_FILE</span><span class="nb-op">}</span><span class="nb-str">"</span><span class="nb-op">)</span></span></div>
+              </div>
+
+            </div><!-- /.nb nb-mobile -->
+            <div class="notebook-caption nb-desktop-table">
+              Exemple d'un script Python dans un Jupyter Notebook.
+            </div>
+            <div class="notebook-caption nb-mobile-table">
+              Exemple d'un script Python dans un Notebook.
+            </div>
+          </div><!-- /.notebook-wrap -->
+        </div>
+      </div>
+    </div>
+    <div class="ia-highlight ia-highlight-light">
+      <p>
+        <strong>Une partie croissante des usages data et automatisation migre vers les métiers.</strong> Et leur maîtrise va devenir un différenciateur individuel pour les profils métiers analytiques : ceux qui sauront combiner leur expertise terrain et leur maîtrise technique tireront le mieux leur épingle du jeu. C'est précisément ce que cette formation vous permet de construire, avec Python.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PAIN ══ -->
+<section class="s-dark">
+  <div class="container">
+    <div class="label label-yellow">L'enjeu</div>
+    <h2 class="section-title title-light">Quand vos outils actuels <span class="text-highlight">atteignent leurs limites</span>.</h2>
+    <p class="pain-intro pain-intro-light">
+      Excel s'est imposé comme l'outil analytique par défaut des équipes métiers, y compris pour des usages qu'il n'a jamais été conçu pour supporter : <strong>fichiers de plusieurs centaines de milliers de lignes, traitements complexes, automatisations, croisements multi-sources</strong>. Les équipes métiers se sont alors tournées vers des solutions de contournement. Chacune avec ses mérites et ses propres limites.
+    </p>
+    <div class="pain-cards">
+      <div class="pain-card pain-card-dark">
+        <div class="pain-card-icon">🐌</div>
+        <h3>Excel poussé hors de sa zone</h3>
+        <p>Excel sature lorsqu'on lui demande de gérer des centaines de milliers de lignes ou des traitements complexes en chaîne. Il n'est pas fautif, simplement pas conçu pour.</p>
+      </div>
+      <div class="pain-card pain-card-dark">
+        <div class="pain-card-icon">🔁</div>
+        <h3>Manipulations chronophages</h3>
+        <p>Des tâches répétitives refaites à la main chaque semaine, sources d'erreurs et de temps perdu qui ne se récupère pas.</p>
+      </div>
+      <div class="pain-card pain-card-dark">
+        <div class="pain-card-icon">🔗</div>
+        <h3>Sources multiples à croiser</h3>
+        <p>Rapprocher plusieurs fichiers de formats différents peut s'avérer être un véritable casse-tête là où un script Python offre une grande flexibilité.</p>
+      </div>
+      <div class="pain-card pain-card-dark">
+        <div class="pain-card-icon">🔧</div>
+        <h3>Des alternatives plafonnées</h3>
+        <p>VBA est lent, et Microsoft pousse vers d'autres solutions. Power Query et Power Pivot atteignent rapidement leurs limites sur des workflow complexes, compliquent la maintenabilité, et se limitent au requêtage. Fautes de bonnes pratiques, ces fichiers deviennent souvent illisibles.</p>
+      </div>
+      <div class="pain-card pain-card-dark">
+        <div class="pain-card-icon">💸</div>
+        <h3>Outils no-code coûteux, opaques et limités</h3>
+        <p>Alteryx, Zapier et leurs équivalents reproduisent trop souvent à prix fort ce qu'un script Python ferait gratuitement. Ils sont mal documentés, peuvent provoquer des comportements inattendus, et sont bornés aux fonctionnalités prévues par l'éditeur.</p>
+      </div>
+      <div class="pain-card pain-card-dark">
+        <div class="pain-card-icon">🤷</div>
+        <h3>Scripts vibe-codés non maîtrisés</h3>
+        <p>Certains ont déjà pris le réflexe de demander un script Python à une IA. C'est un excellent point de départ. Mais sans comprendre ce que le script fait, impossible de vérifier qu'il est juste, de corriger une erreur, ou de l'adapter. On reste dépendant d'un outil qu'on ne maîtrise pas.</p>
+      </div>
+    </div>
+    <div class="tools-verdict">
+      Chaque outil a rendu service à sa manière. Mais aucun n'apporte une solution complète : <strong>donner aux profils métiers analytiques un outil puissant, lisible, maintenable et suffisamment polyvalent pour aller au-delà du seul traitement de données</strong>. C'est exactement ce qu'offre Python.
+    </div>
+  </div>
+</section>
+
+<!-- ══ BEFORE / AFTER ══ -->
+<section class="s-surface">
+  <div class="container">
+    <div class="label label-blue">Avant / Après</div>
+    <h2 class="section-title title-dark">Ce que Python pour les métiers<br>change concrètement dans votre quotidien.</h2>
+    <div class="ba-grid">
+      <!-- En-têtes -->
+      <div class="ba-col-head ba-col-head-before">
+        <div class="ba-head ba-head-before">⏳ Avant la formation</div>
+      </div>
+      <div class="ba-col-head ba-col-head-after">
+        <div class="ba-head ba-head-after">⚡ Après la formation</div>
+      </div>
+      <!-- Rangée 1 -->
+      <div class="ba-cell ba-cell-before"><div class="ba-bullet ba-bullet-before">✕</div><div>Des heures pour rapprocher deux exports de formats différents, à la main, avec des risques d'erreur</div></div>
+      <div class="ba-cell ba-cell-after"><div class="ba-bullet ba-bullet-after">✓</div><div>Le même rapprochement tourne en <strong>quelques secondes</strong>, dans un script de 15 lignes que vous pouvez réutiliser et adapter</div></div>
+      <!-- Rangée 2 -->
+      <div class="ba-cell ba-cell-before"><div class="ba-bullet ba-bullet-before">✕</div><div>Un fichier Excel qui rame ou plante sur des volumes élevés, avec des formules complexes</div></div>
+      <div class="ba-cell ba-cell-after"><div class="ba-bullet ba-bullet-after">✓</div><div>Vous réalisez des traitements avancés sur des <strong>volumes largement supérieurs </strong>à ce qu'Excel supporte confortablement</div></div>
+      <!-- Rangée 3 -->
+      <div class="ba-cell ba-cell-before"><div class="ba-bullet ba-bullet-before">✕</div><div>Des fichiers sans structure ni commentaires, impossibles à auditer et à reprendre, même par vous</div></div>
+      <div class="ba-cell ba-cell-after"><div class="ba-bullet ba-bullet-after">✓</div><div>Vos scripts sont structurés, commentés, documentés selon des <strong>bonnes pratiques</strong>, relisibles par vous dans six mois, reprenables par un collègue sans explication</div></div>
+      <!-- Rangée 4 -->
+      <div class="ba-cell ba-cell-before"><div class="ba-bullet ba-bullet-before">✕</div><div>Des automatisations que vous avez vous-même construites, mais que vous ne sauriez plus modifier sans tout risquer de casser</div></div>
+      <div class="ba-cell ba-cell-after"><div class="ba-bullet ba-bullet-after">✓</div><div>Vos automatisations sont <strong>robustes, maintenables</strong>, pas des boîtes noires fragiles</div></div>
+      <!-- Rangée 5 -->
+      <div class="ba-cell ba-cell-before"><div class="ba-bullet ba-bullet-before">✕</div><div>Un script vibe-codé dont vous ne pouvez ni vous porter garant, ni faire évoluer</div></div>
+      <div class="ba-cell ba-cell-after"><div class="ba-bullet ba-bullet-after">✓</div><div>Vous lisez et <strong>challengez</strong> un script Python généré par l'IA avant de le mettre en production, et êtes capable de l'adapter</div></div>
+      <!-- Rangée 6 -->
+      <div class="ba-cell ba-cell-before"><div class="ba-bullet ba-bullet-before">✕</div><div>Vous restez cantonné au traitement de données</div></div>
+      <div class="ba-cell ba-cell-after"><div class="ba-bullet ba-bullet-after">✓</div><div>Vous allez <strong>au-delà du traitement de données</strong> : graphiques avancés, envoi de mails automatisés, lecture de PDF, reporting automatique... le tout en Python, avec une même logique que vous maîtrisez</div></div>
+    </div>
+
+    <div class="prog-meta">
+      <div class="prog-meta-item">💻 Formation en ligne à votre rythme</div>
+      <div class="prog-meta-item">🥊 Coaching personnalisé</div>
+      <div class="prog-meta-item">🗨 Discord privé</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ AU-DELÀ DES DONNÉES ══ -->
+<section class="s-bg-image">
+  <img src="assets/bg_image_connections.webp" class="bg-img">
+  <div class="container-wide">
+    <div class="s-bg-image-inner-50">
+      <div class="label label-yellow">DE NOUVELLES POSSIBILITÉS</div>
+      <h2 class="section-title title-light">Un seul langage pour <br><span class="text-highlight">de multiples usages.</span></h2>
+      <div class="unique-text unique-text-light">
+        <p>Python est l'outil idéal pour vos traitements de données, et c'est ce que cette formation vous apprend en priorité. Mais son périmètre va bien au-delà.</p>
+        <p>Avec un seul langage, gratuit, vous pouvez couvrir des besoins que vous adressez aujourd'hui avec une combinaison d'outils épars et coûteux : automatisation de process complets, envoi de mails, lecture et génération de PDF, graphiques interactifs avancés, interactions avec des APIs, et bien d'autres.</p>
+        <p>Ce que Power Query, Make, ou votre outil de marketing automation font séparément, avec leurs abonnements, leurs limites et leurs boîtes noires, <strong>Python permet d'en centraliser une grande partie, dans un même environnement flexible, avec une syntaxe que vous connaissez déjà</strong>.</p>
+      </div>
+      <div style="margin-top:2rem;">
+        <a href="#offre" class="btn-primary">Accéder à de nouvelles possibilités →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RASSURANT ══ -->
+<section class="s-pale reassurance" style="position:relative; overflow:hidden;">
+  <div class="container">
+    <h2>Non, Python n'est pas réservé<br>aux développeurs.</h2>
+    <p class="lead">
+      C'est une idée reçue qui prive beaucoup de profils analytiques, y compris d'utilisateurs pourtant solides d'Excel, d'un levier considérable. Python est <strong>le plus accessible et polyvalent des langages de programmation, utilisé par des millions de personnes au profil très différent</strong>. Et c'est d'ailleurs pour ça que les IA utilisent Python par défaut lorsqu'elles génèrent un script.
+      <br><br>
+      Cette formation vous apprend à écrire vos propres scripts et à en reprendre des existants, <strong>en comprenant vraiment ce que vous faites</strong>, pourquoi ça fonctionne, et comment l'adapter. Vous repartez avec une maîtrise réelle, pas une collection de recettes que vous ne sauriez pas modifier.
+    </p>
+    <div class="reassurance-pills">
+      <div class="pill">✓ Aucun bagage technique</div>
+      <div class="pill">✓ Vocabulaire accessible</div>
+      <div class="pill">✓ Vous pratiquez à chaque étape</div>
+      <div class="pill">✓ Cas métiers réels</div>
+      <div class="pill">✓ Vous êtes accompagné</div>
+    </div>
+  </div>
+
+  <!-- annotation humaine flottante -->
+  <div class="reassurance-human" aria-hidden="true">
+    <div class="reassurance-human-annotation">
+      <span class="reassurance-human-text">On ne va quand même pas<br>laisser ce plaisir aux techs&nbsp;!</span>
+    </div>
+    <img class="reassurance-human-photo" src="assets/photo_plaisir.webp" alt="">
+  </div>
+
+</section>
+
+<!-- ══ POUR QUI + PLOTLY ══ -->
+<section class="s-surface">
+  <div class="container-wide">
+    <div class="label label-blue">Pour qui ?</div>
+    <h2 class="section-title title-dark">Cette formation est faite pour vous si…</h2>
+    <p class="section-intro">Vous manipulez des données au quotidien et vous sentez que vos outils actuels vous freinent plus qu'ils ne vous aident.</p>
+
+    <div class="pour-qui-grid">
+      <div>
+        <div class="profils">
+          <div class="profil profil-light">
+            <h3>Vous maîtrisez Excel, mais vous sentez un plafond</h3>
+            <p>Peut-être utilisez-vous VBA, Power Query, Power Pivot... Mais vous n'allez pas aussi vite et aussi loin que vous espérez.</p>
+          </div>
+          <div class="profil profil-light">
+            <h3>Vous avez un rôle orienté données</h3>
+            <p>Contrôle de gestion, business analysis, sales ops, marketing digital, risk, logistique, HR analytics… Vous êtes au cœur de la donnée mais vos outils ne suivent plus.</p>
+          </div>
+          <div class="profil profil-light">
+            <h3>Vous voulez tirer parti de l'IA intelligemment</h3>
+            <p>Pas juste copier-coller un script généré. Mais le comprendre, le challenger, l'adapter à votre contexte réel.</p>
+          </div>
+          <div class="profil profil-light">
+            <h3>Vous n'avez aucun background en programmation</h3>
+            <p>C'est exactement le point de départ de cette formation. Pas un obstacle : un point de départ.</p>
+          </div>
+          <div class="profil profil-light">
+            <h3>Vous voulez comprendre ce que vous faites</h3>
+            <p>Pas appliquer des recettes toutes faites, mais maîtriser vos traitements de bout en bout, pouvoir les faire évoluer et les transmettre grâce à des bonnes pratiques.</p>
+          </div>
+          <div class="profil profil-light">
+            <h3>Vous souhaitez aller au-delà du seul traitement de données</h3>
+            <p>Automatiser complètement des process entiers, qui impliquent des extractions de données, des envois de mails, des génération de PDF...</p>
+          </div>
+        </div>
+        <div class="not-for not-for-light">
+          <strong>Cette formation ne s'adresse pas aux développeurs professionnels, data scientists ou autres machine learning engineers.</strong> Elle est pensée pour les profils métiers qui veulent gagner en autonomie sur leurs données, pas pour devenir des experts techniques.
+        </div>
+      </div>
+
+      <div class="plotly-sidebar">
+        <div class="plotly-sidebar-wrap">
+          <div id="cac-legend" class="plotly-legend"></div>
+          <div id="chart" class="plotly-chart"></div>
+          <div class="plotly-sidebar-caption">
+            Cliquez sur un secteur pour filtrer. Survolez un point pour afficher le détail. <strong>Ce type de visualisation interactive, directement depuis vos données, fait partie de ce que vous saurez produire</strong>.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ UNIQUE EN FRANCE ══ -->
+<section class="s-bg-image">
+  <img src="assets/bg_image_fusee.webp" class="bg-img">
+  <div class="container-wide">
+    <div class="s-bg-image-inner-65">
+      <div class="label label-yellow">Une approche inédite</div>
+      <h2 class="section-title title-light">La formation Python pensée<br><span class="text-highlight">pour les métiers.</span></h2>
+      <div class="unique-text unique-text-light">
+        <p>Les formations Python qui existent sont presque toutes conçues pour des profils techniques : data scientists, data engineer, machine learning engineer... Elles supposent un environnement technique, une logique de programmation, et des objectifs qui n'ont rien à voir avec ceux d'un contrôleur de gestion ou d'un business analyst.</p>
+        <p><strong>Cette formation part d'un principe différent.</strong> Vous avez déjà une compétence précieuse : votre compréhension business, votre connaissance de la donnée, votre sens des résultats. Python est l'outil qui vous permet de l'exploiter pleinement. La formation est construite autour de cas concrets issus du quotidien des équipes métiers, adaptés à leur environnement, avec un vocabulaire et une pédagogie adaptés.</p>
+        <p>Pas de théorie abstraite. Pas d'apprentissage non réplicable. <strong>Une progression pensée pour vous permettre de prendre en main Python comme un outil métier</strong>, et qui s'insère dans votre quotidien.</p>
+      </div>
+      <div style="margin-top:2rem;">
+        <a href="#offre" class="btn-primary">Accéder à un nouveau cap →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SOLUTION ══ -->
+<section class="s-light">
+  <div class="container">
+    <div class="label label-blue">Python et Excel</div>
+    <h2 class="section-title title-dark">Python ne remplace pas Excel.<br>Il fait ce qu'Excel ne peut pas faire.</h2>
+    <div class="solution-grid">
+      <div class="solution-text">
+        <p>
+          Excel reste irremplaçable pour ce qu'il fait le mieux : <strong>explorer, présenter et partager</strong> vos données. C'est là qu'il excelle, et cette formation le valorise en tant que tel.
+        </p>
+        <p>
+          Python entre en jeu pour <strong>tout ce qui précède</strong> : nettoyer les sources brutes, croiser des fichiers de formats différents, automatiser les traitements récurrents, gérer les gros volumes. Et il vous rend vos résultats dans un fichier Excel propre, prêt à être partagé.
+        </p>
+        <p>
+          L'objectif est de <strong>mieux travailler avec la donnée</strong>. Plus vite, avec plus de fiabilité, et en pleine maîtrise de ce que vous produisez. Vous conservez Excel là où il est indispensable, et Python prend en charge ce qu'Excel ne sait pas faire.
+        </p>
+      </div>
+      <div>
+        <div class="ep-table">
+          <div class="ep-row">
+            <span class="ep-badge ep-py">Python</span>
+            <span class="ep-text">Croiser plusieurs fichiers, même volumineux, et de formats différents (CSV, Excel, JSON…)</span>
+          </div>
+          <div class="ep-row">
+            <span class="ep-badge ep-py">Python</span>
+            <span class="ep-text">Automatiser des traitements récurrents de façon robuste et maintenable</span>
+          </div>
+          <div class="ep-row">
+            <span class="ep-badge ep-py">Python</span>
+            <span class="ep-text">Aller au-delà du traitement de données : mail, PDF, API...</span>
+          </div>
+          <div class="ep-row">
+            <span class="ep-badge ep-xl">Excel</span>
+            <span class="ep-text">Présenter, modéliser simplement et partager vos résultats avec votre équipe</span>
+          </div>
+          <div class="ep-row">
+            <span class="ep-badge ep-xl">Excel</span>
+            <span class="ep-text">Explorer, analyser et communiquer autour de la donnée</span>
+          </div>
+        </div>
+        <p class="solution-note">Python et Excel ne s'opposent pas : ils se complètent. Chacun là où il est le plus efficace.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROGRAMME ══ -->
+<section class="s-surface" id="programme">
+  <div class="container">
+    <div class="label label-blue">Programme</div>
+    <h2 class="section-title title-dark">Ce que vous allez apprendre,<br>étape par étape.</h2>
+    <p class="section-intro">La formation est organisée en deux parcours complémentaires, afin de séparer distinctement ce qui est essentiel à tout profil métier, de ce qui n'est pertinent que pour certains contextes : un tronc commun à suivre dans l'ordre, fondammental pour tous, puis des modules indépendants, à choisir selon vos besoins.</p>
+
+    <!-- Tronc commun -->
+    <div class="prog-principal">
+      <div class="prog-principal-header">
+        <h3 class="prog-principal-title">Parcours principal</h3>
+        <span class="prog-principal-badge">Modules fondamentaux · À suivre dans l'ordre</span>
+      </div>
+      <p class="prog-principal-desc">Le socle indispensable pour tirer efficacement profit de Python dans son quotidien, en tant que métier. Chaque module prépare le suivant.</p>
+      <div class="modules">
+        <div class="module">
+          <div class="module-num">I</div>
+          <div>
+            <h3>Prise en main de l'environnement</h3>
+            <p>Installation de Python et de Jupyter Notebook, le support d'utilisation de Python adapté dans un contexte métier : accessible, structuré et facilement partageable en équipe. L'installation est guidée pas à pas, à l'écrit et en vidéo.</p>
+          </div>
+        </div>
+        <div class="module">
+          <div class="module-num">II</div>
+          <div>
+            <h3>Les fondamentaux de Python</h3>
+            <p>Pas de survol superficiel. Vous acquérez une vraie compréhension de ce que vous écrivez. Types, variables, boucles, fonctions... : vous assimilez les fondamentaux pour pouvoir comprendre et adapter n'importe quel script à votre contexte, y compris ceux générés par une IA.</p>
+          </div>
+        </div>
+        <div class="module">
+          <div class="module-num">III</div>
+          <div>
+            <h3>Manipulation avancée de données</h3>
+            <p>Vous apprenez à nettoyer, transformer, filtrer, croiser et agréger vos fichiers de manière claire, efficace et maintenable, grâce à la librairie de référence Pandas. Chaque notion est ancrée dans un cas métier concret.</p>
+          </div>
+        </div>
+        <div class="module">
+          <div class="module-num">IV</div>
+          <div>
+            <h3>Bonnes pratiques dans un contexte métier</h3>
+            <p>Structurer et documenter vos scripts pour qu'ils soient clairs, compréhensibles par votre équipe et maintenables dans le temps. Vous apprenez aussi à tirer au mieux profit d'une IA et à favoriser l'adoption de Python dans votre équipe.</p>
+          </div>
+        </div>
+        <div class="module">
+          <div class="module-num">V</div>
+          <div>
+            <h3>Deux cas finaux sur données d'entreprise</h3>
+            <p>Deux cas complets, inspirés de situations réelles, pour mobiliser toutes vos compétences et valider votre maîtrise de bout en bout, des fichiers bruts au livrable Excel prêt à être partagé.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- Parcours complémentaire -->
+    <div class="prog-compl">
+      <div class="prog-compl-header">
+        <h3 class="prog-compl-title">Parcours complémentaire</h3>
+        <span class="prog-compl-badge">Modules indépendants · À choisir selon vos besoins</span>
+      </div>
+      <p class="prog-compl-desc">Une fois le parcours principal complété, ces modules à la carte vous permettent d'aller plus loin dans ce que Python a à vous offrir. Chacun est indépendant : vous suivez ceux qui vous intéressent, dans l'ordre qui vous convient.</p>
+      <div class="prog-compl-grid">
+        <div class="compl-card">
+          <div class="compl-card-icon">📊</div>
+          <h4 class="compl-card-title">Graphiques avancés</h4>
+          <p class="compl-card-desc">Produire des visualisations interactives et sur-mesure directement depuis vos données.</p>
+        </div>
+        <div class="compl-card">
+          <div class="compl-card-icon">📧</div>
+          <h4 class="compl-card-title">Envoi de mails</h4>
+          <p class="compl-card-desc">Automatiser l'envoi d'emails avec une présentation avancée et des pièces jointes.</p>
+        </div>
+        <div class="compl-card">
+          <div class="compl-card-icon">📄</div>
+          <h4 class="compl-card-title">Lecture de PDF</h4>
+          <p class="compl-card-desc">Extraire et traiter automatiquement des données depuis des fichiers PDF.</p>
+        </div>
+        <div class="compl-card">
+          <div class="compl-card-icon">🖨️</div>
+          <h4 class="compl-card-title">Génération de PDF</h4>
+          <p class="compl-card-desc">Générer des rapports PDF structurés et mis en forme directement depuis Python.</p>
+        </div>
+        <div class="compl-card">
+          <div class="compl-card-icon">🤖</div>
+          <h4 class="compl-card-title">Automatisation de votre navigateur</h4>
+          <p class="compl-card-desc">Reproduire le comportement humain sur un navigateur pour automatiser des séries d'actions.</p>
+        </div>
+        <div class="compl-card">
+          <div class="compl-card-icon">🛒</div>
+          <h4 class="compl-card-title">API</h4>
+          <p class="compl-card-desc">Récupérer des données de votre SaaS de paiement ou de votre CRM grâce aux APIs.</p>
+        </div>
+        <div class="compl-card">
+          <div class="compl-card-icon">🤝</div>
+          <h4 class="compl-card-title">Google Colab</h4>
+          <p class="compl-card-desc">Prendre en main l'outil de la suite Google fait pour collaborer avec vos collègues sur vos scripts.</p>
+        </div>
+        <div class="compl-card">
+          <div class="compl-card-icon">🖱</div>
+          <h4 class="compl-card-title">GitHub, tout en clics</h4>
+          <p class="compl-card-desc">Tirer profit de GitHub, avec une approche sans terminal, pour planifier l'exécution de vos scripts et gérer des mots de passe.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="prog-meta">
+      <div class="prog-meta-item">🤝 Une approche résolument tournée métiers</div>
+      <div class="prog-meta-item">🎥 Notebooks pédagogiques, exercices guidés et vidéos</div>
+      <div class="prog-meta-item">💬 Coaching personnalisé et Discord privé</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ACCOMPAGNEMENT ══ -->
+<section class="s-dark">
+  <div class="container-wide">
+    <div class="label label-yellow">Accompagnement</div>
+    <h2 class="section-title title-light">Un apprentissage à votre rythme,<br><span class="text-highlight">mais jamais seul.</span></h2>
+    <p class="section-intro intro-light">
+      La formation se suit en ligne, à votre rythme, depuis votre ordinateur. Vous avancez quand vous le souhaitez, en étant guidé par des supports riches et pensés pour que vous alliez pleinement au bout de votre montée en compétences : cours compréhensibles aboutissant à des exercices pratiques, vidéos explicatives, synthèses, liens avec les notions précédentes... Des <strong>sessions de coaching individuelles avec le formateur</strong> ainsi qu'un <strong>canal Discord privé</strong> vous permettent d'adresser toutes vos questions, et d'être accompagné jusqu'à l'application réelle de vos compétences dans votre environnement professionnel.
+    </p>
+
+    <!-- Produit principal : carte haute avec screenshot -->
+    <div class="accomp-main">
+      <div class="accomp-main-text">
+        <div>
+          <div class="accomp-main-sublabel">La formation</div>
+          <h3 class="accomp-main-title">Accès complet à la plateforme en ligne</h3>
+          <p class="accomp-main-intro">Tous les cours accessibles à tout moment, à vie. Vous progressez à votre rythme, et les vidéos qui accompagnent systématiquement les cours vous accompagnent dans votre apprentissage.</p>
+          <div class="accomp-bullets">
+            <div class="accomp-bullet"><span class="accomp-bullet-arrow">→</span> Une vidéo accompagne chaque cours</div>
+            <div class="accomp-bullet"><span class="accomp-bullet-arrow">→</span> Un exercice par cours, avec corrigé écrit détaillé ET vidéo pour suivre le raisonnement</div>
+            <div class="accomp-bullet"><span class="accomp-bullet-arrow">→</span> Des synthèses, et questions de rappel, pour favoriser la rétention de ce que vous apprenez</div>
+            <div class="accomp-bullet"><span class="accomp-bullet-arrow">→</span> Accès à vie, compatible Windows & Mac</div>
+          </div>
+        </div>
+      </div>
+      <div class="accomp-main-screenshot">
+        <img src="assets/exemple_video_cours.webp"
+             alt="Aperçu d'un cours — Les jointures internes dans Jupyter Notebook">
+        <p class="accomp-main-caption">Extrait d'une vidéo de cours — vous êtes accompagné à l'écrit et à l'oral tout au long de votre apprentissage.</p>
+      </div>
+    </div>
+
+    <div class="accomp-sep">
+      <div class="accomp-sep-line"></div>
+      <div class="accomp-sep-label">Et en plus — pour toujours être conseillé</div>
+      <div class="accomp-sep-line"></div>
+    </div>
+
+    <!-- Les deux bonus valorisés -->
+    <div class="accomp-grid">
+
+      <div class="accomp-card accomp-card-featured">
+        <div class="accomp-card-featured-bar"></div>
+        <div class="accomp-icon">💬</div>
+        <h3>Accès au Discord de la formation</h3>
+        <p>Une question sur un concept, un doute sur votre code, une hésitation sur votre compréhension ? Le Discord privé de la formation vous permet de poser vos questions à tout moment, pour ne jamais rester bloqué.</p>
+        <div class="accomp-card-featured-footer">Pour toute question ponctuelle, et progresser en confiance</div>
+      </div>
+
+      <div class="accomp-card accomp-card-featured">
+        <div class="accomp-card-featured-bar"></div>
+        <div class="accomp-icon">🎯</div>
+        <h3>Coaching personnalisé avec le formateur</h3>
+        <p>Pendant les 3 premiers mois d'accès à la formation, vous disposez de 3 séances de coaching d'une heure en tête-à-tête avec le formateur, pour approfondir le sujet de votre choix : une application de Python que vous souhaitez approfondir, vous conseiller dans vos premières productions, vous aider à convertir vos compétences en levier de progression professionnelle... Vous choisissez !</p>
+        <div class="accomp-card-featured-footer">Pour vous accompagner vers une application efficace et concrète</div>
+      </div>
+
+    </div>
+    <div style="margin-top:2rem;">
+      <a href="#offre" class="btn-primary">Accéder à de nouvelles opportunités →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TÉMOIGNAGES ══ -->
+<section class="s-surface" id="temoignage">
+  <div class="container">
+    <div class="label label-blue">Témoignages</div>
+    <h2 class="section-title title-dark">Ce qu'en disent ceux qui l'ont suivie.</h2>
+    <div class="temo-carousel" id="temoCarousel">
+      <button class="temo-arrow" id="temoPrev" aria-label="Témoignage précédent">&#8249;</button>
+      <div class="temo-outer">
+        <div class="temo-track" id="temoTrack">
+
+          <div class="temo-card">
+            <div class="temo-guillemet">❝</div>
+            <p class="temo-excerpt">J'obtiens maintenant le même résultat en quelques minutes tout en étant plus serein […] Au-delà du gain de temps et de fiabilité, j'aime réellement coder en Python.</p>
+            <div class="temo-footer">
+              <div>
+                <div class="temo-name">Ibrahim</div>
+                <div class="temo-role">Business Analyst</div>
+              </div>
+              <button class="temo-btn" onclick="openTemo('ibrahim')">Lire le témoignage complet →</button>
+            </div>
+          </div>
+
+          <div class="temo-card">
+            <div class="temo-guillemet">❝</div>
+            <p class="temo-excerpt">Je ne connaissais rien à la programmation. […] En fait, c'est bien moins compliqué qu'on peut le croire. […] Erwan est très pédagogue, […] et son coaching m'a beaucoup aidé à progresser.</p>
+            <div class="temo-footer">
+              <div>
+                <div class="temo-name">Carole</div>
+                <div class="temo-role">Responsable conformité</div>
+              </div>
+              <button class="temo-btn" onclick="openTemo('carole')">Lire le témoignage complet →</button>
+            </div>
+          </div>
+
+          <div class="temo-card">
+            <div class="temo-guillemet">❝</div>
+            <p class="temo-excerpt">Grâce à Python, j'arrive maintenant à traiter sans difficulté de gros volumes de données (plus d'un million de lignes), là où je peinais, ou ne parvenais pas, à arriver à mes fins avec VBA ou Power Query.</p>
+            <div class="temo-footer">
+              <div>
+                <div class="temo-name">Louis</div>
+                <div class="temo-role">Chargé d'études et de reporting</div>
+              </div>
+              <button class="temo-btn" onclick="openTemo('louis')">Lire le témoignage complet →</button>
+            </div>
+          </div>
+
+          <div class="temo-card">
+            <div class="temo-guillemet">❝</div>
+            <p class="temo-excerpt">Cette formation se démarque très nettement des autres que j'ai pu suivre, tous domaines confondus, allez-y les yeux fermés.</p>
+            <div class="temo-footer">
+              <div>
+                <div class="temo-name">Guilhem</div>
+                <div class="temo-role">Finance Transformation Manager</div>
+              </div>
+              <button class="temo-btn" onclick="openTemo('guilhem')">Lire le témoignage complet →</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <button class="temo-arrow" id="temoNext" aria-label="Témoignage suivant">&#8250;</button>
+    </div>
+    <div class="temo-dots" id="temoDots"></div>
+  </div>
+</section>
+
+<!-- ══ MODALE TÉMOIGNAGES ══ -->
+<div class="temo-modal-overlay" id="temoOverlay" onclick="closeTemoOnOverlay(event)">
+  <div class="temo-modal">
+    <button class="temo-modal-close" onclick="closeTemo()">&#x2715;</button>
+    <div class="temo-modal-guillemet">❝</div>
+    <p class="temo-modal-text" id="temoModalText"></p>
+    <div class="temo-modal-footer">
+      <div class="temo-modal-name" id="temoModalName"></div>
+      <div class="temo-modal-role" id="temoModalRole"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FORMATEUR ══ -->
+<section class="s-gray" id="formateur">
+  <div class="container">
+    <div class="label label-blue">Le formateur</div>
+    <h2 class="section-title title-dark">Une formation née du terrain.</h2>
+    <div class="formateur-grid">
+      <div class="formateur-photo-col">
+        <div class="formateur-photo-clip">
+          <img class="formateur-photo-img" src="assets/photo_formateur.webp" alt="Erwan, formateur Python pour les métiers">
+        </div>
+        <span class="formateur-photo-caption">Il adore Python,<br>et le transmettre</span>
+      </div>
+      <div class="formateur-text">
+        <p class="formateur-p">J'ai toujours occupé un rôle analytique au sein d'équipes métiers, dans des contextes très variés - <strong class="formateur-strong">finance, risques, partenariats, opérations, RH</strong> - aussi bien en <strong class="formateur-strong">start-up, scale-up, grand groupe du CAC 40 et Big Four</strong>, <strong class="formateur-strong">en France comme à l'étranger</strong>.</p>
+        <p class="formateur-p">Malgré la diversité de ces environnements, un constat est revenu systématiquement : des équipes talentueuses qui consacraient un temps et une énergie considérables à des tâches que Python aurait pu traiter fluidement et rapidement.</p>
+        <p class="formateur-p">Quand j'ai commencé à intégrer Python à mon quotidien, ma façon de travailler a radicalement changé. J'ai arrêté de subir mes données. J'ai automatisé ce qui me prenait des heures. <strong class="formateur-strong">J'ai réellement pris du plaisir à manipuler mes données</strong>. Et j'ai pu aider d'autres profils analytiques autour de moi, qui ne se cantonnaient pourtant pas à Excel, mais qui atteignaient le plafond de leurs outils.</p>
+        <p class="formateur-p">Puis l'arrivée de l'IA a ouvert encore plus de possibilités, pour tous : en rendant Python encore plus accessible pour les novices, et en permettant aux profils plus expérimentés plus d'ambitions. Avec un même dénominateur commun quel que soit le niveau : obtenir un script, puis le comprendre et le challenger. <strong class="formateur-strong">Car c'est précisément en comprenant Python qu'on tire vraiment parti de l'IA</strong>, plutôt que de se fier aveuglément à un résultat qui constitue souvent une très bonne base mais reste perfectible.</p>
+        <p class="formateur-p">Cette formation est née de cette expérience du terrain. Elle a pour objectif de vous transmettre <strong class="formateur-strong">des compétences pragmatiques, directement applicables aux réalités des équipes métiers</strong>, et taillées pour une époque où programmer, grâce à l'IA, devient accessible à tous et de plus en plus incontournable.</p>
+        <!-- 
+        <div class="formateur-tags">
+          <span class="f-tag f-tag-gray">Ingénieur en science des données</span>
+          <span class="f-tag f-tag-gray">Master en management</span>
+          <span class="f-tag f-tag-gray">10 ans d'expertise</span>
+        </div>
+        -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ OFFRE ══ -->
+<section class="s-dark-soft" id="offre">
+  <div class="container-wide">
+    <div class="label label-yellow">L'OPPORTUNITÉ</div>
+    <h2 class="section-title title-light">Tout ce qu'il vous faut pour transformer<br>votre rapport aux <span class="text-highlight">données</span> et <span class="text-highlight">automatisations</span>.</h2>
+    <div class="offre-grid">
+      <div class="offre-inclus">
+        <h3>Ce qui est inclus</h3>
+        <ul class="offre-list">
+          <li>L'intégralité du programme en accès immédiat</li>
+          <li>Accès au formateur par un channel privé dédié et des sessions de coaching</li>
+          <li>La théorie sert la pratique : vous comprenez ce que vous faites, pas seulement comment le faire</li>
+          <li>Des applications concrètes de cas métiers réels</li>
+          <li>Une approche qui vous permet d'exploiter l'IA intelligemment dans vos nouvelles productions...</li>
+          <li>... et d'être indépendant sur des usages habituels</li>
+          <li>Accès à vie à la formation et aux mises à jour, sans supplément</li>
+          <li>Garantie satisfait ou remboursé 30 jours, conformément aux CGV</li>
+        </ul>
+        <div class="offre-video-block">
+          <video autoplay loop muted playsinline>
+            <source src="assets/danse.webm" type="video/webm">
+          </video>
+          <svg class="offre-video-arrow" viewBox="49.0 90.0 1682.0 632.0" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(1780 0) scale(-1 1)">
+              <path fill-rule="evenodd" fill="#FFD43B" fill-opacity="1" d="M 432.042969 361.628906 C 432.117188 354.738281 431.101562 347.96875 430.046875 341.191406 C 429.277344 336.308594 427.226562 334.898438 422.269531 336.359375 C 398.527344 343.371094 375.8125 352.621094 355.230469 366.539062 C 344.210938 374 334.433594 382.828125 327.726562 394.53125 C 317.445312 412.480469 322.308594 426.859375 341.90625 433.710938 C 366.167969 442.191406 388.628906 438.359375 407.507812 420.320312 C 424.097656 404.460938 432.007812 384.589844 432.042969 361.628906 M 1484.511719 450.5 C 1480.871094 447.179688 1477.949219 447.191406 1475.289062 446.609375 C 1442.539062 439.371094 1409.890625 431.730469 1378.179688 420.621094 C 1359.929688 414.21875 1341.980469 407.121094 1325.640625 396.570312 C 1317.28125 391.179688 1309.339844 385.21875 1303.761719 376.769531 C 1294.390625 362.601562 1299.808594 348.140625 1316.179688 343.449219 C 1324.410156 341.101562 1332.789062 341.511719 1341.140625 342.5 C 1384.351562 347.621094 1426.71875 357.269531 1469.238281 366.109375 C 1542.121094 381.230469 1614.601562 398.019531 1686.089844 418.929688 C 1702.628906 423.769531 1716.609375 431.28125 1719.75 449.988281 C 1722.898438 468.761719 1712.730469 481.558594 1698.539062 491.640625 C 1666.660156 514.308594 1634.980469 537.339844 1601.390625 557.421875 C 1530.898438 599.558594 1464.320312 647.589844 1395.820312 692.710938 C 1386.5 698.859375 1377.53125 705.679688 1367.089844 709.878906 C 1358.460938 713.359375 1350.019531 712.941406 1342.988281 706.140625 C 1336.070312 699.421875 1335.089844 691.089844 1337.761719 682.179688 C 1339.390625 676.730469 1342.570312 672.128906 1346.140625 667.78125 C 1354.089844 658.109375 1363.539062 649.980469 1373.179688 642.109375 C 1408.429688 613.320312 1446.140625 587.859375 1483.019531 561.300781 C 1497.660156 550.761719 1512.289062 540.199219 1526.828125 529.539062 C 1528.949219 527.988281 1531.878906 527.019531 1532.511719 523.789062 C 1529.96875 522.128906 1527.488281 523.351562 1525.140625 523.761719 C 1378.671875 548.789062 1230.871094 560.691406 1082.671875 568.890625 C 1013.410156 572.71875 944.15625 576.261719 874.769531 574.539062 C 833.613281 573.519531 792.464844 571.570312 752.242188 561.621094 C 685.832031 545.210938 636.703125 507.371094 608.121094 444.390625 C 599.507812 425.429688 590.964844 406.441406 582.613281 387.359375 C 566.667969 350.941406 538.273438 332.53125 499.320312 328.75 C 492.792969 328.121094 491.484375 329.589844 492.773438 336 C 501.085938 377.410156 494.398438 415.960938 468.957031 450.25 C 432.9375 498.808594 361.066406 514.488281 307.816406 485.851562 C 262.53125 461.480469 249.664062 412.671875 277.042969 369.058594 C 286.496094 354 298.9375 341.738281 313.066406 331.160156 C 338.28125 312.289062 365.996094 298.089844 395.734375 287.808594 C 406.074219 284.25 406.167969 284.210938 399.222656 275.230469 C 367.773438 234.640625 327.746094 204.820312 281.835938 182.621094 C 235.277344 160.089844 186.359375 146.679688 134.296875 146.820312 C 114.941406 146.871094 95.789062 149.121094 77.199219 154.96875 C 71.152344 156.871094 65.378906 156.648438 61.660156 150.71875 C 58.058594 145 59.601562 139.359375 63.765625 134.578125 C 72.824219 124.210938 84.230469 117.171875 97.011719 112.378906 C 127.121094 101.109375 158.480469 98.308594 190.089844 101.390625 C 297.535156 111.820312 383.152344 162.621094 451.289062 244.851562 C 456.460938 251.070312 461.210938 257.839844 464.980469 264.980469 C 468.398438 271.429688 472.761719 272.910156 479.644531 272.570312 C 501.046875 271.519531 522.285156 273.171875 543.058594 278.941406 C 582.476562 289.898438 613.351562 312.230469 634.78125 347.359375 C 644.179688 362.789062 652.800781 378.679688 660.296875 395.050781 C 684.464844 447.808594 727.480469 473.960938 782.699219 483.339844 C 807.789062 487.589844 833.148438 489.710938 858.5625 489.78125 C 1056.871094 490.230469 1254.730469 482.488281 1451.488281 455.910156 C 1462 454.488281 1472.429688 452.488281 1484.511719 450.5"/>
+            </g>
+          </svg>
+          <span class="offre-video-text">Vous en exploitant<br>vos données avec Python</span>
+        </div>
+      </div>
+      <div class="offre-card">
+        <div class="offre-card-name">Python pour les métiers</div>
+        <div class="offre-price">1690 €</div>
+        <div class="offre-price-ssub">Paiement unique · Accès à vie</div>
+        <p class="mention-tva">Le prix affiché est le prix effectivement facturé, toutes taxes comprises lorsqu'applicables.</p>
+        <a href="/inscription/" class="btn-primary">Vérifier la disponibilité</a>
+        <div class="offre-guarantee">Le nombre mensuel d'ouverture de places est limité pour garantir un suivi de qualité</div>
+        <div class="offre-details">
+          <div class="offre-detail">Garantie satisfait ou remboursé 30 jours</div>
+          <div class="offre-detail">Python 100 % gratuit - pas de licence</div>
+          <div class="offre-detail">Compatible Windows & Mac</div>
+          <div class="offre-detail">Aucune compétence technique requise</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="s-light" id="faq">
+  <div class="container">
+    <div class="label label-blue">Questions fréquentes</div>
+    <h2 class="section-title title-dark">Vous hésitez encore ?</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Je n'ai jamais programmé de ma vie. C'est vraiment accessible ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Oui, et c'est précisément pour ce profil que cette formation a été conçue. Elle commence depuis zéro, avec un vocabulaire accessible et une progression qui ne suppose aucune connaissance préalable.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Pourquoi ne pas se limiter au vibe-coding ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Le vibe-coding est un excellent point de départ, et cette formation vous apprend d'ailleurs à en tirer encore plus parti. Mais s'y limiter, c'est accepter de dépendre d'un résultat que vous ne pouvez ni vraiment vérifier, ni facilement faire évoluer. L'IA produit souvent une très bonne base mais qui reste perfectible. Sans comprendre le script obtenu, impossible de repérer une erreur, d'apporter les dernières adaptations, ou de savoir si le résultat est fiable avant de le partager à votre équipe. Comprendre Python, c'est ce qui transforme l'IA en véritable accélérateur, plutôt qu'en boîte noire à laquelle vous faites confiance par défaut. En outre, les cas d'usages quotidiens sont généralement plus faciles à traiter par soi-même que par l'intermédiaire d'une IA.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">En quoi cette formation est-elle différente d'un tuto YouTube ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Un tutoriel YouTube vous montre comment faire, souvent orientée pour un public tech, sur un cas générique. Cette formation vous apprend à comprendre ce que vous faites : pourquoi ça fonctionne, comment l'adapter à vos propres données, comment corriger une erreur, comment challenger ce qu'une IA vous produit. La différence se sent dès le premier vrai cas métier que vous devez résoudre seul. L'environnement métier est au cœur de tout : le support pédagogique, les bonnes pratiques, les cas d'usage… Tout est pensé pour quelqu'un qui travaille avec des données d'entreprise, pas pour un futur développeur.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Est-ce que Python va remplacer Excel dans mon travail ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Non, et ce n'est pas l'objectif. Excel reste l'outil idéal pour présenter, explorer et partager vos données. Python s'occupe de tout ce qui précède : nettoyer, transformer, croiser, automatiser, vérifier... Les deux s'utilisent ensemble, chacun là où il est le plus efficace.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Combien de temps faut-il y consacrer ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">La formation est construire de manière à s'adapter à un étalage quotidien plutôt qu'en quelques jours intensifs. A titre d'ordre de grandeur, comptez deux mois ouvrés, par sessions quotidiennes d'une heure. Ce n'est qu'à titre indicatif : la formation s'adapte à votre rythme, vous avancez à votre vitesse, et l'accès est à vie.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">J'ai un Mac / un PC sans droits administrateur. Est-ce compatible ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">La formation est compatible Windows et Mac. Python est gratuit, léger, et déjà utilisé dans la plupart des entreprises. Son installation ne prend que quelques minutes et ne nécessite pas de machine puissante. Si vous avez des contraintes informatiques particulières en entreprise, n'hésitez pas à me contacter avant votre inscription et nous vérifirons la possibilité d'installer Python sur votre machine.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">La formation est-elle éligible au CPF ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">La formation n'est pas encore éligible au CPF. En revanche, il est fréquent de la financer via le budget formation interne de votre entreprise. N'hésitez pas à me contacter si vous souhaitez un devis à soumettre à votre service RH.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Et si la formation ne me convient pas ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Vous disposez de 30 jours pour consulter la formation en autonomie et vérifier que l'approche vous convient. Si ce n'est pas le cas, contactez-moi dans ce délai et vous serez remboursé intégralement. Cette garantie est prévue pour explorer les contenus accessibles librement : elle ne s'applique plus si vous avez utilisé une session de coaching ou reçu une réponse personnalisée via le canal Discord. Les conditions complètes sont précisées dans les CGV.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Vais-je savoir aussi bien danser que cette chèvre ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Malheureusement, nous n'offrons aucune garantie à ce propos. Mais ce qui est sûr, c'est que vous exprimerez votre enthousiasme à votre manière !</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FINAL CTA ══ -->
+<section class="final-cta">
+  <div class="final-cta-bg"></div>
+  <div class="final-cta-overlay"></div>
+  <div class="container final-cta-inner">
+    <h2>
+      Prêt à <span class="text-highlight">passer au niveau supérieur</span><br>
+      dans l'exploitation de vos données ?
+    </h2>
+    <p>Rejoignez la formation et transformez votre façon de travailler avec la donnée et d'automatiser, en tant que professionnel métier.</p>
+    <a href="#offre" class="btn-primary">Accéder à la formation →</a>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <p>
+    © <span id="footer-year"></span> Erwan Delanne — Training & Consulting &nbsp;·&nbsp;
+    <a href="cgu/">CGU</a><a href="cgv/">CGV</a><a href="mentions-legales/">Mentions légales</a><a href="politique-confidentialite/">Politique de confidentialité</a><a href="contact/">Contact</a>
+  </p>
+</footer>
+
+<!-- ══ SCRIPTS ══ -->
+<script>
+  // YEAR
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+  // CAC40 scatter
+  const cac40 = [
+    { name:"LVMH",            s:"Luxe",           ca:-2,   cours:-14, cap:310 },
+    { name:"Hermès",          s:"Luxe",           ca:15,   cours:8,   cap:210 },
+    { name:"Kering",          s:"Luxe",           ca:-12,  cours:-38, cap:27  },
+    { name:"L'Oréal",         s:"Luxe",           ca:5.5,  cours:-10, cap:180 },
+    { name:"TotalEnergies",   s:"Énergie",        ca:-4,   cours:-8,  cap:132 },
+    { name:"Engie",           s:"Énergie",        ca:3,    cours:12,  cap:38  },
+    { name:"Schneider",       s:"Industrie",      ca:7,    cours:22,  cap:128 },
+    { name:"Airbus",          s:"Industrie",      ca:9,    cours:3,   cap:118 },
+    { name:"Safran",          s:"Industrie",      ca:17,   cours:30,  cap:76  },
+    { name:"Saint-Gobain",    s:"Industrie",      ca:1,    cours:18,  cap:28  },
+    { name:"Legrand",         s:"Industrie",      ca:3,    cours:5,   cap:22  },
+    { name:"Stellantis",      s:"Industrie",      ca:-16,  cours:-40, cap:22  },
+    { name:"Michelin",        s:"Industrie",      ca:2,    cours:-5,  cap:20  },
+    { name:"Renault",         s:"Industrie",      ca:1,    cours:-10, cap:10  },
+    { name:"ArcelorMittal",   s:"Matériaux",      ca:-5,   cours:-15, cap:15  },
+    { name:"Air Liquide",     s:"Matériaux",      ca:4,    cours:5,   cap:74  },
+    { name:"BNP Paribas",     s:"Finance",        ca:4,    cours:18,  cap:72  },
+    { name:"AXA",             s:"Finance",        ca:6,    cours:20,  cap:70  },
+    { name:"Société Gén.",    s:"Finance",        ca:5,    cours:42,  cap:28  },
+    { name:"Crédit Agr.",     s:"Finance",        ca:7,    cours:22,  cap:36  },
+    { name:"Unibail-R-W",     s:"Finance",        ca:3,    cours:10,  cap:9   },
+    { name:"Sanofi",          s:"Santé",          ca:11,   cours:-10, cap:118 },
+    { name:"EssilorLuxot.",   s:"Santé",          ca:6,    cours:2,   cap:76  },
+    { name:"Eurofins Sci.",   s:"Santé",          ca:2,    cours:-18, cap:11  },
+    { name:"Dassault Sys.",   s:"Technologie",    ca:2,    cours:-28, cap:38  },
+    { name:"Capgemini",       s:"Technologie",    ca:0,    cours:-12, cap:22  },
+    { name:"STMicro",         s:"Technologie",    ca:-23,  cours:-52, cap:10  },
+    { name:"Teleperformance", s:"Technologie",    ca:-5,   cours:-48, cap:8   },
+    { name:"Thales",          s:"Technologie",    ca:8,    cours:22,  cap:22  },
+    { name:"Bureau Veritas",  s:"Technologie",    ca:7,    cours:12,  cap:8   },
+    { name:"Carrefour",       s:"Conso. & dist.", ca:2,    cours:-15, cap:12  },
+    { name:"Pernod Ricard",   s:"Conso. & dist.", ca:-5,   cours:-25, cap:25  },
+    { name:"Danone",          s:"Conso. & dist.", ca:4,    cours:8,   cap:35  },
+    { name:"Accor",           s:"Conso. & dist.", ca:8,    cours:5,   cap:12  },
+    { name:"Edenred",         s:"Conso. & dist.", ca:12,   cours:-15, cap:14  },
+    { name:"Orange",          s:"Télécoms",       ca:1,    cours:-2,  cap:22  },
+    { name:"Veolia",          s:"Services",       ca:5,    cours:2,   cap:20  },
+    { name:"Vinci",           s:"Services",       ca:7,    cours:4,   cap:65  },
+    { name:"Bouygues",        s:"Services",       ca:4,    cours:2,   cap:10  },
+    { name:"Publicis",        s:"Services",       ca:6,    cours:28,  cap:24  },
+  ];
+  const cacPalette = {
+    "Luxe":"#FFD43B","Énergie":"#60a5fa","Industrie":"#34d399",
+    "Matériaux":"#94a3b8","Finance":"#f472b6","Santé":"#a78bfa",
+    "Technologie":"#fb923c","Conso. & dist.":"#f87171","Télécoms":"#22d3ee","Services":"#e879f9"
+  };
+  const cacSectors = Object.keys(cacPalette);
+  const capMin = Math.min(...cac40.map(d=>d.cap));
+  const capMax = Math.max(...cac40.map(d=>d.cap));
+  function cacSz(cap){ return 14 + ((cap-capMin)/(capMax-capMin))*32; }
+  const allX = cac40.map(d=>d.ca), allY = cac40.map(d=>d.cours);
+  const xAbs = Math.ceil(Math.max(Math.abs(Math.min(...allX)),Math.abs(Math.max(...allX)))*1.15);
+  const yAbs = Math.ceil(Math.max(Math.abs(Math.min(...allY)),Math.abs(Math.max(...allY)))*1.15);
+  const traces = cacSectors.map(sec => {
+    const pts = cac40.filter(d=>d.s===sec);
+    return {
+      x:pts.map(d=>d.ca), y:pts.map(d=>d.cours), text:pts.map(d=>d.name),
+      customdata:pts.map(d=>d.cap), mode:'markers', type:'scatter', name:sec,
+      marker:{ color:cacPalette[sec], size:pts.map(d=>cacSz(d.cap)), opacity:0.85, line:{color:'rgba(255,255,255,0.18)',width:1} },
+      hovertemplate:'<b>%{text}</b><br>Var. CA 2024 : %{x:.1f}%<br>Var. cours 2024 : %{y:.1f}%<br>Capitalisation : %{customdata} Mds €<extra>'+sec+'</extra>'
+    };
+  });
+  const layout = {
+    paper_bgcolor:'#161b22', plot_bgcolor:'#161b22',
+    font:{family:'Open Sans,sans-serif',color:'#94a3b8',size:11},
+    margin:{t:12,r:10,b:48,l:50},
+    xaxis:{title:{text:"Variation CA 2024 (%)",font:{color:'#64748b',size:10}},range:[-xAbs,xAbs],gridcolor:'rgba(255,255,255,0.05)',zeroline:true,zerolinecolor:'rgba(255,255,255,0.2)',zerolinewidth:1.5,tickfont:{color:'#64748b'},ticksuffix:'%',linecolor:'rgba(255,255,255,0.08)'},
+    yaxis:{title:{text:"Variation cours 2024 (%)",font:{color:'#64748b',size:10}},range:[-yAbs,yAbs],gridcolor:'rgba(255,255,255,0.06)',zeroline:true,zerolinecolor:'rgba(255,255,255,0.2)',zerolinewidth:1.5,tickfont:{color:'#64748b'},ticksuffix:'%',linecolor:'rgba(255,255,255,0.08)'},
+    showlegend:false, hovermode:'closest'
+  };
+  const config = { responsive:true, displayModeBar:false };
+  Plotly.newPlot('chart', traces, layout, config);
+
+  // Légende CAC40 interactive
+  let cacSelected = new Set();
+  function cacUpdateVisibility(){
+    const allVisible = cacSelected.size===0;
+    Plotly.restyle('chart',{visible:cacSectors.map(s=>allVisible||cacSelected.has(s)?true:'legendonly')});
+    document.querySelectorAll('.cac-btn').forEach((btn,i)=>{
+      const sec=cacSectors[i], active=allVisible||cacSelected.has(sec);
+      btn.style.opacity=active?'1':'0.3';
+      btn.style.borderColor=cacSelected.has(sec)?cacPalette[sec]:'rgba(255,255,255,0.12)';
+    });
+  }
+  const cacLegendEl = document.getElementById('cac-legend');
+  cacSectors.forEach(sec=>{
+    const btn=document.createElement('button');
+    btn.className='cac-btn';
+    btn.style.cssText='display:flex;align-items:center;gap:5px;padding:3px 8px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:100px;cursor:pointer;font-size:10px;color:#94a3b8;font-family:Open Sans,sans-serif;transition:opacity 0.15s,border-color 0.15s;';
+    const dot=document.createElement('span');
+    dot.style.cssText=`width:7px;height:7px;border-radius:50%;background:${cacPalette[sec]};flex-shrink:0;`;
+    btn.appendChild(dot); btn.appendChild(document.createTextNode(sec));
+    btn.addEventListener('click',()=>{
+      if(cacSelected.has(sec)){cacSelected.delete(sec);} else {cacSelected.add(sec);}
+      cacUpdateVisibility();
+    });
+    cacLegendEl.appendChild(btn);
+  });
+
+  // ── CAROUSEL TÉMOIGNAGES ──
+  (function() {
+    var track    = document.getElementById('temoTrack');
+    var dotsEl   = document.getElementById('temoDots');
+    var originals = Array.from(track.children);
+    var total    = originals.length;
+    var cloneFirst = originals[0].cloneNode(true);
+    var cloneLast  = originals[total - 1].cloneNode(true);
+    track.appendChild(cloneFirst);
+    track.insertBefore(cloneLast, originals[0]);
+    var slides  = Array.from(track.children);
+    var current = 1;
+    var gap     = 20;
+    var animating = false;
+
+    originals.forEach(function(_, i) {
+      var dot = document.createElement('button');
+      dot.className = 'temo-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Témoignage ' + (i + 1));
+      dot.addEventListener('click', function() { goTo(i + 1); });
+      dotsEl.appendChild(dot);
+    });
+
+    function updateState() {
+      slides.forEach(function(s, i) {
+        s.classList.toggle('temo-active',   i === current);
+        s.classList.toggle('temo-inactive', i !== current);
+      });
+      var dotIndex = current - 1;
+      if (dotIndex < 0) dotIndex = total - 1;
+      if (dotIndex >= total) dotIndex = 0;
+      dotsEl.querySelectorAll('.temo-dot').forEach(function(d, i) {
+        d.classList.toggle('active', i === dotIndex);
+      });
+    }
+
+    function goTo(index) {
+      if (animating) return;
+      current = index;
+      var slideWidth = slides[1].offsetWidth;
+      var offset = current * (slideWidth + gap) - (track.parentElement.offsetWidth - slideWidth) / 2;
+      track.style.transition = 'transform 0.45s cubic-bezier(0.4,0,0.2,1)';
+      track.style.transform  = 'translateX(-' + offset + 'px)';
+      updateState();
+      animating = true;
+      setTimeout(function() {
+        animating = false;
+        if (current === 0) {
+          track.style.transition = 'none';
+          current = total;
+          var sw = slides[1].offsetWidth;
+          var off = current * (sw + gap) - (track.parentElement.offsetWidth - sw) / 2;
+          track.style.transform = 'translateX(-' + off + 'px)';
+          updateState();
+        } else if (current === total + 1) {
+          track.style.transition = 'none';
+          current = 1;
+          var sw = slides[1].offsetWidth;
+          var off = current * (sw + gap) - (track.parentElement.offsetWidth - sw) / 2;
+          track.style.transform = 'translateX(-' + off + 'px)';
+          updateState();
+        }
+      }, 460);
+    }
+
+    function init() {
+      var slideWidth = slides[1].offsetWidth;
+      var offset = current * (slideWidth + gap) - (track.parentElement.offsetWidth - slideWidth) / 2;
+      track.style.transition = 'none';
+      track.style.transform  = 'translateX(-' + offset + 'px)';
+      updateState();
+    }
+
+    init();
+    window.addEventListener('resize', init);
+    document.getElementById('temoPrev').addEventListener('click', function() { goTo(current - 1); });
+    document.getElementById('temoNext').addEventListener('click', function() { goTo(current + 1); });
+    var startX = 0;
+    track.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', function(e) {
+      var diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+    });
+  })();
+
+  // ── MODALE TÉMOIGNAGES ──
+  var temoData = {
+    ibrahim: {
+      text: "Des collègues autour de moi commençaient à utiliser Python donc j'ai voulu voir ce que ça pouvait m'apporter, et je pourrais maintenant difficilement m'en passer.\n\nChaque mois, je dois réaliser des rapports qui me prennent généralement 2 jours, très manuels à partir d'exports que je manipule dans Excel. J'en ai déjà automatisé certains en Python et j'obtiens maintenant le même résultat en quelques minutes tout en étant plus serein car je sais qu'il n'y a aucune étape oubliée, et ça me permet en prime d'alerter automatiquement sur la présence d'anomalies (montants incohérents entre deux sources), ce qui n'était pas toujours repéré auparavant.\n\nAu-delà du gain de temps et de fiabilité, je prends goût à coder en Python là où le même travail sur Excel était fastidieux.\n\nLes deux exercices finaux sont bien pensés et j'ai pu reprendre la structure du deuxième pour mes automatisations.",
+      name: "Ibrahim",
+      role: "Business Analyst"
+    },
+    carole: {
+      text: "Je n'utilisais qu'Excel et je ne connaissais rien à la programmation. J'avoue que je ne pensais absolument pas utiliser Python un jour. C'est Erwan qui m'a convaincue, en m'expliquant ce que j'avais à y gagner par rapport à mon activité et en me rassurant sur son accessibilité.\n\nEn fait, c'est bien moins compliqué qu'on peut le croire. Ça fait gagner un temps fou pour manipuler ses fichiers de données, et pas que pour les tâches récurrentes, qui était le gain auquel je m'attendais.\n\nQuand je cherche à détecter des transactions frauduleuses par exemple, en croisant plusieurs sources selon des patterns qui ne sont jamais les mêmes, c'est bien plus simple d'importer ces fichiers en Python et de les croiser avec des jointures, qui offrent des possibilités que je ne soupçonnais pas par rapport à une recherchev, notamment les colonnes de jointure multiples et la détection de doublons. J'ai aussi réalisé qu'en rédigeant un script Python, on garde la trace de toutes les manipulations effectuées, ce qui est très utile dans une logique d'audit pour savoir expliquer a posteriori ce qu'on a fait.\n\nErwan est très pédagogue, ses explications sont toujours claires, et son coaching m'a beaucoup aidé à progresser. Je recommande si vous utilisez Excel quotidiennement.",
+      name: "Carole",
+      role: "Responsable conformité"
+    },
+    louis: {
+      text: "J'ai voulu suivre la formation avant tout pour m'améliorer sur la manipulation de données et ça m'a été très utile, j'ai beaucoup gagné en aisance, notamment grâce à l'attention portée à ce que l'on comprenne bien comment fonctionne Python, qu'il ne s'agisse pas juste de faire du copier-coller.\n\nGrâce à Python, j'arrive maintenant à traiter sans difficulté de gros volumes de données (plus d'un million de lignes), là où je peinais, ou ne parvenais pas, à arriver à mes fins avec VBA ou Power Query. Ils devenaient vite lents, surtout dès qu'on entrait dans des traitements un peu complexes avec beaucoup de données.\n\nCe que j'aime particulièrement avec Python, c'est cette double capacité, de gérer efficacement de grandes volumétries tout en permettant des manipulations avancées. Ça m'a permis d'automatiser des tâches qui reviennent régulièrement que j'avais du mal à mettre en place avant, indépendamment de la taille des données. J'ai également plus de facilité à corriger les données de mauvaise qualité.\n\nLes exercices s'appuient sur des données d'entreprise crédibles, ce qui aide à faire le lien avec le quotidien. Les templates mis à disposition m'ont énormément aidé à structurer mon travail et c'est un vrai atout que la formation aille au-delà du code pour faire adopter des bonnes pratiques.\n\nErwan est en plus très à l'écoute et disponible. Je recommande vivement.",
+      name: "Louis",
+      role: "Chargé d'études et de reporting"
+    },
+    guilhem: {
+      text: "J'accompagne l'équipe finance de mon entreprise pour fiabiliser leurs données et automatiser leurs traitements. Je maîtrisais déjà bien Excel, Power Query et SQL avant de commencer mais je voulais aussi apprendre Python car je savais qu'on pouvait faire beaucoup plus avec (les IA me proposaient systématiquement des scripts Python pour réaliser ce que je cherchais à faire). Python répond exactement à ce que j'attendais de lui par sa rapidité et sa capacité à gérer des opérations complexes non supportées par Excel et Power Query, mais sans être limité uniquement au requêtage comme SQL.\n\nL'utilisation de Jupyter Notebook est bien pensée pour la cible métier car j'ai moi-même facilement pu partager mes scripts Python avec les contrôleurs de gestion qui travaillent avec moi selon la méthode préconisée, avec une section paramètres et une section à exécuter, qui permet à l'utilisateur de ne pas avoir à se confronter au code.\n\nTout était présenté de manière très accessible, sans rien sacrifier à la précision. Cette formation se démarque très nettement des autres que j'ai pu suivre, tous domaines confondus, allez-y les yeux fermés.",
+      name: "Guilhem",
+      role: "Finance Transformation Manager"
+    }
+  };
+
+  function openTemo(key) {
+    var d = temoData[key];
+    document.getElementById('temoModalText').innerHTML = d.text.replace(/\n\n/g, '<br><br>');
+    document.getElementById('temoModalName').textContent = d.name;
+    document.getElementById('temoModalRole').textContent = d.role;
+    document.getElementById('temoOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeTemo() {
+    document.getElementById('temoOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeTemoOnOverlay(e) {
+    if (e.target === document.getElementById('temoOverlay')) closeTemo();
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeTemo();
+  });
+
+  // FAQ
+  function toggleFaq(btn) {
+    var item = btn.parentElement;
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+<script>
+  function toggleNav(){
+    document.getElementById('navBurger').classList.toggle('open');
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  function closeNav(){
+    document.getElementById('navBurger').classList.remove('open');
+    document.querySelector('.nav-links').classList.remove('open');
+  }
+</script>
+</div><!-- /.page-wrapper -->
+</body>
+</html>

@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formation Python - Exercices Selenium</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark:        #1E2229;
+    --dark-soft:   #252B34;
+    --navy:        #0f1a2e;
+    --yellow:      #FFD43B;
+    --yellow-pale: #FFF9E6;
+    --yellow-dim:  rgba(255,212,59,0.12);
+    --blue-mid:    #2563eb;
+    --blue-light:  #93c5fd;
+    --text-dark:   #1e293b;
+    --text-mid:    #475569;
+    --text-light:  #94a3b8;
+    --white:       #ffffff;
+    --border-dark: rgba(255,255,255,0.08);
+    --border-light:#e2e8f0;
+    --green:       #10b981;
+    --red:         #ef4444;
+    --surface:     #f8fafc;
+    --surface-2:   #f1f5f9;
+
+    --cours-bg:    #f8fafc;
+    --exercice-bg: #1E2229;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:'Open Sans', sans-serif;
+    color:var(--text-dark);
+    background:var(--white);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4 { font-family:'Montserrat', sans-serif; line-height:1.2; }
+
+  /* ── HEADER ── */
+  header {
+    background:var(--dark);
+    padding:1.25rem 2.5rem;
+    display:flex;
+    align-items:center;
+    gap:1rem;
+    border-bottom:1px solid var(--border-dark);
+  }
+  .header-logo {
+    font-family:'Montserrat', sans-serif;
+    font-weight:800;
+    font-size:1rem;
+    color:var(--white);
+    text-decoration:none;
+  }
+  .header-logo span { color:var(--yellow); }
+  .header-badge {
+    background:rgba(255,212,59,0.15);
+    color:var(--yellow);
+    border:1px solid rgba(255,212,59,0.3);
+    padding:0.25rem 0.75rem;
+    border-radius:100px;
+    font-size:0.7rem;
+    font-weight:700;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    font-family:'Montserrat', sans-serif;
+  }
+
+  /* ── SECTION LABELS ── */
+  .section-block {
+    padding:3.5rem 2.5rem;
+  }
+  .section-block-dark {
+    background:var(--exercice-bg);
+  }
+  .section-block-light {
+    background:var(--cours-bg);
+  }
+
+  .section-tag {
+    display:inline-flex;
+    align-items:center;
+    gap:0.5rem;
+    font-family:'Montserrat', sans-serif;
+    font-size:0.7rem;
+    font-weight:800;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    padding:0.4rem 1rem;
+    border-radius:6px;
+    margin-bottom:1.5rem;
+  }
+  .section-tag-cours {
+    background:rgba(37,99,235,0.1);
+    color:var(--blue-mid);
+    border:1px solid rgba(37,99,235,0.2);
+  }
+  .section-tag-exercice {
+    background:rgba(255,212,59,0.15);
+    color:var(--yellow);
+    border:1px solid rgba(255,212,59,0.3);
+  }
+
+  .section-title {
+    font-size:1.6rem;
+    font-weight:800;
+    margin-bottom:0.4rem;
+    letter-spacing:-0.02em;
+  }
+  .section-title-dark { color:var(--dark); }
+  .section-title-light { color:var(--white); }
+
+  .section-subtitle {
+    font-size:0.95rem;
+    margin-bottom:2.5rem;
+  }
+  .section-subtitle-dark { color:var(--text-mid); }
+  .section-subtitle-light { color:var(--text-light); }
+
+  .inner { max-width:820px; }
+
+  /* ── BACK OFFICE FORM ── */
+  .backoffice-panel {
+    background:var(--white);
+    border:1px solid var(--border-light);
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 2px 16px rgba(0,0,0,0.06);
+  }
+  .panel-header {
+    background:var(--dark);
+    padding:1rem 1.5rem;
+    display:flex;
+    align-items:center;
+    gap:0.75rem;
+  }
+  .panel-header-dot {
+    width:10px; height:10px;
+    border-radius:50%;
+  }
+  .dot-red { background:#ef4444; }
+  .dot-yellow { background:#f59e0b; }
+  .dot-green { background:#10b981; }
+  .panel-header-title {
+    font-family:'Montserrat', sans-serif;
+    font-size:0.78rem;
+    font-weight:600;
+    color:var(--text-light);
+    letter-spacing:0.05em;
+    margin-left:0.25rem;
+  }
+  .panel-body { padding:2rem; }
+
+  .form-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1.25rem;
+    margin-bottom:1.25rem;
+  }
+  @media(max-width:600px){ .form-grid { grid-template-columns:1fr; } }
+
+  .form-group { display:flex; flex-direction:column; gap:0.4rem; }
+  .form-group.full { grid-column:1/-1; }
+
+  label {
+    font-size:0.78rem;
+    font-weight:600;
+    color:var(--text-mid);
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    font-family:'Montserrat', sans-serif;
+  }
+
+  input[type="text"],
+  input[type="date"] {
+    width:100%;
+    padding:0.65rem 0.9rem;
+    border:1.5px solid var(--border-light);
+    border-radius:8px;
+    font-family:'Open Sans', sans-serif;
+    font-size:0.9rem;
+    color:var(--text-dark);
+    background:var(--surface);
+    transition:border-color 0.2s, box-shadow 0.2s;
+    outline:none;
+  }
+  input[type="text"]:focus,
+  input[type="date"]:focus {
+    border-color:var(--blue-mid);
+    box-shadow:0 0 0 3px rgba(37,99,235,0.1);
+    background:var(--white);
+  }
+
+  .form-divider {
+    height:1px;
+    background:var(--border-light);
+    margin:1.5rem 0;
+  }
+
+  .btn-validate {
+    display:inline-flex;
+    align-items:center;
+    gap:0.6rem;
+    background:var(--blue-mid);
+    color:var(--white);
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:0.9rem;
+    padding:0.75rem 2rem;
+    border-radius:8px;
+    border:none;
+    cursor:pointer;
+    transition:background 0.2s, transform 0.15s;
+    letter-spacing:0.02em;
+  }
+  .btn-validate:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+  .btn-validate:hover { background:#1d4ed8; transform:translateY(-1px); }
+  .btn-validate:active { transform:translateY(0); }
+
+  /* ── VALIDATION RESULT ── */
+  .result-block {
+    display:none;
+    margin-top:1.5rem;
+    padding:1.1rem 1.4rem;
+    border-radius:10px;
+    background:#f0fdf4;
+    border:1.5px solid #86efac;
+  }
+  .result-block.visible { display:block; }
+  .result-title {
+    font-family:'Montserrat', sans-serif;
+    font-size:0.82rem;
+    font-weight:700;
+    color:#15803d;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    margin-bottom:0.4rem;
+    display:flex;
+    align-items:center;
+    gap:0.5rem;
+  }
+  .result-text {
+    font-size:0.9rem;
+    color:#166534;
+    line-height:1.6;
+  }
+  .result-id {
+    font-family:'Montserrat', sans-serif;
+    font-weight:800;
+    font-size:1rem;
+    color:#15803d;
+    letter-spacing:0.05em;
+  }
+
+  /* ── ERROR ── */
+  .error-block {
+    display:none;
+    margin-top:1.5rem;
+    padding:1.1rem 1.4rem;
+    border-radius:10px;
+    background:#fef2f2;
+    border:1.5px solid #fca5a5;
+  }
+  .error-block.visible { display:block; }
+  .error-text {
+    font-size:0.9rem;
+    color:#991b1b;
+    font-weight:500;
+  }
+
+  /* ── EXERCISE — CSV EXPORT ── */
+  .export-panel {
+    background:var(--dark-soft);
+    border:1px solid var(--border-dark);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .export-panel-header {
+    background:rgba(255,255,255,0.04);
+    border-bottom:1px solid var(--border-dark);
+    padding:1rem 1.5rem;
+    display:flex;
+    align-items:center;
+    gap:0.75rem;
+  }
+  .export-panel-title {
+    font-family:'Montserrat', sans-serif;
+    font-size:0.78rem;
+    font-weight:600;
+    color:var(--text-light);
+    letter-spacing:0.05em;
+  }
+  .export-panel-body { padding:2rem; }
+
+  .export-row {
+    display:flex;
+    align-items:flex-end;
+    gap:1.25rem;
+    flex-wrap:wrap;
+  }
+
+  .export-group { display:flex; flex-direction:column; gap:0.4rem; }
+
+  label.light {
+    font-size:0.78rem;
+    font-weight:600;
+    color:var(--text-light);
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    font-family:'Montserrat', sans-serif;
+  }
+
+  select {
+    padding:0.65rem 2.5rem 0.65rem 0.9rem;
+    border:1.5px solid rgba(255,255,255,0.12);
+    border-radius:8px;
+    font-family:'Open Sans', sans-serif;
+    font-size:0.9rem;
+    color:var(--white);
+    background:rgba(255,255,255,0.07);
+    cursor:pointer;
+    outline:none;
+    appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 0.9rem center;
+    transition:border-color 0.2s;
+    min-width:200px;
+  }
+  select:focus {
+    border-color:rgba(255,212,59,0.4);
+    box-shadow:0 0 0 3px rgba(255,212,59,0.08);
+  }
+  select option { background:#252B34; color:var(--white); }
+
+  .btn-download {
+    display:inline-flex;
+    align-items:center;
+    gap:0.6rem;
+    background:var(--yellow);
+    color:var(--dark);
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:0.9rem;
+    padding:0.75rem 1.75rem;
+    border-radius:8px;
+    border:none;
+    cursor:pointer;
+    transition:background 0.2s, transform 0.15s;
+    letter-spacing:0.02em;
+    text-decoration:none;
+  }
+  .btn-download:hover { background:#f5c800; transform:translateY(-1px); }
+  .btn-download:active { transform:translateY(0); }
+
+  .export-info {
+    margin-top:1.5rem;
+    padding:1rem 1.25rem;
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--border-dark);
+    border-radius:8px;
+    font-size:0.82rem;
+    color:var(--text-light);
+    line-height:1.6;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background:var(--dark);
+    padding:1.25rem 2.5rem;
+    text-align:center;
+    font-size:0.8rem;
+    color:var(--text-light);
+    border-top:1px solid var(--border-dark);
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <span class="header-logo">Python <span>pour les métiers</span></span>
+  <span class="header-badge">Support de cours - Automatiser une série d'actions dans un navigateur avec Selenium</span>
+</header>
+
+<!-- ══ PART 1: COURSE ══ -->
+<div class="section-block section-block-light">
+  <div class="inner">
+    <div class="section-tag section-tag-cours">Partie cours</div>
+    <h1 class="section-title section-title-dark">Mise à jour d'un salaire dans un back office</h1>
+    <p class="section-subtitle section-subtitle-dark">Remplir les champs ci-dessous et valider pour enregistrer la modification.</p>
+
+    <div class="backoffice-panel">
+      <div class="panel-header">
+        <div class="panel-header-dot dot-red"></div>
+        <div class="panel-header-dot dot-yellow"></div>
+        <div class="panel-header-dot dot-green"></div>
+        <span class="panel-header-title">Back office RH - Gestion des salaires</span>
+      </div>
+      <div class="panel-body">
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="first_name">Prénom du salarié</label>
+            <input
+              type="text"
+              id="first_name"
+              name="first_name"
+              placeholder="Ex : Marie"
+              oninput="checkForm()"
+            >
+          </div>
+          <div class="form-group">
+            <label for="last_name">Nom du salarié</label>
+            <input
+              type="text"
+              id="last_name"
+              name="last_name"
+              placeholder="Ex : Dupont"
+              oninput="checkForm()"
+            >
+          </div>
+          <div class="form-group">
+            <label for="salary">Nouveau salaire brut mensuel (€)</label>
+            <input
+              type="text"
+              id="salary"
+              name="salary"
+              placeholder="Ex : 3500"
+              oninput="checkForm()"
+            >
+          </div>
+          <div class="form-group">
+            <label for="effective_date">Date d'effet</label>
+            <input
+              type="date"
+              name="effective_date"
+              oninput="checkForm()"
+            >
+          </div>
+        </div>
+
+        <div class="form-divider"></div>
+
+        <button class="btn-validate" onclick="submitForm()" disabled>
+          ✓ &nbsp;Valider la modification
+        </button>
+
+        <div class="error-block" id="error_block">
+          <div class="error-text" id="error_text"></div>
+        </div>
+
+        <div class="result-block" id="result_block">
+          <div class="result-title">✓ &nbsp;Modification enregistrée</div>
+          <div class="result-text" id="result_text"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PART 2: EXERCISE ══ -->
+<div class="section-block section-block-dark">
+  <div class="inner">
+    <div class="section-tag section-tag-exercice">Partie exercice</div>
+    <h2 class="section-title section-title-light">Export de transactions mensuelles</h2>
+    <p class="section-subtitle section-subtitle-light">Sélectionner un mois et télécharger le fichier CSV correspondant.</p>
+
+    <div class="export-panel">
+      <div class="export-panel-header">
+        <span class="export-panel-title">Module d'export des transactions</span>
+      </div>
+      <div class="export-panel-body">
+
+        <div class="export-row">
+          <div class="export-group">
+            <label class="light" for="export_month">Mois</label>
+            <select id="export_month" name="export_month">
+              <option value="2026-01">Janvier 2026</option>
+              <option value="2026-02">Février 2026</option>
+              <option value="2026-03">Mars 2026</option>
+              <option value="2026-04">Avril 2026</option>
+              <option value="2026-05">Mai 2026</option>
+              <option value="2026-06">Juin 2026</option>
+              <option value="2026-07">Juillet 2026</option>
+              <option value="2026-08">Août 2026</option>
+              <option value="2026-09">Septembre 2026</option>
+              <option value="2026-10">Octobre 2026</option>
+              <option value="2026-11">Novembre 2026</option>
+              <option value="2026-12">Décembre 2026</option>
+            </select>
+          </div>
+          <button class="btn-download" id="btn_download" onclick="downloadCSV()">
+            ↓ &nbsp;Télécharger le CSV
+          </button>
+        </div>
+
+        <div class="export-info" id="export_info">
+          Le fichier CSV contiendra l'ensemble des transactions du mois sélectionné : référence, date, libellé, montant, statut et compte associé.
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  © <span id="annee"></span> Erwan DELANNE - Training & Consulting. Tous droits réservés.
+</footer>
+
+<script>
+
+  // ── PART 1: FORM VALIDATION ──
+
+  function submitForm() {
+    const firstName    = document.getElementById('first_name').value.trim();
+    const lastName     = document.getElementById('last_name').value.trim();
+    const salary       = document.getElementById('salary').value.trim();
+    const date         = document.querySelector('[name="effective_date"]').value;
+
+    const errorBlock  = document.getElementById('error_block');
+    const errorText   = document.getElementById('error_text');
+    const resultBlock = document.getElementById('result_block');
+    const resultText  = document.getElementById('result_text');
+
+    errorBlock.classList.remove('visible');
+    resultBlock.classList.remove('visible');
+
+    if (!firstName || !lastName || !salary || !date) {
+      errorText.textContent = 'Tous les champs sont obligatoires. Veuillez les remplir avant de valider.';
+      errorBlock.classList.add('visible');
+      return;
+    }
+
+    if (isNaN(salary.replace(',', '.')) || parseFloat(salary.replace(',', '.')) <= 0) {
+      errorText.textContent = 'Le montant du salaire doit être un nombre valide et positif.';
+      errorBlock.classList.add('visible');
+      return;
+    }
+
+    const processingId    = generateProcessingId();
+    const formattedDate   = formatDate(date);
+    const formattedSalary = parseFloat(salary.replace(',', '.')).toLocaleString('fr-FR', { minimumFractionDigits: 2 }) + ' €';
+
+    resultText.innerHTML =
+      'Le salaire de <strong>' + firstName + ' ' + lastName + '</strong> a été mis à jour à <strong>' + formattedSalary + ' brut mensuel</strong>, avec une date d\'effet au <strong>' + formattedDate + '</strong>.<br><br>' +
+      'Identifiant de traitement : <span class="result-id" id="processing_id">' + processingId + '</span>';
+
+    resultBlock.classList.add('visible');
+  }
+
+  function generateProcessingId() {
+    let id = '';
+    for (let i = 0; i < 10; i++) {
+      id += Math.floor(Math.random() * 10);
+    }
+    return id;
+  }
+
+  function formatDate(dateStr) {
+    const [year, month, day] = dateStr.split('-');
+    const monthNames = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+    return parseInt(day) + ' ' + monthNames[parseInt(month) - 1] + ' ' + year;
+  }
+
+  function checkForm() {
+    const firstName = document.getElementById('first_name').value.trim();
+    const lastName  = document.getElementById('last_name').value.trim();
+    const salary    = document.getElementById('salary').value.trim();
+    const date      = document.querySelector('[name="effective_date"]').value;
+
+    const btn = document.querySelector('.btn-validate');
+
+    if (firstName && lastName && salary && date) {
+      btn.disabled = false;
+    } else {
+      btn.disabled = true;
+    }
+  }
+
+  // ── PART 2: CSV EXPORT ──
+
+  function downloadCSV() {
+    const monthValue = document.getElementById('export_month').value;
+    const monthNames = {
+      '2026-01':'Janvier','2026-02':'Février','2026-03':'Mars',
+      '2026-04':'Avril','2026-05':'Mai','2026-06':'Juin',
+      '2026-07':'Juillet','2026-08':'Août','2026-09':'Septembre',
+      '2026-10':'Octobre','2026-11':'Novembre','2026-12':'Décembre'
+    };
+
+    const csv  = generateCSV(monthValue);
+    const blob = new Blob([csv], { type:'text/csv;charset=utf-8;' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = 'transactions_' + monthValue + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    document.getElementById('export_info').textContent =
+      'Fichier téléchargé : transactions_' + monthValue + '.csv — ' + monthNames[monthValue] + ' 2026';
+  }
+
+  function generateCSV(monthValue) {
+    const [year, month] = monthValue.split('-').map(Number);
+    const daysInMonth   = new Date(year, month, 0).getDate();
+
+    const labels = [
+      'Virement fournisseur','Règlement facture','Prélèvement loyer',
+      'Remboursement note de frais','Paiement prestataire','Encaissement client',
+      'Virement salaires','Cotisations sociales','Abonnement logiciel',
+      'Règlement prestation conseil','Achat matériel informatique','Remise commerciale',
+      'Frais bancaires','Encaissement commande','Paiement sous-traitant'
+    ];
+    const statuses = ['Validé','Validé','Validé','En attente','Rejeté'];
+    const accounts = ['512001','512002','401000','411000','431000','641000'];
+    const refs     = () => 'TXN-2026-' + String(Math.floor(Math.random()*900000)+100000);
+
+    let rows             = ['Référence,Date,Libellé,Montant (€),Statut,Compte'];
+    const transactionCount = 18 + Math.floor(Math.random() * 10);
+
+    for (let i = 0; i < transactionCount; i++) {
+      const day     = String(1 + Math.floor(Math.random() * daysInMonth)).padStart(2, '0');
+      const date    = year + '-' + String(month).padStart(2, '0') + '-' + day;
+      const label   = labels[Math.floor(Math.random() * labels.length)];
+      const amount  = (Math.random() < 0.5 ? -1 : 1) * (100 + Math.floor(Math.random() * 49900));
+      const status  = statuses[Math.floor(Math.random() * statuses.length)];
+      const account = accounts[Math.floor(Math.random() * accounts.length)];
+      rows.push(refs() + ',' + date + ',"' + label + '",' + amount.toFixed(2) + ',' + status + ',' + account);
+    }
+
+    return '\uFEFF' + rows.join('\n');
+  }
+
+  // ── OTHER ──
+
+  document.getElementById('annee').textContent = new Date().getFullYear();
+
+</script>
+</body>
+</html>

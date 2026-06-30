@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentions légales — Python pour les métiers</title>
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ ══ -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark:#1E2229; --dark-soft:#252B34; --navy:#0f1a2e;
+    --yellow:#FFD43B; --yellow-dim:rgba(255,212,59,0.12);
+    --text-dark:#1e293b; --text-mid:#475569; --text-light:#94a3b8;
+    --white:#ffffff; --border-dark:rgba(255,255,255,0.08); --border-light:#e2e8f0;
+    --green:#10b981; --surface:#f8fafc;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Open Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;}
+  h1,h2,h3,h4{font-family:'Montserrat',sans-serif;line-height:1.2;}
+  nav{position:sticky;top:0;z-index:200;background:rgba(30,34,41,0.97);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-dark);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:66px;}
+  .nav-logo{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:var(--white);text-decoration:none;}
+  .nav-logo span{color:var(--yellow);}
+  .nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+  .nav-links a{text-decoration:none;color:var(--text-light);font-size:0.875rem;font-weight:500;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--white);}
+  .nav-cta{background:var(--yellow)!important;color:var(--dark)!important;padding:0.5rem 1.35rem!important;border-radius:6px!important;font-weight:700!important;}
+  .nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:0.4rem;z-index:201;}
+  .nav-burger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:transform 0.25s,opacity 0.25s;}
+  .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-burger.open span:nth-child(2){opacity:0;}
+  .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  footer{background:#131720;color:#475569;text-align:center;padding:2.25rem;font-size:0.8rem;margin-top:auto;}
+  footer a{color:#475569;text-decoration:none;margin:0 0.5rem;transition:color 0.2s;}
+  footer a:hover{color:#94a3b8;}
+  @media(max-width:600px){
+    nav{padding:0 1.25rem;}
+    .nav-burger{display:flex;}
+    .nav-links{display:none;position:absolute;top:66px;left:0;right:0;background:rgba(30,34,41,0.98);flex-direction:column;gap:0;padding:0.5rem 0 1rem;border-bottom:1px solid var(--border-dark);z-index:199;}
+    .nav-links.open{display:flex;}
+    .nav-links li{width:100%;}
+    .nav-links a{display:block;padding:0.85rem 1.5rem;font-size:0.95rem;color:var(--text-light);}
+    .nav-links a:hover{color:var(--white);background:rgba(255,255,255,0.04);}
+    .nav-links .nav-cta{margin:0.5rem 1.5rem 0;display:block;text-align:center;border-radius:6px;}
+  }
+  /* ══ FIN DU BLOC PARTAGÉ ══ */
+
+  /* ── MISE EN PAGE LÉGALE ── */
+  main{flex:1;padding:4rem 1.5rem 5rem;}
+  .legal-wrap{max-width:760px;margin:0 auto;}
+
+  /* En-tête de page */
+  .page-header{margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid var(--border-light);}
+  .page-tag{display:inline-block;background:var(--yellow-dim);color:#7a5c00;border:1px solid rgba(255,212,59,0.35);padding:0.28rem 0.85rem;border-radius:100px;font-size:0.67rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;font-family:'Montserrat',sans-serif;}
+  .page-header h1{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;color:var(--dark);letter-spacing:-0.02em;margin-bottom:0.5rem;}
+  .page-header .meta{font-size:0.8rem;color:var(--text-light);}
+
+  /* Sections */
+  .legal-section{margin-bottom:2.75rem;}
+  .legal-section h2{font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:2px solid var(--yellow);display:inline-block;}
+  .legal-section p{font-size:0.925rem;color:var(--text-mid);line-height:1.85;margin-bottom:0.85rem;}
+  .legal-section p:last-child{margin-bottom:0;}
+
+  /* Table de données identité */
+  .id-table{width:100%;border-collapse:collapse;font-size:0.875rem;margin-bottom:0.85rem;}
+  .id-table tr{border-bottom:1px solid var(--border-light);}
+  .id-table tr:last-child{border-bottom:none;}
+  .id-table td{padding:0.6rem 0.5rem;color:var(--text-mid);vertical-align:top;}
+  .id-table td:first-child{font-weight:600;color:var(--dark);white-space:nowrap;width:42%;padding-right:1.5rem;}
+
+  /* Lien email */
+  a.mail{color:var(--dark);font-weight:600;text-decoration:none;border-bottom:1px solid var(--yellow);}
+  a.mail:hover{color:var(--text-mid);}
+
+  /* Hébergeurs */
+  .host-block{background:var(--surface);border:1px solid var(--border-light);border-radius:10px;padding:1.25rem 1.5rem;margin-bottom:1rem;}
+  .host-block h3{font-family:'Montserrat',sans-serif;font-size:0.8rem;font-weight:700;color:var(--dark);margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.06em;}
+  .host-block table{width:100%;border-collapse:collapse;font-size:0.85rem;}
+  .host-block td{padding:0.35rem 0;color:var(--text-mid);vertical-align:top;}
+  .host-block td:first-child{font-weight:600;color:var(--dark);width:30%;padding-right:1rem;white-space:nowrap;}
+  .host-block a{color:var(--text-mid);text-decoration:underline;}
+
+  @media(max-width:600px){
+    .id-table td:first-child{width:auto;white-space:normal;}
+    .id-table,.id-table tbody,.id-table tr,.id-table td{display:block;}
+    .id-table td:first-child{padding-bottom:0.1rem;font-size:0.75rem;color:var(--text-light);border-bottom:none;}
+    .id-table tr{padding:0.5rem 0;border-bottom:1px solid var(--border-light);}
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ (NAV / HEADER) ══ -->
+<nav>
+  <a href="/" class="nav-logo">Python <span>pour les métiers</span></a>
+  <ul class="nav-links">
+    <li><a href="/#programme" onclick="closeNav()">Programme</a></li>
+    <li><a href="/#temoignage" onclick="closeNav()">Témoignages</a></li>
+    <li><a href="/#formateur" onclick="closeNav()">Le formateur</a></li>
+    <li><a href="/#faq" onclick="closeNav()">FAQ</a></li>
+    <li><a href="/#offre" class="nav-cta" onclick="closeNav()">Accéder à la formation →</a></li>
+  </ul>
+  <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<!-- ══ FIN DU BLOC PARTAGÉ (NAV / HEADER) ══ -->
+
+<!-- ══ CONTENU ══ -->
+<main>
+  <div class="legal-wrap">
+
+    <div class="page-header">
+      <h1>Mentions légales</h1>
+      <p class="meta">Version en vigueur au 01/06/2026 &nbsp;·&nbsp; www.python-pour-les-metiers.fr</p>
+    </div>
+
+    <!-- Éditeur du site -->
+    <div class="legal-section">
+      <h2>Éditeur du site</h2>
+      <table class="id-table">
+        <tr><td>Nom et prénom</td><td>Erwan DELANNE</td></tr>
+        <tr><td>Dénomination</td><td>Erwan Delanne — Training &amp; Consulting</td></tr>
+        <tr><td>Nom commercial</td><td>La data pour les métiers</td></tr>
+        <tr><td>Forme juridique</td><td>Entrepreneur individuel (JDG), enregistré en Pologne</td></tr>
+        <tr><td>NIP</td><td>5243059786</td></tr>
+        <tr><td>REGON</td><td>543627017</td></tr>
+        <tr><td>Pays d'établissement</td><td>Pologne</td></tr>
+        <tr><td>Adresse postale</td><td>Communicable sur demande à l'adresse e-mail ci-dessous</td></tr>
+        <tr><td>Adresse e-mail</td><td><a href="mailto:contact@python-pour-les-metiers.fr" class="mail">contact@python-pour-les-metiers.fr</a></td></tr>
+      </table>
+    </div>
+
+    <!-- Hébergement -->
+    <div class="legal-section">
+      <h2>Hébergement du site</h2>
+      <p>Le site www.python-pour-les-metiers.fr est composé de deux parties hébergées sur des infrastructures distinctes :</p>
+
+      <div class="host-block">
+        <h3>Site vitrine et pages légales</h3>
+        <table>
+          <tr><td>Domaine</td><td>www.python-pour-les-metiers.fr</td></tr>
+          <tr><td>Hébergeur</td><td>GitHub Pages — GitHub, Inc. (filiale de Microsoft Corporation)</td></tr>
+          <tr><td>Adresse</td><td>88 Colin P Kelly Jr St, San Francisco, CA 94107, États-Unis</td></tr>
+          <tr><td>Site web</td><td><a href="https://pages.github.com" target="_blank" rel="noopener">https://pages.github.com</a></td></tr>
+        </table>
+      </div>
+
+      <div class="host-block">
+        <h3>Plateforme de formation et pages de paiement</h3>
+        <table>
+          <tr><td>Domaine</td><td>systeme.python-pour-les-metiers.fr</td></tr>
+          <tr><td>Hébergeur</td><td>Systeme.io</td></tr>
+          <tr><td>Adresse</td><td>8 rue des Frères Caudron, 78140 Vélizy-Villacoublay, France</td></tr>
+          <tr><td>Site web</td><td><a href="https://systeme.io" target="_blank" rel="noopener">https://systeme.io</a></td></tr>
+        </table>
+      </div>
+
+      <p>Cette répartition est donnée à titre indicatif et est susceptible d'évoluer sans préavis.</p>
+    </div>
+
+    <!-- Propriété intellectuelle -->
+    <div class="legal-section">
+      <h2>Propriété intellectuelle</h2>
+      <p>L'ensemble des contenus présents sur ce site (textes, images, vidéos, logos, éléments graphiques, structure pédagogique, etc.) est la propriété exclusive d'Erwan Delanne — Training &amp; Consulting et est protégé par les lois applicables en matière de droit d'auteur et de propriété intellectuelle. Toute reproduction, représentation, modification, diffusion ou exploitation, totale ou partielle, sans autorisation préalable et écrite de l'éditeur, est strictement interdite.</p>
+      <p>© <span id="yr"></span> Erwan Delanne — Training &amp; Consulting. Tous droits réservés.</p>
+    </div>
+
+    <!-- Responsabilité -->
+    <div class="legal-section">
+      <h2>Responsabilité</h2>
+      <p>L'éditeur s'efforce d'assurer l'exactitude et la mise à jour des informations diffusées sur ce site. Toutefois, il ne peut garantir l'absence d'erreurs ou d'omissions, ni la disponibilité permanente du site. L'éditeur décline toute responsabilité quant aux conséquences de l'utilisation des informations présentes sur ce site, ainsi qu'en cas d'interruption temporaire due à des opérations de maintenance ou à des causes extérieures.</p>
+    </div>
+
+    <!-- Loi applicable -->
+    <div class="legal-section">
+      <h2>Loi applicable</h2>
+      <p>Les présentes mentions légales sont régies par le droit polonais. En cas de litige relatif à leur interprétation ou à leur application, les juridictions polonaises seront seules compétentes.</p>
+    </div>
+
+  </div>
+</main>
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ (FOOTER) ══ -->
+<footer>
+  <p>
+    © <span id="footer-year"></span> Erwan Delanne — Training &amp; Consulting &nbsp;·&nbsp;
+    <a href="/cgu/">CGU</a><a href="/cgv/">CGV</a><a href="/mentions-legales/">Mentions légales</a><a href="/politique-confidentialite/">Politique de confidentialité</a><a href="/contact/">Contact</a>
+  </p>
+</footer>
+<!-- ══ FIN DU BLOC PARTAGÉ (FOOTER) ══ -->
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ (SCRIPT) ══ -->
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  function toggleNav(){
+    document.getElementById('navBurger').classList.toggle('open');
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  function closeNav(){
+    document.getElementById('navBurger').classList.remove('open');
+    document.querySelector('.nav-links').classList.remove('open');
+  }
+</script>
+<!-- ══ FIN DU BLOC PARTAGÉ (SCRIPT) ══ -->
+
+</body>
+</html>

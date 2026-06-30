@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Politique de confidentialité — Python pour les métiers</title>
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ ══ -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark:#1E2229; --dark-soft:#252B34; --navy:#0f1a2e;
+    --yellow:#FFD43B; --yellow-dim:rgba(255,212,59,0.12);
+    --text-dark:#1e293b; --text-mid:#475569; --text-light:#94a3b8;
+    --white:#ffffff; --border-dark:rgba(255,255,255,0.08); --border-light:#e2e8f0;
+    --green:#10b981; --surface:#f8fafc;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Open Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;}
+  h1,h2,h3,h4{font-family:'Montserrat',sans-serif;line-height:1.2;}
+  nav{position:sticky;top:0;z-index:200;background:rgba(30,34,41,0.97);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-dark);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:66px;}
+  .nav-logo{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:var(--white);text-decoration:none;}
+  .nav-logo span{color:var(--yellow);}
+  .nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+  .nav-links a{text-decoration:none;color:var(--text-light);font-size:0.875rem;font-weight:500;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--white);}
+  .nav-cta{background:var(--yellow)!important;color:var(--dark)!important;padding:0.5rem 1.35rem!important;border-radius:6px!important;font-weight:700!important;}
+  .nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:0.4rem;z-index:201;}
+  .nav-burger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:transform 0.25s,opacity 0.25s;}
+  .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-burger.open span:nth-child(2){opacity:0;}
+  .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  footer{background:#131720;color:#475569;text-align:center;padding:2.25rem;font-size:0.8rem;margin-top:auto;}
+  footer a{color:#475569;text-decoration:none;margin:0 0.5rem;transition:color 0.2s;}
+  footer a:hover{color:#94a3b8;}
+  @media(max-width:600px){
+    nav{padding:0 1.25rem;}
+    .nav-burger{display:flex;}
+    .nav-links{display:none;position:absolute;top:66px;left:0;right:0;background:rgba(30,34,41,0.98);flex-direction:column;gap:0;padding:0.5rem 0 1rem;border-bottom:1px solid var(--border-dark);z-index:199;}
+    .nav-links.open{display:flex;}
+    .nav-links li{width:100%;}
+    .nav-links a{display:block;padding:0.85rem 1.5rem;font-size:0.95rem;color:var(--text-light);}
+    .nav-links a:hover{color:var(--white);background:rgba(255,255,255,0.04);}
+    .nav-links .nav-cta{margin:0.5rem 1.5rem 0;display:block;text-align:center;border-radius:6px;}
+  }
+  /* ══ FIN DU BLOC PARTAGÉ ══ */
+
+  main{flex:1;padding:4rem 1.5rem 5rem;}
+  .legal-wrap{max-width:760px;margin:0 auto;}
+
+  .page-header{margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid var(--border-light);}
+  .page-tag{display:inline-block;background:var(--yellow-dim);color:#7a5c00;border:1px solid rgba(255,212,59,0.35);padding:0.28rem 0.85rem;border-radius:100px;font-size:0.67rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;font-family:'Montserrat',sans-serif;}
+  .page-header h1{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;color:var(--dark);letter-spacing:-0.02em;margin-bottom:0.5rem;}
+  .page-header .meta{font-size:0.8rem;color:var(--text-light);}
+
+  /* Sommaire */
+  .toc{background:var(--surface);border:1px solid var(--border-light);border-radius:10px;padding:1.5rem 1.75rem;margin-bottom:3rem;}
+  .toc-title{font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--dark);margin-bottom:1rem;}
+  .toc ol{padding-left:1.25rem;}
+  .toc li{margin-bottom:0.35rem;}
+  .toc a{font-size:0.875rem;color:var(--text-mid);text-decoration:none;transition:color 0.15s;}
+  .toc a:hover{color:var(--dark);}
+
+  /* Sections */
+  .legal-section{margin-bottom:2.75rem;scroll-margin-top:80px;}
+  .legal-section h2{font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:2px solid var(--yellow);display:inline-block;}
+  .legal-section p{font-size:0.925rem;color:var(--text-mid);line-height:1.85;margin-bottom:0.85rem;}
+  .legal-section p:last-child{margin-bottom:0;}
+  .legal-section ul{padding-left:1.4rem;margin-bottom:0.85rem;}
+  .legal-section li{font-size:0.925rem;color:var(--text-mid);line-height:1.85;margin-bottom:0.4rem;}
+
+  /* Bloc identité responsable */
+  .identity-box{background:var(--surface);border:1px solid var(--border-light);border-radius:10px;padding:1.25rem 1.5rem;margin-bottom:1rem;font-size:0.875rem;color:var(--text-mid);line-height:1.85;}
+  .identity-box strong{color:var(--dark);}
+
+  /* Tableau durées de conservation */
+  .retention-table{width:100%;border-collapse:collapse;font-size:0.875rem;margin:1rem 0;}
+  .retention-table th{background:var(--surface);padding:0.65rem 0.85rem;text-align:left;font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:700;color:var(--dark);letter-spacing:0.05em;text-transform:uppercase;border-bottom:2px solid var(--border-light);}
+  .retention-table td{padding:0.65rem 0.85rem;color:var(--text-mid);border-bottom:1px solid var(--border-light);vertical-align:top;line-height:1.6;}
+  .retention-table tr:last-child td{border-bottom:none;}
+  .retention-table td:first-child{font-weight:600;color:var(--dark);width:45%;}
+
+  /* Bloc droits */
+  .rights-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1rem;}
+  @media(max-width:500px){.rights-grid{grid-template-columns:1fr;}}
+  .right-item{background:var(--surface);border:1px solid var(--border-light);border-radius:8px;padding:0.85rem 1rem;font-size:0.85rem;color:var(--text-mid);}
+  .right-item strong{display:block;font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:700;color:var(--dark);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.3rem;}
+
+  /* Sous-traitants */
+  .vendor-list{display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1rem;}
+  .vendor-item{display:flex;justify-content:space-between;align-items:baseline;font-size:0.875rem;padding:0.6rem 0;border-bottom:1px solid var(--border-light);}
+  .vendor-item:last-child{border-bottom:none;}
+  .vendor-name{font-weight:600;color:var(--dark);}
+  .vendor-item a{font-size:0.8rem;color:var(--text-light);text-decoration:underline;transition:color 0.15s;}
+  .vendor-item a:hover{color:var(--text-mid);}
+
+  a.mail{color:var(--dark);font-weight:600;text-decoration:none;border-bottom:1px solid var(--yellow);}
+  a.mail:hover{color:var(--text-mid);}
+
+  @media(max-width:600px){.retention-table{font-size:0.8rem;}.retention-table th,.retention-table td{padding:0.5rem;}}
+</style>
+</head>
+<body>
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ (NAV / HEADER) ══ -->
+<nav>
+  <a href="/" class="nav-logo">Python <span>pour les métiers</span></a>
+  <ul class="nav-links">
+    <li><a href="/#programme" onclick="closeNav()">Programme</a></li>
+    <li><a href="/#temoignage" onclick="closeNav()">Témoignages</a></li>
+    <li><a href="/#formateur" onclick="closeNav()">Le formateur</a></li>
+    <li><a href="/#faq" onclick="closeNav()">FAQ</a></li>
+    <li><a href="/#offre" class="nav-cta" onclick="closeNav()">Accéder à la formation →</a></li>
+  </ul>
+  <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<!-- ══ FIN DU BLOC PARTAGÉ (NAV / HEADER) ══ -->
+
+<main>
+  <div class="legal-wrap">
+
+    <div class="page-header">
+      <h1>Politique de confidentialité</h1>
+      <p class="meta">Version en vigueur au 01/06/2026 &nbsp;·&nbsp; www.python-pour-les-metiers.fr</p>
+    </div>
+
+    <div class="toc">
+      <div class="toc-title">Sommaire</div>
+      <ol>
+        <li><a href="#pc-1">Responsable du traitement</a></li>
+        <li><a href="#pc-2">Données collectées</a></li>
+        <li><a href="#pc-3">Finalités du traitement</a></li>
+        <li><a href="#pc-4">Base légale</a></li>
+        <li><a href="#pc-5">Cookies</a></li>
+        <li><a href="#pc-6">Durée de conservation</a></li>
+        <li><a href="#pc-7">Vos droits</a></li>
+        <li><a href="#pc-8">Hébergement et sous-traitants</a></li>
+      </ol>
+    </div>
+
+    <div class="legal-section" id="pc-1">
+      <h2>1. Responsable du traitement</h2>
+      <p>Le site Python pour les métiers est édité par :</p>
+      <div class="identity-box">
+        <strong>Erwan Delanne — Training &amp; Consulting</strong><br>
+        Entrepreneur individuel (JDG) enregistré en Pologne<br>
+        NIP : 5243059786 &nbsp;·&nbsp; REGON : 543627017<br>
+        Adresse e-mail : <a href="mailto:contact@python-pour-les-metiers.fr" class="mail">contact@python-pour-les-metiers.fr</a>
+      </div>
+    </div>
+
+    <div class="legal-section" id="pc-2">
+      <h2>2. Données collectées</h2>
+      <p>Nous collectons uniquement les données nécessaires à la fourniture de nos services. Ces données peuvent inclure, sans que cette liste soit exhaustive :</p>
+      <ul>
+        <li><strong>Informations d'identification</strong> : nom, prénom, adresse e-mail, etc.</li>
+        <li><strong>Informations professionnelles et de facturation</strong> : entreprise, numéro de TVA intracommunautaire, pays, etc.</li>
+        <li><strong>Informations complémentaires</strong> : toute donnée que vous choisissez de nous communiquer (objectifs de formation, profession, secteur d'activité, etc.).</li>
+        <li><strong>Données techniques</strong> : adresse IP, informations de session via cookies essentiels.</li>
+        <li><strong>Échanges sur le canal d'échange privé</strong> : messages échangés dans le cadre de l'accompagnement.</li>
+        <li><strong>Données issues des sessions de coaching</strong> : échanges par vidéoconférence et, le cas échéant, enregistrement avec votre accord explicite préalable.</li>
+      </ul>
+      <p>Nous ne collectons aucune donnée sensible (santé, religion, opinions politiques, etc.).</p>
+    </div>
+
+    <div class="legal-section" id="pc-3">
+      <h2>3. Finalités du traitement</h2>
+      <p>Vos données personnelles sont collectées et traitées pour les finalités suivantes :</p>
+      <ul>
+        <li><strong>Gestion des inscriptions et de la relation client</strong> : inscription, facturation, accès à la formation et suivi pédagogique.</li>
+        <li><strong>Accompagnement individualisé</strong> : organisation et réalisation des sessions de coaching et des échanges sur le canal privé.</li>
+        <li><strong>Communication</strong> : réponses à vos demandes et envoi d'informations relatives à la formation.</li>
+        <li><strong>Amélioration des services</strong> : adaptation des contenus à votre profil (profession, objectifs).</li>
+        <li><strong>Sécurité et bon fonctionnement du site</strong> : via les cookies essentiels.</li>
+        <li><strong>Publication de témoignages</strong> : avec votre consentement explicite, vos retours d'expérience peuvent être utilisés sur le site ou les supports de communication (prénom, profession, avis). Les témoignages peuvent faire l'objet d'une sélection d'extraits, d'une mise en forme, d'une correction orthographique, ou d'un regroupement de réponses issues d'un même formulaire, sans jamais en modifier le sens ni la portée.</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="pc-4">
+      <h2>4. Base légale</h2>
+      <p>Le traitement repose sur :</p>
+      <ul>
+        <li><strong>Exécution d'un contrat</strong> : gestion de l'inscription, de la facturation, de l'accès à la formation et de l'accompagnement.</li>
+        <li><strong>Votre consentement</strong> : formulaire de contact, publication de témoignages, enregistrement des sessions de coaching.</li>
+        <li><strong>Intérêt légitime</strong> : cookies essentiels pour la sécurité et la navigation, suivi pédagogique.</li>
+        <li><strong>Obligation légale</strong> : conservation des données de facturation.</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="pc-5">
+      <h2>5. Cookies</h2>
+      <p>Le site utilise uniquement des cookies essentiels pour maintenir la session utilisateur et assurer la sécurité et le bon fonctionnement du site. Ces cookies sont indispensables et ne peuvent pas être désactivés depuis nos systèmes. Vous pouvez toutefois configurer votre navigateur pour les bloquer, mais certaines fonctionnalités pourraient ne plus fonctionner correctement.</p>
+    </div>
+
+    <div class="legal-section" id="pc-6">
+      <h2>6. Durée de conservation</h2>
+      <table class="retention-table">
+        <thead>
+          <tr><th>Données</th><th>Durée de conservation</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Données liées à la formation et à la relation client</td>
+            <td>Jusqu'à 10 ans après la fin de la relation commerciale (obligations légales : comptabilité, fiscalité)</td>
+          </tr>
+          <tr>
+            <td>Données de contact (prospects)</td>
+            <td>Jusqu'à 3 ans après le dernier échange</td>
+          </tr>
+          <tr>
+            <td>Témoignages publiés</td>
+            <td>Tant que le contenu est en ligne ou jusqu'au retrait de votre consentement</td>
+          </tr>
+          <tr>
+            <td>Enregistrements de sessions de coaching</td>
+            <td>Uniquement avec votre accord explicite, pour la durée convenue entre les parties</td>
+          </tr>
+          <tr>
+            <td>Cookies essentiels</td>
+            <td>Durée de la session ou quelques jours selon le besoin technique</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>À l'issue de ces délais, vos données sont supprimées ou anonymisées.</p>
+    </div>
+
+    <div class="legal-section" id="pc-7">
+      <h2>7. Vos droits</h2>
+      <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+      <ul>
+        <li>Droit d'accès, de rectification et de suppression de vos données ;</li>
+        <li>Droit d'opposition au traitement ;</li>
+        <li>Droit de retrait du consentement (hors obligations légales) ;</li>
+        <li>Droit à la portabilité de vos données.</li>
+      </ul>
+      <p>Pour exercer vos droits : <a href="mailto:contact@python-pour-les-metiers.fr" class="mail">contact@python-pour-les-metiers.fr</a></p>
+    </div>
+
+    <div class="legal-section" id="pc-8">
+      <h2>8. Hébergement et sous-traitants</h2>
+      <p>Le site Python pour les métiers est hébergé sur deux infrastructures et fait appel aux sous-traitants suivants :</p>
+      <div class="vendor-list">
+        <div class="vendor-item">
+          <span><span class="vendor-name">GitHub Pages</span> &nbsp;—&nbsp; Site vitrine et pages légales (GitHub, Inc., San Francisco, États-Unis)</span>
+          <a href="https://docs.github.com/fr/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">Politique de confidentialité</a>
+        </div>
+        <div class="vendor-item">
+          <span><span class="vendor-name">Systeme.io</span> &nbsp;—&nbsp; Plateforme de formation et pages de paiement (Vélizy-Villacoublay, France)</span>
+          <a href="https://systeme.io/privacy-policy" target="_blank" rel="noopener">Politique de confidentialité</a>
+        </div>
+        <div class="vendor-item">
+          <span><span class="vendor-name">Discord</span> &nbsp;—&nbsp; Canal d'échange privé (actuellement)</span>
+          <a href="https://discord.com/privacy" target="_blank" rel="noopener">Politique de confidentialité</a>
+        </div>
+        <div class="vendor-item">
+          <span><span class="vendor-name">Google Meet</span> &nbsp;—&nbsp; Sessions de coaching par vidéoconférence (outil actuel, susceptible d'évoluer)</span>
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Politique de confidentialité</a>
+        </div>
+      </div>
+      <p>Les sessions de coaching sont réalisées par vidéoconférence via un outil tiers. En cas d'enregistrement avec votre accord, les données correspondantes sont soumises aux conditions de confidentialité de l'outil utilisé. Les échanges sur le canal d'échange privé sont hébergés sur une plateforme tierce (actuellement Discord). En utilisant ce canal, vous acceptez également les conditions de cette plateforme.</p>
+    </div>
+
+  </div>
+</main>
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ (FOOTER) ══ -->
+<footer>
+  <p>
+    © <span id="footer-year"></span> Erwan Delanne — Training &amp; Consulting &nbsp;·&nbsp;
+    <a href="/cgu/">CGU</a><a href="/cgv/">CGV</a><a href="/mentions-legales/">Mentions légales</a><a href="/politique-confidentialite/">Politique de confidentialité</a><a href="/contact/">Contact</a>
+  </p>
+</footer>
+<!-- ══ FIN DU BLOC PARTAGÉ (FOOTER) ══ -->
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ (SCRIPT) ══ -->
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  function toggleNav(){
+    document.getElementById('navBurger').classList.toggle('open');
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  function closeNav(){
+    document.getElementById('navBurger').classList.remove('open');
+    document.querySelector('.nav-links').classList.remove('open');
+  }
+</script>
+<!-- ══ FIN DU BLOC PARTAGÉ (SCRIPT) ══ -->
+
+</body>
+</html>

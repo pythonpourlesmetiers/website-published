@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conditions Générales d'Utilisation — Python pour les métiers</title>
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ ══ -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark:#1E2229; --dark-soft:#252B34; --navy:#0f1a2e;
+    --yellow:#FFD43B; --yellow-dim:rgba(255,212,59,0.12);
+    --text-dark:#1e293b; --text-mid:#475569; --text-light:#94a3b8;
+    --white:#ffffff; --border-dark:rgba(255,255,255,0.08); --border-light:#e2e8f0;
+    --green:#10b981; --surface:#f8fafc;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Open Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;}
+  h1,h2,h3,h4{font-family:'Montserrat',sans-serif;line-height:1.2;}
+  nav{position:sticky;top:0;z-index:200;background:rgba(30,34,41,0.97);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-dark);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:66px;}
+  .nav-logo{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:var(--white);text-decoration:none;}
+  .nav-logo span{color:var(--yellow);}
+  .nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+  .nav-links a{text-decoration:none;color:var(--text-light);font-size:0.875rem;font-weight:500;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--white);}
+  .nav-cta{background:var(--yellow)!important;color:var(--dark)!important;padding:0.5rem 1.35rem!important;border-radius:6px!important;font-weight:700!important;}
+  .nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:0.4rem;z-index:201;}
+  .nav-burger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:transform 0.25s,opacity 0.25s;}
+  .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-burger.open span:nth-child(2){opacity:0;}
+  .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  footer{background:#131720;color:#475569;text-align:center;padding:2.25rem;font-size:0.8rem;margin-top:auto;}
+  footer a{color:#475569;text-decoration:none;margin:0 0.5rem;transition:color 0.2s;}
+  footer a:hover{color:#94a3b8;}
+  @media(max-width:600px){
+    nav{padding:0 1.25rem;}
+    .nav-burger{display:flex;}
+    .nav-links{display:none;position:absolute;top:66px;left:0;right:0;background:rgba(30,34,41,0.98);flex-direction:column;gap:0;padding:0.5rem 0 1rem;border-bottom:1px solid var(--border-dark);z-index:199;}
+    .nav-links.open{display:flex;}
+    .nav-links li{width:100%;}
+    .nav-links a{display:block;padding:0.85rem 1.5rem;font-size:0.95rem;color:var(--text-light);}
+    .nav-links a:hover{color:var(--white);background:rgba(255,255,255,0.04);}
+    .nav-links .nav-cta{margin:0.5rem 1.5rem 0;display:block;text-align:center;border-radius:6px;}
+  }
+  /* ══ FIN DU BLOC PARTAGÉ ══ */
+
+  /* ── MISE EN PAGE LÉGALE ── */
+  main{flex:1;padding:4rem 1.5rem 5rem;}
+  .legal-wrap{max-width:760px;margin:0 auto;}
+
+  .page-header{margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid var(--border-light);}
+  .page-tag{display:inline-block;background:var(--yellow-dim);color:#7a5c00;border:1px solid rgba(255,212,59,0.35);padding:0.28rem 0.85rem;border-radius:100px;font-size:0.67rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;font-family:'Montserrat',sans-serif;}
+  .page-header h1{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;color:var(--dark);letter-spacing:-0.02em;margin-bottom:0.5rem;}
+  .page-header .meta{font-size:0.8rem;color:var(--text-light);}
+
+  /* Sommaire */
+  .toc{background:var(--surface);border:1px solid var(--border-light);border-radius:10px;padding:1.5rem 1.75rem;margin-bottom:3rem;}
+  .toc-title{font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--dark);margin-bottom:1rem;}
+  .toc ol{padding-left:1.25rem;}
+  .toc li{margin-bottom:0.35rem;}
+  .toc a{font-size:0.875rem;color:var(--text-mid);text-decoration:none;transition:color 0.15s;}
+  .toc a:hover{color:var(--dark);}
+
+  /* Sections */
+  .legal-section{margin-bottom:2.75rem;scroll-margin-top:80px;}
+  .legal-section h2{font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:2px solid var(--yellow);display:inline-block;}
+  .legal-section p{font-size:0.925rem;color:var(--text-mid);line-height:1.85;margin-bottom:0.85rem;}
+  .legal-section p:last-child{margin-bottom:0;}
+  .legal-section ul{padding-left:1.4rem;margin-bottom:0.85rem;}
+  .legal-section ul li{font-size:0.925rem;color:var(--text-mid);line-height:1.85;margin-bottom:0.4rem;}
+
+  /* Table identité */
+  .id-table{width:100%;border-collapse:collapse;font-size:0.875rem;margin-bottom:0.85rem;}
+  .id-table tr{border-bottom:1px solid var(--border-light);}
+  .id-table tr:last-child{border-bottom:none;}
+  .id-table td{padding:0.6rem 0.5rem;color:var(--text-mid);vertical-align:top;}
+  .id-table td:first-child{font-weight:600;color:var(--dark);white-space:nowrap;width:42%;padding-right:1.5rem;}
+
+  a.mail{color:var(--dark);font-weight:600;text-decoration:none;border-bottom:1px solid var(--yellow);}
+  a.mail:hover{color:var(--text-mid);}
+
+  @media(max-width:600px){
+    .id-table td:first-child{width:auto;white-space:normal;}
+    .id-table,.id-table tbody,.id-table tr,.id-table td{display:block;}
+    .id-table td:first-child{padding-bottom:0.1rem;font-size:0.75rem;color:var(--text-light);border-bottom:none;}
+    .id-table tr{padding:0.5rem 0;border-bottom:1px solid var(--border-light);}
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ (NAV / HEADER) ══ -->
+<nav>
+  <a href="/" class="nav-logo">Python <span>pour les métiers</span></a>
+  <ul class="nav-links">
+    <li><a href="/#programme" onclick="closeNav()">Programme</a></li>
+    <li><a href="/#temoignage" onclick="closeNav()">Témoignages</a></li>
+    <li><a href="/#formateur" onclick="closeNav()">Le formateur</a></li>
+    <li><a href="/#faq" onclick="closeNav()">FAQ</a></li>
+    <li><a href="/#offre" class="nav-cta" onclick="closeNav()">Accéder à la formation →</a></li>
+  </ul>
+  <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<!-- ══ FIN DU BLOC PARTAGÉ (NAV / HEADER) ══ -->
+
+<main>
+  <div class="legal-wrap">
+
+    <div class="page-header">
+      <h1>Conditions Générales d'Utilisation</h1>
+      <p class="meta">Version en vigueur au 01/06/2026 &nbsp;·&nbsp; www.python-pour-les-metiers.fr</p>
+    </div>
+
+    <!-- Sommaire -->
+    <div class="toc">
+      <div class="toc-title">Sommaire</div>
+      <ol>
+        <li><a href="#cgu-1">Objet</a></li>
+        <li><a href="#cgu-2">Éditeur du site</a></li>
+        <li><a href="#cgu-3">Accès au site</a></li>
+        <li><a href="#cgu-4">Services proposés</a></li>
+        <li><a href="#cgu-5">Compte utilisateur</a></li>
+        <li><a href="#cgu-6">Obligations des utilisateurs</a></li>
+        <li><a href="#cgu-7">Propriété intellectuelle</a></li>
+        <li><a href="#cgu-8">Responsabilité</a></li>
+        <li><a href="#cgu-9">Données personnelles</a></li>
+        <li><a href="#cgu-10">Modification des CGU</a></li>
+        <li><a href="#cgu-11">Loi applicable</a></li>
+      </ol>
+    </div>
+
+    <div class="legal-section" id="cgu-1">
+      <h2>1. Objet</h2>
+      <p>Les présentes Conditions Générales d'Utilisation (CGU) définissent les modalités et conditions dans lesquelles toute personne (ci-après « l'Utilisateur ») peut accéder et utiliser le site Python pour les métiers, accessible à l'adresse www.python-pour-les-metiers.fr et ses sous-domaines (ci-après « le Site »), édité par Erwan Delanne — Training &amp; Consulting.</p>
+    </div>
+
+    <div class="legal-section" id="cgu-2">
+      <h2>2. Éditeur du site</h2>
+      <table class="id-table">
+        <tr><td>Nom et prénom</td><td>Erwan DELANNE</td></tr>
+        <tr><td>Dénomination</td><td>Erwan Delanne — Training &amp; Consulting</td></tr>
+        <tr><td>Nom commercial</td><td>La data pour les métiers</td></tr>
+        <tr><td>Forme juridique</td><td>Entrepreneur individuel (JDG), enregistré en Pologne</td></tr>
+        <tr><td>NIP</td><td>5243059786</td></tr>
+        <tr><td>REGON</td><td>543627017</td></tr>
+        <tr><td>Pays</td><td>Pologne</td></tr>
+        <tr><td>Adresse postale</td><td>Communicable sur demande à l'adresse e-mail ci-dessous</td></tr>
+        <tr><td>Adresse e-mail</td><td><a href="mailto:contact@python-pour-les-metiers.fr" class="mail">contact@python-pour-les-metiers.fr</a></td></tr>
+      </table>
+    </div>
+
+    <div class="legal-section" id="cgu-3">
+      <h2>3. Accès au site</h2>
+      <p>L'accès au Site est libre et gratuit pour tout Utilisateur disposant d'une connexion Internet. L'éditeur ne peut être tenu responsable des frais liés à cet accès (connexion Internet, matériel informatique).</p>
+      <p>Le Site est composé de plusieurs parties hébergées sur des infrastructures distinctes (GitHub Pages et Systeme.io). Certaines fonctionnalités, notamment la plateforme de formation et les pages de paiement, sont accessibles via des sous-domaines distincts soumis aux conditions propres à leurs hébergeurs respectifs.</p>
+    </div>
+
+    <div class="legal-section" id="cgu-4">
+      <h2>4. Services proposés</h2>
+      <p>Le Site propose notamment :</p>
+      <ul>
+        <li>La présentation de la formation Python pour les métiers et des services associés ;</li>
+        <li>Un accès à la plateforme de formation en ligne pour les utilisateurs inscrits ;</li>
+        <li>Des fonctionnalités d'accompagnement (sessions de coaching individuel et canal d'échange privé) dans les conditions définies par les Conditions Générales de Vente (CGV).</li>
+      </ul>
+      <p>L'éditeur se réserve le droit de modifier, suspendre ou supprimer tout ou partie des contenus et fonctionnalités du Site, sans préavis.</p>
+    </div>
+
+    <div class="legal-section" id="cgu-5">
+      <h2>5. Compte utilisateur</h2>
+      <p>Pour accéder à certains services (notamment la formation en ligne), l'Utilisateur doit disposer d'un compte créé avec une adresse e-mail valide. L'Utilisateur est seul responsable de la confidentialité de ses identifiants et de toute activité effectuée depuis son compte.</p>
+    </div>
+
+    <div class="legal-section" id="cgu-6">
+      <h2>6. Obligations des utilisateurs</h2>
+      <p>L'Utilisateur s'engage à :</p>
+      <ul>
+        <li>Ne pas utiliser le Site à des fins illégales, frauduleuses ou nuisibles à des tiers ;</li>
+        <li>Ne pas porter atteinte aux droits de l'éditeur ou de tiers, notamment en matière de propriété intellectuelle ;</li>
+        <li>Ne pas tenter d'accéder sans autorisation à des espaces réservés, à des données d'autres utilisateurs, ou aux systèmes informatiques du Site ;</li>
+        <li>Ne pas transmettre de contenu illicite, offensant ou susceptible de nuire au bon fonctionnement du Site.</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="cgu-7">
+      <h2>7. Propriété intellectuelle</h2>
+      <p>Tous les contenus présents sur le Site (textes, images, vidéos, logos, structure pédagogique, etc.) sont protégés par le droit d'auteur et demeurent la propriété exclusive de l'éditeur. Toute reproduction ou diffusion sans autorisation préalable et écrite est interdite. Pour les contenus pédagogiques, les conditions d'utilisation spécifiques sont définies dans les CGV.</p>
+    </div>
+
+    <div class="legal-section" id="cgu-8">
+      <h2>8. Responsabilité</h2>
+      <p>L'éditeur s'efforce d'assurer la disponibilité et la sécurité du Site, sans pouvoir le garantir de façon permanente. L'éditeur décline toute responsabilité en cas de dommages directs ou indirects résultant de l'utilisation du Site, d'une indisponibilité technique ou d'une erreur de contenu.</p>
+    </div>
+
+    <div class="legal-section" id="cgu-9">
+      <h2>9. Données personnelles</h2>
+      <p>Les données personnelles collectées via le Site sont traitées conformément au RGPD. Pour plus d'informations, consultez la <a href="/politique-confidentialite/" class="mail">Politique de Confidentialité</a>.</p>
+    </div>
+
+    <div class="legal-section" id="cgu-10">
+      <h2>10. Modification des CGU</h2>
+      <p>L'éditeur se réserve le droit de modifier les présentes CGU à tout moment. La version applicable est celle en vigueur à la date de consultation du Site. L'Utilisateur est invité à les consulter régulièrement.</p>
+    </div>
+
+    <div class="legal-section" id="cgu-11">
+      <h2>11. Loi applicable</h2>
+      <p>Les présentes CGU sont régies par le droit polonais. En cas de litige relatif à leur interprétation ou à leur application, les juridictions polonaises seront seules compétentes.</p>
+    </div>
+
+  </div>
+</main>
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ (FOOTER) ══ -->
+<footer>
+  <p>
+    © <span id="footer-year"></span> Erwan Delanne — Training &amp; Consulting &nbsp;·&nbsp;
+    <a href="/cgu/">CGU</a><a href="/cgv/">CGV</a><a href="/mentions-legales/">Mentions légales</a><a href="/politique-confidentialite/">Politique de confidentialité</a><a href="/contact/">Contact</a>
+  </p>
+</footer>
+<!-- ══ FIN DU BLOC PARTAGÉ (FOOTER) ══ -->
+
+<!-- ══ DEBUT DU BLOC PARTAGÉ (SCRIPT) ══ -->
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  function toggleNav(){
+    document.getElementById('navBurger').classList.toggle('open');
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  function closeNav(){
+    document.getElementById('navBurger').classList.remove('open');
+    document.querySelector('.nav-links').classList.remove('open');
+  }
+</script>
+<!-- ══ FIN DU BLOC PARTAGÉ (SCRIPT) ══ -->
+
+</body>
+</html>

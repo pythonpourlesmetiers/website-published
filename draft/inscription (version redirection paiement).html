@@ -5,9 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Choisir votre formule | Python pour les métiers</title>
 
-<!-- ══ DEBUT DU BLOC PARTAGÉ ══ -->
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
 <style>
+  /* ════════════════════════════════════════════
+     BLOC PARTAGÉ CSS — BASE
+     (variables, reset, typographie de base)
+     ════════════════════════════════════════════ */
   :root {
     --dark:#1E2229; --dark-soft:#252B34; --navy:#0f1a2e;
     --yellow:#FFD43B; --yellow-dim:rgba(255,212,59,0.12);
@@ -19,6 +28,13 @@
   html{scroll-behavior:smooth;}
   body{font-family:'Open Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;}
   h1,h2,h3,h4{font-family:'Montserrat',sans-serif;line-height:1.2;}
+  /* ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ CSS — BASE
+     ════════════════════════════════════════════ */
+  /* ════════════════════════════════════════════
+     BLOC PARTAGÉ CSS — NAVIGATION & FOOTER
+     Copier-coller ce bloc dans toutes les pages
+     ════════════════════════════════════════════ */
   nav{position:sticky;top:0;z-index:200;background:rgba(30,34,41,0.97);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-dark);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:66px;}
   .nav-logo{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:var(--white);text-decoration:none;}
   .nav-logo span{color:var(--yellow);}
@@ -26,6 +42,8 @@
   .nav-links a{text-decoration:none;color:var(--text-light);font-size:0.875rem;font-weight:500;transition:color 0.2s;}
   .nav-links a:hover{color:var(--white);}
   .nav-cta{background:var(--yellow)!important;color:var(--dark)!important;padding:0.5rem 1.35rem!important;border-radius:6px!important;font-weight:700!important;}
+  .nav-login{border:1px solid rgba(255,255,255,0.25);border-radius:6px;padding:0.45rem 1rem!important;}
+  .nav-login:hover{border-color:rgba(255,255,255,0.5);}
   .nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:0.4rem;z-index:201;}
   .nav-burger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:transform 0.25s,opacity 0.25s;}
   .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
@@ -34,7 +52,7 @@
   footer{background:#131720;color:#475569;text-align:center;padding:2.25rem;font-size:0.8rem;margin-top:auto;}
   footer a{color:#475569;text-decoration:none;margin:0 0.5rem;transition:color 0.2s;}
   footer a:hover{color:#94a3b8;}
-  @media(max-width:600px){
+  @media(max-width:1095px){
     nav{padding:0 1.25rem;}
     .nav-burger{display:flex;}
     .nav-links{display:none;position:absolute;top:66px;left:0;right:0;background:rgba(30,34,41,0.98);flex-direction:column;gap:0;padding:0.5rem 0 1rem;border-bottom:1px solid var(--border-dark);z-index:199;}
@@ -43,8 +61,11 @@
     .nav-links a{display:block;padding:0.85rem 1.5rem;font-size:0.95rem;color:var(--text-light);}
     .nav-links a:hover{color:var(--white);background:rgba(255,255,255,0.04);}
     .nav-links .nav-cta{margin:0.5rem 1.5rem 0;display:block;text-align:center;border-radius:6px;}
+    .nav-links .nav-login{margin:0.5rem 1.5rem 0;display:block;text-align:center;padding:0.6rem 1rem!important;}
   }
-  /* ══ FIN DU BLOC PARTAGÉ ══ */
+  /* ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ CSS
+     ════════════════════════════════════════════ */
 
   /* ── PAGE SPÉCIFIQUE : choix formule ── */
   :root {
@@ -125,7 +146,10 @@
 </head>
 <body>
 
-<!-- ══ DEBUT DU BLOC PARTAGÉ (NAV / HEADER) ══ -->
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ HTML — NAVIGATION
+     (adapter href="/" sur nav-logo si besoin)
+     ════════════════════════════════════════════ -->
 <nav>
   <a href="/" class="nav-logo">Python <span>pour les métiers</span></a>
   <ul class="nav-links">
@@ -133,12 +157,15 @@
     <li><a href="/#temoignage" onclick="closeNav()">Témoignages</a></li>
     <li><a href="/#formateur" onclick="closeNav()">Le formateur</a></li>
     <li><a href="/#faq" onclick="closeNav()">FAQ</a></li>
+    <li><a href="https://www.python-pour-les-metiers.fr/school/course/formation" class="nav-login" onclick="closeNav()">Se connecter</a></li>
   </ul>
   <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleNav()">
     <span></span><span></span><span></span>
   </button>
 </nav>
-<!-- ══ FIN DU BLOC PARTAGÉ (NAV / HEADER) ══ -->
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ HTML — NAVIGATION
+     ════════════════════════════════════════════ -->
 
 <!-- ══ CHOIX ══ -->
 <section class="s-surface section-tight">
@@ -199,16 +226,22 @@
   </div>
 </section>
 
-<!-- ══ DEBUT DU BLOC PARTAGÉ (FOOTER) ══ -->
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ HTML — FOOTER
+     ════════════════════════════════════════════ -->
 <footer>
   <p>
     © <span id="footer-year"></span> Erwan Delanne — Training &amp; Consulting &nbsp;·&nbsp;
     <a href="/cgu/">CGU</a><a href="/cgv/">CGV</a><a href="/mentions-legales/">Mentions légales</a><a href="/politique-confidentialite/">Politique de confidentialité</a><a href="/contact/">Contact</a>
   </p>
 </footer>
-<!-- ══ FIN DU BLOC PARTAGÉ (FOOTER) ══ -->
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ HTML — FOOTER
+     ════════════════════════════════════════════ -->
 
-<!-- ══ DEBUT DU BLOC PARTAGÉ (SCRIPT) ══ -->
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ JS — NAV BURGER
+     ════════════════════════════════════════════ -->
 <script>
   document.getElementById('footer-year').textContent = new Date().getFullYear();
   function toggleNav(){
@@ -220,7 +253,9 @@
     document.querySelector('.nav-links').classList.remove('open');
   }
 </script>
-<!-- ══ FIN DU BLOC PARTAGÉ (SCRIPT) ══ -->
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ JS
+     ════════════════════════════════════════════ -->
 
 </body>
 </html>

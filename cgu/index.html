@@ -5,9 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Conditions Générales d'Utilisation — Python pour les métiers</title>
 
-<!-- ══ DEBUT DU BLOC PARTAGÉ ══ -->
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
 <style>
+  /* ════════════════════════════════════════════
+     BLOC PARTAGÉ CSS — BASE
+     (variables, reset, typographie de base)
+     ════════════════════════════════════════════ */
   :root {
     --dark:#1E2229; --dark-soft:#252B34; --navy:#0f1a2e;
     --yellow:#FFD43B; --yellow-dim:rgba(255,212,59,0.12);
@@ -19,6 +28,9 @@
   html{scroll-behavior:smooth;}
   body{font-family:'Open Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;}
   h1,h2,h3,h4{font-family:'Montserrat',sans-serif;line-height:1.2;}
+  /* ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ CSS — BASE
+     ════════════════════════════════════════════ */
   /* ════════════════════════════════════════════
      BLOC PARTAGÉ CSS — NAVIGATION & FOOTER
      Copier-coller ce bloc dans toutes les pages
@@ -102,7 +114,6 @@
 
 <!-- ════════════════════════════════════════════
      BLOC PARTAGÉ HTML — NAVIGATION
-     Copier-coller ce bloc dans toutes les pages
      (adapter href="/" sur nav-logo si besoin)
      ════════════════════════════════════════════ -->
 <nav>
@@ -232,7 +243,6 @@
 
 <!-- ════════════════════════════════════════════
      BLOC PARTAGÉ HTML — FOOTER
-     Copier-coller ce bloc dans toutes les pages
      ════════════════════════════════════════════ -->
 <footer>
   <p>
@@ -246,7 +256,6 @@
 
 <!-- ════════════════════════════════════════════
      BLOC PARTAGÉ JS — NAV BURGER
-     Copier-coller ce bloc dans toutes les pages
      ════════════════════════════════════════════ -->
 <script>
   document.getElementById('footer-year').textContent = new Date().getFullYear();

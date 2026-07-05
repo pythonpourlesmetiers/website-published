@@ -1684,6 +1684,7 @@
         <div class="offre-video-block">
           <video autoplay loop muted playsinline>
             <source src="assets/danse.webm" type="video/webm">
+            <source src="assets/danse.mp4" type="video/mp4">
           </video>
           <svg class="offre-video-arrow" viewBox="49.0 90.0 1682.0 632.0" xmlns="http://www.w3.org/2000/svg">
             <g transform="translate(1780 0) scale(-1 1)">
@@ -2033,6 +2034,20 @@
     document.getElementById('navBurger').classList.remove('open');
     document.querySelector('.nav-links').classList.remove('open');
   }
+
+  // Autoplay vidéo au scroll (contourne la restriction iOS/Safari)
+  document.querySelectorAll('video[autoplay]').forEach(function(video) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          video.play().catch(function(){});
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.25 });
+    observer.observe(video);
+  });
 </script>
 </div><!-- /.page-wrapper -->
 </body>

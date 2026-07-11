@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, follow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+<link rel="manifest" href="/assets/favicon/site.webmanifest">
+<title>Témoignages — Python pour les métiers</title>
+
+<!-- Redirection pour les navigateurs sans JavaScript -->
+<meta http-equiv="refresh" content="0; url=/#temoignage">
+<link rel="canonical" href="/#temoignage">
+
+<style>
+  :root {
+    --dark:#1E2229; --yellow:#FFD43B;
+    --text-light:#94a3b8; --white:#ffffff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    font-family:'Open Sans',Arial,sans-serif;
+    background:var(--dark);
+    color:var(--white);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    line-height:1.6;
+  }
+  .redirect-box{padding:2rem;}
+  .spinner{
+    width:32px;height:32px;
+    margin:0 auto 1.25rem;
+    border:3px solid rgba(255,255,255,0.15);
+    border-top-color:var(--yellow);
+    border-radius:50%;
+    animation:spin 0.8s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  p{color:var(--text-light);font-size:0.95rem;}
+  a{color:var(--yellow);text-decoration:none;font-weight:600;}
+  a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+  <div class="redirect-box">
+    <div class="spinner" aria-hidden="true"></div>
+    <p>Redirection vers les témoignages…<br>
+    Si rien ne se passe, <a href="/#temoignage">cliquez ici</a>.</p>
+  </div>
+
+  <script>
+    window.location.replace('/#temoignage');
+  </script>
+</body>
+</html>

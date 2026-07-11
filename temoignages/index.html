@@ -2,18 +2,25 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="robots" content="noindex, follow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
 <link rel="manifest" href="/assets/favicon/site.webmanifest">
-<title>Témoignages — Python pour les métiers</title>
 
-<!-- Redirection pour les navigateurs sans JavaScript -->
-<meta http-equiv="refresh" content="0; url=/#temoignage">
-<link rel="canonical" href="/#temoignage">
+<title>Témoignages — Python pour les métiers</title>
+<meta name="description" content="Découvrez les retours d'expérience des personnes formées avec Python pour les métiers.">
+
+<!-- Balises Open Graph propres à CETTE page, avec sa propre URL en dur.
+     Pas de rel="canonical" pointant ailleurs : cette page est déclarée
+     comme une page à part entière, pas comme un doublon de la racine. -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://python-pour-les-metiers.fr/temoignages/">
+<meta property="og:title" content="Témoignages — Python pour les métiers">
+<meta property="og:description" content="Découvrez les retours d'expérience des personnes formées avec Python pour les métiers.">
+<meta property="og:image" content="https://python-pour-les-metiers.fr/assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
 
 <style>
   :root {
@@ -54,6 +61,9 @@
     Si rien ne se passe, <a href="/#temoignage">cliquez ici</a>.</p>
   </div>
 
+  <!-- Redirection UNIQUEMENT en JavaScript : invisible pour les robots
+       (LinkedIn, Facebook, Google...) qui ne l'exécutent pas, mais
+       transparente pour les vrais visiteurs. -->
   <script>
     window.location.replace('/#temoignage');
   </script>

@@ -4,7 +4,7 @@
  * À inclure sur CHAQUE page du site, juste après la balise <meta viewport>,
  * précédé de la variable window.GA_MEASUREMENT_ID :
  *
- *   <script>window.GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';</script>
+ *   <script>window.GA_MEASUREMENT_ID = 'G-DTYTEVQHKY';</script>
  *   <script src="/assets/consent.js" defer></script>
  *
  * Ce fichier :
@@ -13,7 +13,7 @@
  *    ou si le choix précédent date de plus de 6 mois (règle CNIL)
  *  - ne charge le script Google Analytics QUE si l'utilisateur clique sur "Accepter"
  *  - expose window.openCookiePrefs() pour permettre de changer d'avis à tout moment
- *    (à relier à un lien "Gérer les cookies" dans le footer)
+ *    (relié à un lien "Gérer les cookies" dans le footer)
  */
 (function () {
   "use strict";

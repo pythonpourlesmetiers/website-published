@@ -101,9 +101,9 @@
     banner.setAttribute("role", "dialog");
     banner.setAttribute("aria-label", "Préférences cookies");
     banner.innerHTML =
-      "<p>Ce site utilise Google Analytics pour mesurer l\u2019audience (statistiques de visite). " +
-      "Ces données ne sont collectées qu\u2019avec votre accord. " +
-      "Voir la <a href=\"/politique-confidentialite/\">politique de confidentialité</a>.</p>" +
+      "<p>Ce site utilise des cookies de mesure d\u2019audience afin d\u2019améliorer votre expérience. " +
+      "Ils ne sont déposés qu\u2019avec votre accord. " +
+      'Voir la <a href="/politique-confidentialite/">politique de confidentialité</a>.</p>' +
       '<div class="cookie-actions">' +
       '<button id="cookie-refuse" type="button">Refuser</button>' +
       '<button id="cookie-accept" type="button">Accepter</button>' +

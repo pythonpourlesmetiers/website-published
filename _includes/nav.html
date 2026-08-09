@@ -5,11 +5,17 @@
     <li><a href="/#temoignage" onclick="closeNav()">Témoignages</a></li>
     <li><a href="/#formateur" onclick="closeNav()">Le formateur</a></li>
     <li><a href="/articles/" onclick="closeNav()">Articles</a></li>
+
     {% if include.show_faq %}
     <li><a href="/#faq" onclick="closeNav()">FAQ</a></li>
     {% endif %}
+
     <li><a href="https://systeme.python-pour-les-metiers.fr/school/course/formation" class="nav-login" onclick="closeNav()">Se connecter</a></li>
+    
+    {% unless include.hide_registration %}
     <li><a href="/#offre" class="nav-cta" onclick="closeNav()">Rejoindre la formation →</a></li>
+    {% endunless %}
+    
   </ul>
   <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleNav()">
     <span></span><span></span><span></span>

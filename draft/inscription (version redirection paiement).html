@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -29,61 +31,9 @@
 <!-- ════════════════════════════════════════════
      FIN DU BLOC PARTAGÉ — POLICES
      ════════════════════════════════════════════ -->
-<style>
-  /* ════════════════════════════════════════════
-     BLOC PARTAGÉ CSS — BASE
-     (variables, reset, typographie de base)
-     ════════════════════════════════════════════ */
-  :root {
-    --dark:#1E2229; --dark-soft:#252B34; --navy:#0f1a2e;
-    --yellow:#FFD43B; --yellow-dim:rgba(255,212,59,0.12);
-    --text-dark:#1e293b; --text-mid:#475569; --text-light:#94a3b8;
-    --white:#ffffff; --border-dark:rgba(255,255,255,0.08); --border-light:#e2e8f0;
-    --green:#10b981; --surface:#f8fafc;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{font-family:'Open Sans',sans-serif;color:var(--text-dark);background:var(--white);line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;}
-  h1,h2,h3,h4{font-family:'Montserrat',sans-serif;line-height:1.2;}
-  /* ════════════════════════════════════════════
-     FIN DU BLOC PARTAGÉ CSS — BASE
-     ════════════════════════════════════════════ */
-  /* ════════════════════════════════════════════
-     BLOC PARTAGÉ CSS — NAVIGATION & FOOTER
-     Copier-coller ce bloc dans toutes les pages
-     ════════════════════════════════════════════ */
-  nav{position:sticky;top:0;z-index:200;background:rgba(30,34,41,0.97);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-dark);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:66px;}
-  .nav-logo{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:var(--white);text-decoration:none;}
-  .nav-logo span{color:var(--yellow);}
-  .nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
-  .nav-links a{text-decoration:none;color:var(--text-light);font-size:0.875rem;font-weight:500;transition:color 0.2s;}
-  .nav-links a:hover{color:var(--white);}
-  .nav-cta{background:var(--yellow)!important;color:var(--dark)!important;padding:0.5rem 1.35rem!important;border-radius:6px!important;font-weight:700!important;}
-  .nav-login{border:1px solid rgba(255,255,255,0.25);border-radius:6px;padding:0.45rem 1rem!important;}
-  .nav-login:hover{border-color:rgba(255,255,255,0.5);}
-  .nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:0.4rem;z-index:201;}
-  .nav-burger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:transform 0.25s,opacity 0.25s;}
-  .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-  .nav-burger.open span:nth-child(2){opacity:0;}
-  .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-  footer{background:#131720;color:#475569;text-align:center;padding:2.25rem;font-size:0.8rem;margin-top:auto;}
-  footer a{color:#475569;text-decoration:none;margin:0 0.5rem;transition:color 0.2s;}
-  footer a:hover{color:#94a3b8;}
-  @media(max-width:1095px){
-    nav{padding:0 1.25rem;}
-    .nav-burger{display:flex;}
-    .nav-links{display:none;position:absolute;top:66px;left:0;right:0;background:rgba(30,34,41,0.98);flex-direction:column;gap:0;padding:0.5rem 0 1rem;border-bottom:1px solid var(--border-dark);z-index:199;}
-    .nav-links.open{display:flex;}
-    .nav-links li{width:100%;}
-    .nav-links a{display:block;padding:0.85rem 1.5rem;font-size:0.95rem;color:var(--text-light);}
-    .nav-links a:hover{color:var(--white);background:rgba(255,255,255,0.04);}
-    .nav-links .nav-cta{margin:0.5rem 1.5rem 0;display:block;text-align:center;border-radius:6px;}
-    .nav-links .nav-login{margin:0.5rem 1.5rem 0;display:block;text-align:center;padding:0.6rem 1rem!important;}
-  }
-  /* ════════════════════════════════════════════
-     FIN DU BLOC PARTAGÉ CSS
-     ════════════════════════════════════════════ */
+<link rel="stylesheet" href="/assets/shared.css">
 
+<style>
   /* ── PAGE SPÉCIFIQUE : choix formule ── */
   :root {
     --yellow-pale: #FFF9E6;
@@ -164,22 +114,9 @@
 <body>
 
 <!-- ════════════════════════════════════════════
-     BLOC PARTAGÉ HTML — NAVIGATION
-     (adapter href="/" sur nav-logo si besoin)
+     BLOC PARTAGÉ HTML — NAVIGATION (voir _includes/nav.html)
      ════════════════════════════════════════════ -->
-<nav>
-  <a href="/" class="nav-logo">Python <span>pour les métiers</span></a>
-  <ul class="nav-links">
-    <li><a href="/#programme" onclick="closeNav()">Programme</a></li>
-    <li><a href="/#temoignage" onclick="closeNav()">Témoignages</a></li>
-    <li><a href="/#formateur" onclick="closeNav()">Le formateur</a></li>
-    <li><a href="/#faq" onclick="closeNav()">FAQ</a></li>
-    <li><a href="https://systeme.python-pour-les-metiers.fr/school/course/formation" class="nav-login" onclick="closeNav()">Se connecter</a></li>
-  </ul>
-  <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleNav()">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+{% include nav.html %}
 <!-- ════════════════════════════════════════════
      FIN DU BLOC PARTAGÉ HTML — NAVIGATION
      ════════════════════════════════════════════ -->
@@ -244,14 +181,9 @@
 </section>
 
 <!-- ════════════════════════════════════════════
-     BLOC PARTAGÉ HTML — FOOTER
+     BLOC PARTAGÉ HTML — FOOTER (voir _includes/footer.html)
      ════════════════════════════════════════════ -->
-<footer>
-  <p>
-    © <span id="footer-year"></span> Erwan Delanne — Training &amp; Consulting &nbsp;·&nbsp;
-    <a href="/cgu/">CGU</a><a href="/cgv/">CGV</a><a href="/mentions-legales/">Mentions légales</a><a href="/politique-confidentialite/">Politique de confidentialité</a><a href="/contact/">Contact</a><a href="#" onclick="openCookiePrefs(event)">Gérer les cookies</a>
-  </p>
-</footer>
+{% include footer.html %}
 <!-- ════════════════════════════════════════════
      FIN DU BLOC PARTAGÉ HTML — FOOTER
      ════════════════════════════════════════════ -->

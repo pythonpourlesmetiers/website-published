@@ -329,7 +329,7 @@ rapport["part_du_total"] = rapport["montant_total"] / rapport["montant_total"].s
      BLOC PARTAGÉ JS — NAV BURGER & FAQ
      ════════════════════════════════════════════ -->
 <script>
-  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  document.querySelectorAll('.current-year').forEach(function(el){ el.textContent = new Date().getFullYear(); });
 
   function toggleFaq(btn) {
     var item = btn.parentElement;

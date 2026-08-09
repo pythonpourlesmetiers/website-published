@@ -350,7 +350,7 @@ rapport.to_excel("rapport_mensuel.xlsx", index=False, sheet_name="Synthèse")</c
      BLOC PARTAGÉ JS — NAV BURGER & FAQ
      ════════════════════════════════════════════ -->
 <script>
-  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  document.querySelectorAll('.current-year').forEach(function(el){ el.textContent = new Date().getFullYear(); });
 
   function toggleFaq(btn) {
     var item = btn.parentElement;

@@ -1884,7 +1884,7 @@
 <!-- ══ SCRIPTS ══ -->
 <script>
   // YEAR
-  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  document.querySelectorAll('.current-year').forEach(function(el){ el.textContent = new Date().getFullYear(); });
 
   // CAC40 scatter
   const cac40 = [

@@ -252,7 +252,7 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:4rem 
      BLOC PARTAGÉ JS — NAV BURGER
      ════════════════════════════════════════════ -->
 <script>
-  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  document.querySelectorAll('.current-year').forEach(function(el){ el.textContent = new Date().getFullYear(); });
   function toggleNav(){
     document.getElementById('navBurger').classList.toggle('open');
     document.querySelector('.nav-links').classList.toggle('open');

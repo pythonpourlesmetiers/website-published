@@ -321,7 +321,7 @@ rapprochement = commandes.merge(
      BLOC PARTAGÉ JS — NAV BURGER & FAQ
      ════════════════════════════════════════════ -->
 <script>
-  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  document.querySelectorAll('.current-year').forEach(function(el){ el.textContent = new Date().getFullYear(); });
 
   function toggleFaq(btn) {
     var item = btn.parentElement;

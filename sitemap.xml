@@ -1,13 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
     <loc>https://python-pour-les-metiers.fr/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
   </url>
+
+  <url>
+    <loc>https://python-pour-les-metiers.fr/articles/</loc>
+  </url>
+
+  <url>
+    <loc>https://python-pour-les-metiers.fr/articles/automatiser-reporting-mensuel-python/</loc>
+  </url>
+
+  <url>
+    <loc>https://python-pour-les-metiers.fr/articles/combien-de-temps-python-autonome-excel/</loc>
+  </url>
+
+  <url>
+    <loc>https://python-pour-les-metiers.fr/articles/excel-et-python-combiner/</loc>
+  </url>
+
+  <url>
+    <loc>https://python-pour-les-metiers.fr/articles/jupyter-notebook-pour-les-metiers/</loc>
+  </url>
+
+  <url>
+    <loc>https://python-pour-les-metiers.fr/articles/no-code-piege-ere-ia/</loc>
+  </url>
+
+  <url>
+    <loc>https://python-pour-les-metiers.fr/articles/pourquoi-vibe-coder-ne-suffit-pas/</loc>
+  </url>
+
+  <url>
+    <loc>https://python-pour-les-metiers.fr/articles/python-business-analyst/</loc>
+  </url>
+
+  <url>
+    <loc>https://python-pour-les-metiers.fr/articles/python-finance-de-marche/</loc>
+  </url>
+
+  <url>
+    <loc>https://python-pour-les-metiers.fr/articles/python-marketing-digital/</loc>
+  </url>
+
+  <url>
+    <loc>https://python-pour-les-metiers.fr/articles/python-opportunites-carriere-metier/</loc>
+  </url>
+
+  <url>
+    <loc>https://python-pour-les-metiers.fr/articles/python-vs-power-query/</loc>
+  </url>
+
+  <url>
+    <loc>https://python-pour-les-metiers.fr/articles/python-vs-sql-profil-metier/</loc>
+  </url>
+
+  <url>
+    <loc>https://python-pour-les-metiers.fr/articles/python-vs-vba-reporting-controle-de-gestion/</loc>
+  </url>
+
+  <url>
+    <loc>https://python-pour-les-metiers.fr/articles/recherchev-doublons-erreur-silencieuse/</loc>
+  </url>
+
+  <url>
+    <loc>https://python-pour-les-metiers.fr/articles/tableau-croise-dynamique-pandas-vs-excel/</loc>
+  </url>
+
   <url>
     <loc>https://python-pour-les-metiers.fr/contact/</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
   </url>
+
 </urlset>

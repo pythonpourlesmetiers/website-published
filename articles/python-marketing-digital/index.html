@@ -1,0 +1,315 @@
+---
+---
+<!--
+  Métadonnées internes (ne s'affichent pas sur la page) :
+  - Mot-clé principal : python marketing digital
+  - Persona : marketeur digital, growth
+  - Cluster : Personas
+  - Liens internes posés vers /articles/no-code-piege-ere-ia/ (existe) et /articles/ (page d'index/hub,
+    existe désormais — l'ancienne "page pilier" séparée a été fusionnée avec cette page d'index).
+  - Schema.org : Article + FAQPage + BreadcrumbList inclus en bas de page.
+  - Date de publication (datePublished) mise à un placeholder : à corriger avec la vraie date de mise en ligne.
+  - Contenu factuel sur Jean-Baptiste Jézéquel et Thibault Louis repris tel que fourni dans le markdown
+    (reformulé, sans citation verbatim) — à vérifier/sourcer par tes soins avant publication si besoin.
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ — CONSENTEMENT COOKIES / GOOGLE ANALYTICS
+     ════════════════════════════════════════════ -->
+<script>window.GA_MEASUREMENT_ID = 'G-DTYTEVQHKY';</script>
+<script src="/assets/consent.js" defer></script>
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ — CONSENTEMENT COOKIES
+     ════════════════════════════════════════════ -->
+
+<link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg">
+<link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+<link rel="manifest" href="/assets/favicon/site.webmanifest">
+
+<title>Python en marketing : pourquoi malgré les outils no-code</title>
+<meta name="description" content="Zapier, Make, outils d'automation marketing : pourquoi un marketeur a quand même intérêt à apprendre Python, et ce que ça change concrètement.">
+<link rel="canonical" href="https://python-pour-les-metiers.fr/articles/python-marketing-digital/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://python-pour-les-metiers.fr/articles/python-marketing-digital/">
+<meta property="og:title" content="Python en marketing : pourquoi malgré les outils no-code">
+<meta property="og:description" content="Zapier, Make, outils d'automation marketing : pourquoi un marketeur a quand même intérêt à apprendre Python, et ce que ça change concrètement.">
+<meta property="og:image" content="https://python-pour-les-metiers.fr/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="fr_FR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://python-pour-les-metiers.fr/articles/python-marketing-digital/">
+<meta name="twitter:title" content="Python en marketing : pourquoi malgré les outils no-code">
+<meta name="twitter:description" content="Zapier, Make, outils d'automation marketing : pourquoi un marketeur a quand même intérêt à apprendre Python, et ce que ça change concrètement.">
+<meta name="twitter:image" content="https://python-pour-les-metiers.fr/assets/og-image.jpg">
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
+<link rel="stylesheet" href="/assets/shared.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+<style>
+  /* ── ARTICLE HERO ── */
+  .art-hero { position:relative; background:var(--navy); padding:3rem 2rem 2.75rem; }
+  .art-hero-inner { max-width:800px; margin:0 auto; }
+  .breadcrumb { font-size:0.8rem; color:#64748b; margin-bottom:1.75rem; }
+  .breadcrumb a { color:#94a3b8; text-decoration:none; }
+  .breadcrumb a:hover { color:var(--white); }
+  .art-label { display:inline-block; font-family:'Montserrat',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--blue-mid); background:rgba(37,99,235,0.08); border:1px solid rgba(37,99,235,0.25); padding:0.3rem 0.9rem; border-radius:100px; margin-bottom:1.25rem; }
+  .art-hero h1 { font-size:clamp(1.7rem,4vw,2.5rem); font-weight:800; color:var(--white); letter-spacing:-0.02em; line-height:1.25; margin-bottom:1.1rem; }
+  .art-standfirst { font-size:1.05rem; color:#94a3b8; line-height:1.75; max-width:640px; }
+  .art-meta { font-size:0.8rem; color:#64748b; margin-top:1.75rem; }
+
+  /* ── ARTICLE BODY ── */
+  .art-body { max-width:800px; margin:0 auto; padding:4rem 2rem 1rem; }
+  .art-lede { font-size:1.15rem; color:var(--text-mid); line-height:1.8; margin-bottom:1.4rem; }
+  .art-body p { font-size:1.05rem; line-height:1.85; color:var(--text-dark); margin-bottom:1.4rem; }
+  .art-body h2 { font-size:1.5rem; font-weight:800; color:var(--dark); margin:3rem 0 1.25rem; letter-spacing:-0.01em; }
+  .art-body ul { margin:0 0 1.4rem 0; padding-left:0; list-style:none; }
+  .art-body ul li { position:relative; padding-left:1.6rem; margin-bottom:0.9rem; font-size:1.02rem; line-height:1.75; color:var(--text-dark); }
+  .art-body ul li::before { content:'→'; position:absolute; left:0; color:var(--gold-text); font-weight:700; }
+  .art-body strong { color:var(--dark); font-weight:700; }
+  .art-body a { color:var(--blue-mid); text-decoration:underline; text-decoration-color:rgba(37,99,235,0.35); text-underline-offset:2px; }
+  .art-body a:hover { text-decoration-color:var(--blue-mid); }
+  .art-body code { font-family:'Menlo','Consolas','Monaco',monospace; font-size:0.9em; background:var(--surface); border:1px solid var(--border-light); border-radius:4px; padding:0.1rem 0.4rem; color:var(--dark); }
+
+  /* ── CODE BLOCKS ── */
+  .code-panel { border-radius:12px; overflow:hidden; border:1px solid var(--border-dark); margin:0.5rem 0 2rem; background:#1d1f21; }
+  .code-panel-head { display:flex; align-items:center; justify-content:space-between; padding:0.6rem 1.1rem; background:#161b22; border-bottom:1px solid var(--border-dark); }
+  .code-panel-lang { font-family:'Montserrat',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#64748b; }
+  .code-panel-dots { display:flex; gap:6px; }
+  .code-panel-dots span { width:9px; height:9px; border-radius:50%; background:#3b4a5a; display:block; }
+  .code-panel pre[class*="language-"] { margin:0!important; padding:1.25rem 1.5rem!important; background:transparent!important; font-size:0.83rem!important; }
+  .code-panel code[class*="language-"] { font-family:'Menlo','Consolas','Monaco',monospace!important; background:none!important; border:none!important; padding:0!important; border-radius:0!important; color:#ccc!important; }
+
+  .art-divider { border:none; border-top:1px solid var(--border-light); margin:2.5rem 0 3rem; }
+
+  /* ── FAQ (repris tel quel du site) ── */
+  .faq-section { background:var(--surface); padding:4.5rem 2rem; }
+  .faq-inner { max-width:800px; margin:0 auto; }
+  .faq-list { margin-top:1.5rem; display:flex; flex-direction:column; gap:0.6rem; }
+  .faq-item { border:1px solid var(--border-light); border-radius:12px; background:var(--white); overflow:hidden; transition:box-shadow 0.2s; }
+  .faq-item:hover { box-shadow:0 4px 16px rgba(0,0,0,0.06); }
+  .faq-q { width:100%; background:none; border:none; text-align:left; padding:1.3rem 1.6rem; cursor:pointer; font-family:'Montserrat',sans-serif; font-size:0.925rem; font-weight:700; color:var(--dark); display:flex; justify-content:space-between; align-items:center; gap:1rem; transition:background 0.15s; }
+  .faq-q:hover { background:var(--surface); }
+  .faq-arrow { font-size:0.65rem; color:var(--text-light); transition:transform 0.25s; flex-shrink:0; }
+  .faq-item.open .faq-arrow { transform:rotate(180deg); }
+  .faq-a { max-height:0; overflow:hidden; transition:max-height 0.3s ease; }
+  .faq-item.open .faq-a { max-height:600px; }
+  .faq-a-inner { padding:0 1.6rem 1.3rem; font-size:0.9rem; color:var(--text-mid); line-height:1.75; }
+  .faq-a-inner code { font-family:'Menlo','Consolas','Monaco',monospace; font-size:0.9em; background:var(--white); border:1px solid var(--border-light); border-radius:4px; padding:0.1rem 0.4rem; color:var(--dark); }
+
+  /* ── CTA ── */
+  .art-cta { background:var(--dark); text-align:center; padding:4.5rem 2rem; }
+  .art-cta p { font-size:1.2rem; color:var(--white); max-width:560px; margin:0 auto 2rem; line-height:1.6; font-family:'Montserrat',sans-serif; font-weight:600; }
+  .btn-primary { display:inline-block; background:var(--yellow); color:var(--dark); font-weight:700; font-size:1rem; padding:0.95rem 2.25rem; border-radius:8px; text-decoration:none; transition:transform 0.15s, box-shadow 0.15s; box-shadow:0 4px 24px rgba(255,212,59,0.35); font-family:'Montserrat',sans-serif; }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 36px rgba(255,212,59,0.45); }
+
+  @media(max-width:600px){
+    .art-body, .art-hero-inner, .faq-inner { padding-left:1.25rem; padding-right:1.25rem; }
+    section, .art-hero, .faq-section, .art-cta { padding-left:1.25rem; padding-right:1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ HTML — NAVIGATION (voir _includes/nav.html)
+     ════════════════════════════════════════════ -->
+{% include nav.html %}
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ HTML — NAVIGATION
+     ════════════════════════════════════════════ -->
+
+<!-- ══ ARTICLE HERO ══ -->
+<header class="art-hero">
+  <div class="art-hero-inner">
+    <div class="breadcrumb">
+      <a href="/">Accueil</a> / <a href="/articles/">Articles</a> / Python en marketing
+    </div>
+    <h1>Pourquoi un marketeur devrait s'intéresser à Python malgré la panoplie d'outils no-code à sa disposition</h1>
+    <p class="art-standfirst">Chaque interface no-code cache une couche de logique qu'on ne maîtrise pas, aujourd'hui plus simple à obtenir directement en code, avec l'aide d'une IA.</p>
+    <p class="art-meta">5 min de lecture</p>
+  </div>
+</header>
+
+<!-- ══ CORPS DE L'ARTICLE ══ -->
+<main class="art-body">
+
+  <p class="art-lede">Un marketeur dispose aujourd'hui d'une quantité impressionnante d'outils no-code : Zapier ou Make pour l'automatisation, des dizaines de plateformes spécialisées pour l'emailing, le tracking, le reporting. Cette panoplie pourrait laisser penser que Python n'a plus grand-chose à apporter côté marketing. Mais c'est en réalité l'inverse qui se produit, pour une raison propre à tout outil no-code : chaque interface se limite aux fonctionnalités prévues par l'éditeur et cache une couche de logique qu'on ne maîtrise pas, et cette couche est aujourd'hui plus simple à obtenir directement en code, avec l'aide d'une IA.</p>
+
+  <h2>Un exemple vécu : un comportement Zapier étonnant et non documenté</h2>
+  <p>Il y a quelques années, avant la démocratisation de l'IA, j'ai eu à construire un outil pour une équipe juridique : envoyer un email automatiquement dès qu'une valeur changeait dans une colonne d'un Google Sheet. J'ai choisi Zapier, que cette équipe utilisait déjà un peu, dans un souci de reprenabilité : je voulais qu'elle puisse comprendre et faire évoluer la solution elle-même, sans dépendre de moi.</p>
+  <p>En testant l'automatisation avant sa mise en production, j'ai découvert un comportement aussi surprenant que mal documenté : le déclencheur "valeur modifiée" de Zapier ne se déclenche que si la nouvelle valeur n'a jamais été présente dans cette cellule auparavant, pas simplement si elle diffère de la valeur précédente. Or, la colonne en question ne contenait que OUI ou NON. Résultat : sur une succession OUI, NON, OUI, le second OUI ne déclenchait rien, puisque cette valeur avait déjà occupé la cellule plus tôt.</p>
+  <p>Sans un test poussé avant la mise en production, cette solution aurait échoué silencieusement, pour une équipe qui comptait justement sur cette alerte pour ne rien manquer. Je m'en suis sorti avec une colonne supplémentaire, combinant la valeur et un horodatage du changement, pour garantir l'unicité nécessaire au déclenchement. Ça fonctionne, mais c'est un bricolage, pas une solution que j'aurais construite si j'avais eu le choix.</p>
+  <p>Je n'avais trouvé aucune documentation de ce comportement, seulement des questions sur des forums de personnes qui s'étaient confrontées au même problème. Je ne l'ai découvert qu'en testant plusieurs scénarios, et j'aurais très bien pu passer à côté. En Python, ce même besoin s'écrit avec une condition explicite :</p>
+
+  <div class="code-panel">
+    <div class="code-panel-head">
+      <span class="code-panel-lang">python</span>
+      <span class="code-panel-dots"><span></span><span></span><span></span></span>
+    </div>
+    <pre class="line-numbers"><code class="language-python">if valeur_actuelle != valeur_precedente:
+    envoyer_email()</code></pre>
+  </div>
+
+  <p>Aucune ambiguïté, aucune mauvaise surprise cachée derrière une interface. Et à l'heure où la programmation se démocratise à un rythme inédit grâce à l'IA, ce genre d'épisode dit quelque chose d'important : le vrai gain de fiabilité vient du code, où tout est explicite, pas de l'interface la plus accessible en apparence.</p>
+
+  <h2>Ce que Python change réellement pour un marketeur</h2>
+  <p>Zapier, Make, un outil de tracking, un outil d'emailing : chacun fonctionne avec son propre abonnement, ses propres limites de fonctionnalités, et sa propre boîte noire, souvent renforcée par une documentation lacunaire sur ce qui se passe réellement derrière chaque automatisation. Python permet de dépasser chacun de ces irritants.</p>
+  <p>Quelques exemples concrets :</p>
+  <ul>
+    <li>Consolider les performances de plusieurs plateformes publicitaires (Google Ads, Meta Ads, LinkedIn Ads) dans un même rapport, sans dépendre d'un outil de reporting tiers</li>
+    <li>Analyser finement les résultats d'une campagne (emailing, publicité, ou autre), au-delà des tableaux de bord standards proposés par un outil tiers</li>
+    <li>Segmenter très précisément la population ciblée par un envoi (plusieurs lots, tests A/B), sans être limité aux critères de segmentation proposés nativement par l'outil d'emailing</li>
+    <li>Se connecter directement à l'API d'un CRM ou d'un outil d'emailing, plutôt que de passer par un connecteur no-code limité à ce qu'il propose</li>
+  </ul>
+
+  <h2>Le momentum : une attente de plus en plus fréquente</h2>
+  <p>Jean-Baptiste Jézéquel, cofondateur d'Evaboot (un SaaS B2B rentable, monté à deux), est un exemple représentatif de fondateur de start-up ambitieuse : dans une interview accordée à Oussama Ammar, il expliquait attendre de toute son équipe, marketeurs et commerciaux compris, la capacité à coder. Ce n'est pas un souhait accessoire, c'est un vrai prérequis pour lui.</p>
+  <p>Thibault Louis, aujourd'hui ghostwriter reconnu sur LinkedIn, racontait de son côté avoir eu un entretien chez la start-up Germinal s'arrêter net en 2019, dès qu'il a répondu ne pas savoir coder : le recruteur ne retenait que des profils sachant programmer.</p>
+  <p>Cette attente n'est pas propre à l'ère de l'IA : elle existait déjà avant. Mais elle s'accélère nettement depuis que l'IA rend la maîtrise du code plus accessible que jamais, et par conséquent que de plus en plus de profils disposent de compétences en programmation en plus de leur domaine d'expertise. Et elle se retrouve désormais dans des entreprises de toutes tailles, pas seulement les start-ups, précisément parce que programmer permet d'automatiser des tâches et de délivrer bien plus, pour un coût bien moindre.</p>
+
+  <h2>Et le no-code, dans tout ça ?</h2>
+  <p>Ça ne veut pas dire qu'il faut abandonner Zapier, Make ou les outils d'automatisation marketing existants du jour au lendemain. Mais ils gagnent à devenir un dernier recours plutôt qu'un premier réflexe, à mesure que l'IA rend la maîtrise du code de plus en plus accessible (voir notre article dédié au <a href="/articles/no-code-piege-ere-ia/">no-code</a> pour aller plus loin).</p>
+
+  <h2>En résumé</h2>
+  <ul>
+    <li>Comme pour n'importe quel outil no-code, chaque interface marketing fait face aux limites de fonctionnalités prévues par son éditeur et cache une couche de logique difficile à maîtriser, une couche aujourd'hui plus simple à obtenir en code, avec l'aide de l'IA.</li>
+    <li>La fragmentation des outils (Zapier, tracking, emailing, reporting, chacun isolé) est un vrai irritant, tout comme le coût de chaque abonnement et le manque de contrôle sur ce qu'ils produisent. La programmation de manière générale, et Python en particulier, permettent de dépasser ces irritants.</li>
+    <li>Consolidation de rapports multi-plateformes, analyse fine d'une campagne, segmentation pour un envoi ou un test A/B, connexion directe à des API : les besoins marketing s'y prêtent particulièrement bien.</li>
+    <li>Cette compétence est de plus en plus attendue, une tendance antérieure à l'IA mais que celle-ci accélère nettement, et qui touche désormais des entreprises de toutes tailles, pas seulement les start-ups.</li>
+  </ul>
+
+  <p>Retrouvez l'ensemble de nos articles sur <a href="/articles/">Python pour les métiers</a>.</p>
+
+</main>
+
+<!-- ══ FAQ ══ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="art-label">Questions fréquentes</div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Faut-il abandonner Zapier ou Make pour du code Python ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Non, mais ces outils devraient rester un dernier recours plutôt qu'un premier réflexe, pour les mêmes raisons que n'importe quel outil no-code.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Quels cas d'usage marketing en Python ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">La consolidation de rapports issus de plusieurs plateformes publicitaires, l'analyse fine des résultats d'une campagne (emailing ou autre) au-delà des tableaux de bord standards, la segmentation précise d'une population pour un envoi ou un test A/B, la connexion directe à des API (CRM, emailing)...</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="art-cta">
+  <p>Vous voulez arrêter de dépendre des abonnements et des limites de fonctionnalités de vos outils marketing ?</p>
+  <a href="https://python-pour-les-metiers.fr/" class="btn-primary">Découvrir Python pour les métiers →</a>
+</section>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ HTML — FOOTER (voir _includes/footer.html)
+     ════════════════════════════════════════════ -->
+{% include footer.html %}
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ HTML — FOOTER
+     ════════════════════════════════════════════ -->
+
+
+<!-- ══ SCHEMA.ORG ══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Pourquoi un marketeur devrait s'intéresser à Python malgré la panoplie d'outils no-code à sa disposition",
+  "description": "Zapier, Make, outils d'automation marketing : pourquoi un marketeur a quand même intérêt à apprendre Python, et ce que ça change concrètement.",
+  "mainEntityOfPage": "https://python-pour-les-metiers.fr/articles/python-marketing-digital/",
+  "author": { "@type": "Person", "name": "Erwan Delanne" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Python pour les métiers",
+    "logo": { "@type": "ImageObject", "url": "https://python-pour-les-metiers.fr/assets/og-image.jpg" }
+  },
+  "datePublished": "2026-08-01",
+  "dateModified": "2026-08-01",
+  "image": "https://python-pour-les-metiers.fr/assets/og-image.jpg"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://python-pour-les-metiers.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://python-pour-les-metiers.fr/articles/" },
+    { "@type": "ListItem", "position": 3, "name": "Python en marketing", "item": "https://python-pour-les-metiers.fr/articles/python-marketing-digital/" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Faut-il abandonner Zapier ou Make pour du code Python ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Non, mais ces outils devraient rester un dernier recours plutôt qu'un premier réflexe, pour les mêmes raisons que n'importe quel outil no-code." }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels cas d'usage marketing en Python ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "La consolidation de rapports issus de plusieurs plateformes publicitaires, l'analyse fine des résultats d'une campagne au-delà des tableaux de bord standards, la segmentation précise d'une population pour un envoi ou un test A/B, la connexion directe à des API." }
+    }
+  ]
+}
+</script>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ JS — NAV BURGER & FAQ
+     ════════════════════════════════════════════ -->
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+  function toggleFaq(btn) {
+    var item = btn.parentElement;
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+    if (!isOpen) item.classList.add('open');
+  }
+  function toggleNav(){
+    document.getElementById('navBurger').classList.toggle('open');
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  function closeNav(){
+    document.getElementById('navBurger').classList.remove('open');
+    document.querySelector('.nav-links').classList.remove('open');
+  }
+</script>
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ JS
+     ════════════════════════════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+</body>
+</html>

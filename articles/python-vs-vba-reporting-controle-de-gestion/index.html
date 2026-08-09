@@ -1,0 +1,430 @@
+---
+---
+<!--
+  Métadonnées internes (ne s'affichent pas sur la page) :
+  - Mot-clé principal : python vs vba
+  - Persona : contrôleur de gestion, business analyst
+  - Cluster : Comparatifs d'outils
+  - Liens internes déjà posés vers /articles/python-vs-power-query/, /articles/recherchev-doublons-erreur-silencieuse/
+    et /articles/ (page hub) : ces pages n'existent pas encore en HTML, ces liens seront cassés (404) tant qu'elles
+    ne sont pas mises en ligne. Idem pour /#temoignage et /#programme qui pointent vers la homepage.
+  - Schema.org : Article + FAQPage + BreadcrumbList inclus en bas de page.
+  - Date de publication (datePublished) mise à un placeholder : à corriger avec la vraie date de mise en ligne.
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ — CONSENTEMENT COOKIES / GOOGLE ANALYTICS
+     ════════════════════════════════════════════ -->
+<script>window.GA_MEASUREMENT_ID = 'G-DTYTEVQHKY';</script>
+<script src="/assets/consent.js" defer></script>
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ — CONSENTEMENT COOKIES
+     ════════════════════════════════════════════ -->
+
+<link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg">
+<link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+<link rel="manifest" href="/assets/favicon/site.webmanifest">
+
+<title>Python vs VBA : quel outil pour automatiser un reporting ?</title>
+<meta name="description" content="VBA ou Python pour automatiser un reporting de contrôle de gestion ? Comparatif concret : performance, fiabilité, maintenabilité, exemple de script.">
+<link rel="canonical" href="https://python-pour-les-metiers.fr/articles/python-vs-vba-reporting-controle-de-gestion/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://python-pour-les-metiers.fr/articles/python-vs-vba-reporting-controle-de-gestion/">
+<meta property="og:title" content="Python vs VBA : quel outil pour automatiser un reporting ?">
+<meta property="og:description" content="VBA ou Python pour automatiser un reporting de contrôle de gestion ? Comparatif concret : performance, fiabilité, maintenabilité, exemple de script.">
+<meta property="og:image" content="https://python-pour-les-metiers.fr/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="fr_FR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://python-pour-les-metiers.fr/articles/python-vs-vba-reporting-controle-de-gestion/">
+<meta name="twitter:title" content="Python vs VBA : quel outil pour automatiser un reporting ?">
+<meta name="twitter:description" content="VBA ou Python pour automatiser un reporting de contrôle de gestion ? Comparatif concret : performance, fiabilité, maintenabilité, exemple de script.">
+<meta name="twitter:image" content="https://python-pour-les-metiers.fr/assets/og-image.jpg">
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
+<link rel="stylesheet" href="/assets/shared.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+<style>
+  /* ── ARTICLE HERO ── */
+  .art-hero { position:relative; background:var(--navy); padding:3rem 2rem 2.75rem; }
+  .art-hero-inner { max-width:800px; margin:0 auto; }
+  .breadcrumb { font-size:0.8rem; color:#64748b; margin-bottom:1.75rem; }
+  .breadcrumb a { color:#94a3b8; text-decoration:none; }
+  .breadcrumb a:hover { color:var(--white); }
+  .art-label { display:inline-block; font-family:'Montserrat',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--blue-mid); background:rgba(37,99,235,0.08); border:1px solid rgba(37,99,235,0.25); padding:0.3rem 0.9rem; border-radius:100px; margin-bottom:1.25rem; }
+  .art-hero h1 { font-size:clamp(1.7rem,4vw,2.5rem); font-weight:800; color:var(--white); letter-spacing:-0.02em; line-height:1.25; margin-bottom:1.1rem; }
+  .art-standfirst { font-size:1.05rem; color:#94a3b8; line-height:1.75; max-width:640px; }
+  .art-meta { font-size:0.8rem; color:#64748b; margin-top:1.75rem; }
+
+  /* ── ARTICLE BODY ── */
+  .art-body { max-width:800px; margin:0 auto; padding:4rem 2rem 1rem; }
+  .art-lede { font-size:1.15rem; color:var(--text-mid); line-height:1.8; margin-bottom:1.4rem; }
+  .art-body p { font-size:1.05rem; line-height:1.85; color:var(--text-dark); margin-bottom:1.4rem; }
+  .art-body h2 { font-size:1.5rem; font-weight:800; color:var(--dark); margin:3rem 0 1.25rem; letter-spacing:-0.01em; }
+  .art-body ul { margin:0 0 1.4rem 0; padding-left:0; list-style:none; }
+  .art-body ul li { position:relative; padding-left:1.6rem; margin-bottom:0.9rem; font-size:1.02rem; line-height:1.75; color:var(--text-dark); }
+  .art-body ul li::before { content:'→'; position:absolute; left:0; color:var(--gold-text); font-weight:700; }
+  .art-body strong { color:var(--dark); font-weight:700; }
+  .art-body a { color:var(--blue-mid); text-decoration:underline; text-decoration-color:rgba(37,99,235,0.35); text-underline-offset:2px; }
+  .art-body a:hover { text-decoration-color:var(--blue-mid); }
+
+  /* ── CODE BLOCKS ── */
+  .code-panel { border-radius:12px; overflow:hidden; border:1px solid var(--border-dark); margin:0.5rem 0 2rem; background:#1d1f21; }
+  .code-panel-head { display:flex; align-items:center; justify-content:space-between; padding:0.6rem 1.1rem; background:#161b22; border-bottom:1px solid var(--border-dark); }
+  .code-panel-lang { font-family:'Montserrat',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#64748b; }
+  .code-panel-dots { display:flex; gap:6px; }
+  .code-panel-dots span { width:9px; height:9px; border-radius:50%; background:#3b4a5a; display:block; }
+  .code-panel pre[class*="language-"] { margin:0!important; padding:1.25rem 1.5rem!important; background:transparent!important; font-size:0.83rem!important; }
+  .code-panel code[class*="language-"] { font-family:'Menlo','Consolas','Monaco',monospace!important; background:none!important; border:none!important; padding:0!important; border-radius:0!important; color:#ccc!important; }
+
+  /* ── TABLEAU COMPARATIF ── */
+  .comp-table-wrap { overflow-x:auto; margin:0.5rem 0 2.5rem; border-radius:12px; border:1px solid var(--border-light); }
+  table.comp-table { width:100%; table-layout:fixed; border-collapse:collapse; font-size:0.85rem; }
+  .comp-table th:nth-child(1), .comp-table td:nth-child(1) { width:23%; }
+  .comp-table th:nth-child(2), .comp-table td:nth-child(2) { width:37%; }
+  .comp-table th:nth-child(3), .comp-table td:nth-child(3) { width:40%; }
+  .comp-table thead th { background:var(--dark); color:var(--text-light); font-family:'Montserrat',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; text-align:left; padding:0.85rem 1rem; }
+  .comp-table thead th:nth-child(3) { color:var(--yellow); }
+  .comp-table tbody td { padding:0.85rem 1rem; border-top:1px solid var(--border-light); vertical-align:top; color:var(--text-mid); line-height:1.6; word-wrap:break-word; }
+  .comp-table tbody td:first-child { font-weight:700; color:var(--dark); }
+  .comp-table tbody td:nth-child(3) { background:rgba(255,212,59,0.06); color:var(--text-dark); }
+  @media(max-width:560px){
+    table.comp-table { font-size:0.78rem; }
+    .comp-table thead th, .comp-table tbody td { padding:0.65rem 0.7rem; }
+  }
+
+  .art-divider { border:none; border-top:1px solid var(--border-light); margin:2.5rem 0 3rem; }
+
+  /* ── FAQ (repris tel quel du site) ── */
+  .faq-section { background:var(--surface); padding:4.5rem 2rem; }
+  .faq-inner { max-width:800px; margin:0 auto; }
+  .faq-list { margin-top:1.5rem; display:flex; flex-direction:column; gap:0.6rem; }
+  .faq-item { border:1px solid var(--border-light); border-radius:12px; background:var(--white); overflow:hidden; transition:box-shadow 0.2s; }
+  .faq-item:hover { box-shadow:0 4px 16px rgba(0,0,0,0.06); }
+  .faq-q { width:100%; background:none; border:none; text-align:left; padding:1.3rem 1.6rem; cursor:pointer; font-family:'Montserrat',sans-serif; font-size:0.925rem; font-weight:700; color:var(--dark); display:flex; justify-content:space-between; align-items:center; gap:1rem; transition:background 0.15s; }
+  .faq-q:hover { background:var(--surface); }
+  .faq-arrow { font-size:0.65rem; color:var(--text-light); transition:transform 0.25s; flex-shrink:0; }
+  .faq-item.open .faq-arrow { transform:rotate(180deg); }
+  .faq-a { max-height:0; overflow:hidden; transition:max-height 0.3s ease; }
+  .faq-item.open .faq-a { max-height:600px; }
+  .faq-a-inner { padding:0 1.6rem 1.3rem; font-size:0.9rem; color:var(--text-mid); line-height:1.75; }
+
+  /* ── CTA ── */
+  .art-cta { background:var(--dark); text-align:center; padding:4.5rem 2rem; }
+  .art-cta p { font-size:1.2rem; color:var(--white); max-width:560px; margin:0 auto 2rem; line-height:1.6; font-family:'Montserrat',sans-serif; font-weight:600; }
+  .btn-primary { display:inline-block; background:var(--yellow); color:var(--dark); font-weight:700; font-size:1rem; padding:0.95rem 2.25rem; border-radius:8px; text-decoration:none; transition:transform 0.15s, box-shadow 0.15s; box-shadow:0 4px 24px rgba(255,212,59,0.35); font-family:'Montserrat',sans-serif; }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 36px rgba(255,212,59,0.45); }
+
+  @media(max-width:600px){
+    .art-body, .art-hero-inner, .faq-inner { padding-left:1.25rem; padding-right:1.25rem; }
+    section, .art-hero, .faq-section, .art-cta { padding-left:1.25rem; padding-right:1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ HTML — NAVIGATION (voir _includes/nav.html)
+     ════════════════════════════════════════════ -->
+{% include nav.html %}
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ HTML — NAVIGATION
+     ════════════════════════════════════════════ -->
+
+<!-- ══ ARTICLE HERO ══ -->
+<header class="art-hero">
+  <div class="art-hero-inner">
+    <div class="breadcrumb">
+      <a href="/">Accueil</a> / <a href="/articles/">Articles</a> / Python vs VBA
+    </div>
+    <h1>Python vs VBA : quel outil pour automatiser un reporting de contrôle de gestion ?</h1>
+    <p class="art-standfirst">Un comparatif concret entre les deux outils, avec un exemple de traitement de plusieurs fichiers, pour trancher selon votre situation réelle.</p>
+    <p class="art-meta">9 min de lecture</p>
+  </div>
+</header>
+
+<!-- ══ CORPS DE L'ARTICLE ══ -->
+<main class="art-body">
+
+  <p class="art-lede">Pour automatiser un reporting de contrôle de gestion, Python prend l'avantage sur VBA dès qu'il s'agit de traiter des volumes importants, de croiser plusieurs fichiers (y compris de formats différents), ou de disposer d'un script lisible et maintenable dans la durée. VBA reste un choix parfaitement défendable pour une macro simple et ponctuelle sur un fichier isolé, mais mieux vaut y réfléchir à deux fois avant d'en faire un réflexe automatique dès qu'un besoin est amené à durer.</p>
+
+  <p>Ni idéologie ni y'a-qu'à : voici un comparatif concret entre les deux outils, avec un exemple de traitement de plusieurs fichiers, pour trancher selon votre situation réelle.</p>
+
+  <h2>Le scénario type d'un contrôleur de gestion</h2>
+  <p>Un export de l'ERP par centre de coûts. Un export de la paie. Un fichier budget maintenu à la main depuis trois ans. Chaque mois, il faut ouvrir chacun de ces fichiers, filtrer, recopier les bonnes colonnes, croiser les montants, et produire un tableau consolidé pour la clôture. Fait à la main, ce cycle prend facilement plusieurs heures, chaque mois, pour un traitement identique d'un mois sur l'autre.</p>
+  <p>C'est exactement le type de tâche que VBA a permis d'automatiser en premier, pour toute une génération d'équipes finance et contrôle de gestion. Il est intégré à Excel, ne demande aucune installation, et permet de produire un premier script qui fait le travail, que ce soit à la main ou via l'enregistreur de macros pour les besoins les plus simples. C'est ce qui en a fait le réflexe d'automatisation par défaut côté métier pendant des années.</p>
+
+  <h2>Là où VBA montre ses limites</h2>
+  <p>Le problème n'est pas que VBA "ne marche pas". Il fonctionne, et continuera de fonctionner. Le problème, c'est ce qui se passe quand l'automatisation grandit :</p>
+  <ul>
+    <li><strong>Des opérations avancées qui n'existent pas nativement.</strong> Regrouper des données par catégorie, fusionner deux tableaux selon une clé commune, gérer proprement les valeurs manquantes : ce sont des opérations qui s'écrivent en une ligne avec pandas, et qui demandent souvent d'écrire soi-même toute la logique en VBA, faute d'équivalent direct.</li>
+    <li><strong>Une performance qui se dégrade avec le volume.</strong> Les boucles ligne par ligne, qui fonctionnent très bien sur quelques centaines de lignes, deviennent nettement plus lentes dès que le fichier dépasse quelques dizaines de milliers de lignes. Il existe des contournements, mais ils restent plafonnés et demandent une maîtrise avancée de VBA, en décalage avec la fréquence de ces besoins.</li>
+    <li><strong>Un croisement de sources hétérogènes plus limité.</strong> Combiner un CSV, un fichier Excel et une extraction de base de données dans le même traitement demande, en VBA, de gérer chaque format avec sa propre logique d'ouverture et de lecture. Python le fait avec une syntaxe quasi identique quel que soit le format source.</li>
+    <li><strong>Un code prisonnier du classeur qui l'héberge.</strong> Une macro VBA est intimement liée au fichier Excel qui la contient. La partager, la versionner proprement (avec un historique clair des modifications), ou la faire tourner ailleurs que sur un poste Excel en local, n'a rien de naturel.</li>
+    <li><strong>Des politiques de sécurité qui bloquent l'exécution.</strong> De nombreuses directions IT désactivent les macros par défaut, ce qui ajoute une friction que Python n'a pas.</li>
+  </ul>
+  <p>Rien de tout ça ne veut dire qu'il faille bannir VBA. Mais ça vaut le coup d'y réfléchir à deux fois avant d'en faire le choix par défaut pour un besoin voué à durer, et sans doute, à évoluer.</p>
+
+  <h2>Comment Python traite le même besoin</h2>
+  <p>Voici, à titre d'exemple schématique, comment on traiterait la consolidation puis l'agrégation de plusieurs fichiers Excel mensuels avec Python et la librairie pandas (la référence pour manipuler des données) : on parcourt un dossier, on concatène chaque fichier trouvé, puis on regroupe les montants par centre de coûts.</p>
+
+  <div class="code-panel">
+    <div class="code-panel-head">
+      <span class="code-panel-lang">python</span>
+      <span class="code-panel-dots"><span></span><span></span><span></span></span>
+    </div>
+    <pre class="line-numbers"><code class="language-python">import pandas as pd
+from pathlib import Path
+
+# --- Paramètres ---
+dossier_source = Path("exports_mensuels")
+
+# --- Traitement ---
+fichiers = dossier_source.glob("*.xlsx")
+tableaux = [pd.read_excel(f) for f in fichiers]
+donnees = pd.concat(tableaux, ignore_index=True)
+
+rapport = (
+    donnees
+    .groupby("centre_de_cout", as_index = False)
+    .agg({"montant":"sum"})
+)
+
+rapport.to_excel("rapport_mensuel.xlsx", index=False)</code></pre>
+  </div>
+
+  <p>Une quinzaine de lignes, une logique lisible de haut en bas (on lit, on regroupe, on exporte), et ce script traite trois fichiers ou trois cents fichiers exactement de la même façon : il suffit de déposer les nouveaux exports dans le dossier, sans rien changer au code.</p>
+
+  <p>Voici, à titre de comparaison, une version VBA qui répond au même besoin :</p>
+
+  <div class="code-panel">
+    <div class="code-panel-head">
+      <span class="code-panel-lang">vba</span>
+      <span class="code-panel-dots"><span></span><span></span><span></span></span>
+    </div>
+    <pre><code class="language-vbnet">Sub Rapport_Consolide()
+    Dim dossier As String, fichier As String
+    Dim classeurSource As Workbook
+    Dim derniereLigne As Long, i As Long
+    Dim centreCout As String, montant As Double
+    Dim totaux As Object
+    Set totaux = CreateObject("Scripting.Dictionary")
+
+    dossier = "C:\Users\Utilisateur\Desktop\exports_mensuels\"
+    fichier = Dir(dossier &amp; "*.xlsx")
+
+    Do While fichier &lt;&gt; ""
+        Set classeurSource = Workbooks.Open(dossier &amp; fichier)
+        derniereLigne = classeurSource.Sheets(1).Cells(Rows.Count, 1).End(xlUp).Row
+
+        For i = 2 To derniereLigne
+            centreCout = classeurSource.Sheets(1).Cells(i, 1).Value
+            montant = classeurSource.Sheets(1).Cells(i, 6).Value
+
+            If totaux.Exists(centreCout) Then
+                totaux(centreCout) = totaux(centreCout) + montant
+            Else
+                totaux.Add centreCout, montant
+            End If
+        Next i
+
+        classeurSource.Close False
+        fichier = Dir()
+    Loop
+
+    Dim cle As Variant, ligneCible As Long
+    ligneCible = 2
+    For Each cle In totaux.Keys
+        ThisWorkbook.Sheets(1).Cells(ligneCible, 1).Value = cle
+        ThisWorkbook.Sheets(1).Cells(ligneCible, 2).Value = totaux(cle)
+        ligneCible = ligneCible + 1
+    Next cle
+End Sub</code></pre>
+  </div>
+
+  <p>L'agrégation par centre de coût s'ajoute ici directement dans la boucle de lecture, à l'aide d'un objet Dictionary : la structure la plus proche de ce que fait nativement <code>groupby</code> en pandas. Elle demande une quinzaine de lignes supplémentaires (déclaration de l'objet, vérification de l'existence de la clé, boucle finale d'écriture des résultats), quand pandas condense la même opération en un seul <code>.groupby(...).agg(...)</code>.</p>
+
+  <h2>Le comparatif, critère par critère</h2>
+  <div class="comp-table-wrap">
+    <table class="comp-table">
+      <thead>
+        <tr><th>Critère</th><th>VBA</th><th>Python</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Installation</td><td>Intégré à Excel</td><td>Gratuit, quelques minutes à installer</td></tr>
+        <tr><td>Opérations avancées (regroupement, fusion, valeurs manquantes)</td><td>Nécessite d'écrire la logique soi-même, faute d'équivalent direct</td><td>Disponibles nativement avec pandas</td></tr>
+        <tr><td>Gros volumes (100 000+ lignes)</td><td>Ralentit fortement sans optimisation avancée</td><td>Traite confortablement plusieurs millions de lignes</td></tr>
+        <tr><td>Croisement de sources hétérogènes</td><td>Chaque format (CSV, Excel, base de données) demande sa propre logique</td><td>Même syntaxe quel que soit le format source</td></tr>
+        <tr><td>Lisibilité et maintenabilité</td><td>Délicat à documenter et à versionner</td><td>Script modulaire, commentable, versionnable</td></tr>
+        <tr><td>Portabilité</td><td>Lié à Excel desktop</td><td>Indépendant d'Excel, exécutable n'importe où</td></tr>
+        <tr><td>Sécurité en entreprise</td><td>Fréquemment bloqué par les politiques de macros</td><td>Pas de restriction équivalente</td></tr>
+        <tr><td>Génération par IA</td><td>Les IA produisent plus rarement du VBA idiomatique</td><td>Les IA génèrent du Python par défaut</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Et la fonctionnalité "Python dans Excel", elle ne suffit pas ?</h2>
+  <p>Bonne question, et de plus en plus fréquente : depuis 2024, Microsoft propose "Python dans Excel", qui permet d'écrire une formule Python directement dans une cellule (<code>=PY()</code>), avec accès aux bibliothèques Python les plus courantes dont pandas. Depuis avril 2026, Copilot peut même mobiliser Python automatiquement lors de l'édition d'un classeur.</p>
+  <p>C'est un signal fort : Microsoft lui-même valide que Python est en train de devenir la référence, y compris à l'intérieur de ses propres outils. Mais cette fonctionnalité ne remplace pas un script Python autonome pour ce que décrit cet article, pour plusieurs raisons concrètes : le calcul s'exécute sur le cloud Microsoft plutôt qu'en local, elle nécessite un abonnement Microsoft 365 Business ou Enterprise éligible (avec des quotas de calcul limités hors option payante), et elle reste pensée pour des formules ponctuelles dans une feuille, pas pour un pipeline complet qui lit un dossier entier de fichiers, applique une logique métier, et produit un livrable prêt à partager. Un script Python autonome, lui, est gratuit, s'exécute où vous voulez, et n'a pas ces limites.</p>
+
+  <h2>VBA est-il en train de disparaître ?</h2>
+  <p>Non, pas officiellement : Microsoft n'a annoncé aucune date de fin de support pour VBA, et les macros existantes continueront de fonctionner. Ce genre de pronostic n'est d'ailleurs pas nouveau : le discours sur la mort annoncée de VBA circule depuis plus d'une décennie, sans jamais s'être traduit par un arrêt réel.</p>
+  <p>Ce qui change aujourd'hui, ce n'est donc pas le discours en lui-même, mais ce qui le soutient. Ce ne sont plus des rumeurs, mais des investissements produit concrets et documentés : Office Scripts d'abord, puis l'intégration native de Python dans Excel, puis Copilot capable de mobiliser Python directement dans un classeur depuis avril 2026. VBA reste largement utilisé et le restera pendant longtemps. Mais ce n'est clairement plus l'outil dans lequel Microsoft investit pour l'avenir.</p>
+
+  <h2>Faut-il tout migrer de VBA vers Python ?</h2>
+  <p>Non, et ce n'est pas l'enjeu. Une macro ponctuelle sur un fichier isolé peut très bien rester en VBA : le jeu n'en vaut pas la chandelle. La bascule vers Python a du sens dès qu'une des conditions suivantes est réunie : l'automatisation est récurrente, elle touche des volumes conséquents, elle opère des transformations de données avancées, elle croise plusieurs fichiers ou formats, ou elle a vocation à évoluer dans le temps.</p>
+  <p>Et l'argument qui, à terme, pèse le plus lourd : la compétence Python ne s'arrête pas à Excel. Une fois acquise, elle sert aussi bien à croiser des fichiers, qu'à envoyer des mails automatiquement, lire des PDF, ou <a href="/articles/python-vs-power-query/">interroger une API</a>, quand VBA reste cantonné à l'écosystème Office.</p>
+
+  <h2>En résumé</h2>
+  <ul>
+    <li>VBA reste adapté à une automatisation simple et ponctuelle sur un fichier isolé.</li>
+    <li>Python prend l'avantage dès que les volumes augmentent, que plusieurs fichiers ou formats doivent être croisés, ou que des opérations de traitement plus avancées sont nécessaires.</li>
+    <li>Microsoft n'annonce pas la fin de VBA, mais ses investissements produit (Office Scripts, Python dans Excel) vont clairement ailleurs.</li>
+    <li>La fonctionnalité "Python dans Excel" est un complément, en aucun cas un substitut, à un script Python autonome pour l'automatisation de processus complets.</li>
+  </ul>
+
+  <p>Si votre besoin ressemble davantage à un croisement de fichiers hétérogènes qu'à une base de données déjà en place, notre comparatif <a href="/articles/python-vs-power-query/">Python vs Power Query</a> et notre article sur les <a href="/articles/recherchev-doublons-erreur-silencieuse/">doublons de clé dans une RECHERCHEV</a> creusent deux angles complémentaires à celui-ci. Retrouvez aussi l'ensemble de nos articles sur <a href="/articles/">Python pour les métiers</a>.</p>
+
+</main>
+
+<!-- ══ FAQ ══ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="art-label">Questions fréquentes</div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">VBA peut-il parcourir automatiquement tous les fichiers d'un dossier ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Oui, via la fonction <code>Dir</code>, sans avoir besoin d'écrire chaque nom de fichier en dur. La différence avec Python ne se joue pas sur cette capacité, mais sur la quantité de code nécessaire une fois chaque fichier ouvert.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Python est-il plus difficile à apprendre que VBA ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Non : Python est considéré comme l'un des langages de programmation les plus accessibles, en grande partie grâce à sa syntaxe proche du langage courant et à son immense communauté, qui rend chaque question facile à résoudre, y compris avec l'aide d'une IA.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Faut-il migrer toutes ses macros VBA vers Python d'un coup ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Non. Les macros simples et ponctuelles n'ont pas besoin d'être réécrites. La priorité va aux automatisations récurrentes, volumineuses, ou partagées avec d'autres personnes.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="art-cta">
+  <p>Vous automatisez encore vos reportings à la main, ou avec des macros que plus personne n'ose modifier ?</p>
+  <a href="https://python-pour-les-metiers.fr/" class="btn-primary">Découvrir Python pour les métiers →</a>
+</section>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ HTML — FOOTER (voir _includes/footer.html)
+     ════════════════════════════════════════════ -->
+{% include footer.html %}
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ HTML — FOOTER
+     ════════════════════════════════════════════ -->
+
+
+<!-- ══ SCHEMA.ORG ══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Python vs VBA : quel outil pour automatiser un reporting de contrôle de gestion ?",
+  "description": "VBA ou Python pour automatiser un reporting de contrôle de gestion ? Comparatif concret : performance, fiabilité, maintenabilité, exemple de script.",
+  "mainEntityOfPage": "https://python-pour-les-metiers.fr/articles/python-vs-vba-reporting-controle-de-gestion/",
+  "author": { "@type": "Person", "name": "Erwan Delanne" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Python pour les métiers",
+    "logo": { "@type": "ImageObject", "url": "https://python-pour-les-metiers.fr/assets/og-image.jpg" }
+  },
+  "datePublished": "2026-08-01",
+  "dateModified": "2026-08-01",
+  "image": "https://python-pour-les-metiers.fr/assets/og-image.jpg"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://python-pour-les-metiers.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://python-pour-les-metiers.fr/articles/" },
+    { "@type": "ListItem", "position": 3, "name": "Python vs VBA", "item": "https://python-pour-les-metiers.fr/articles/python-vs-vba-reporting-controle-de-gestion/" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "VBA peut-il parcourir automatiquement tous les fichiers d'un dossier ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Oui, via la fonction Dir, sans avoir besoin d'écrire chaque nom de fichier en dur. La différence avec Python ne se joue pas sur cette capacité, mais sur la quantité de code nécessaire une fois chaque fichier ouvert." }
+    },
+    {
+      "@type": "Question",
+      "name": "Python est-il plus difficile à apprendre que VBA ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Non : Python est considéré comme l'un des langages de programmation les plus accessibles, en grande partie grâce à sa syntaxe proche du langage courant et à son immense communauté, qui rend chaque question facile à résoudre, y compris avec l'aide d'une IA." }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il migrer toutes ses macros VBA vers Python d'un coup ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Non. Les macros simples et ponctuelles n'ont pas besoin d'être réécrites. La priorité va aux automatisations récurrentes, volumineuses, ou partagées avec d'autres personnes." }
+    }
+  ]
+}
+</script>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ JS — NAV BURGER & FAQ
+     ════════════════════════════════════════════ -->
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+  function toggleFaq(btn) {
+    var item = btn.parentElement;
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+    if (!isOpen) item.classList.add('open');
+  }
+  function toggleNav(){
+    document.getElementById('navBurger').classList.toggle('open');
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  function closeNav(){
+    document.getElementById('navBurger').classList.remove('open');
+    document.querySelector('.nav-links').classList.remove('open');
+  }
+</script>
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ JS
+     ════════════════════════════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-visual-basic.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,457 @@
+---
+---
+<!--
+  Métadonnées internes (ne s'affichent pas sur la page) :
+  - Mot-clé principal : automatiser reporting mensuel python
+  - Persona : contrôleur de gestion, business analyst, tout profil produisant un reporting récurrent
+  - Cluster : Cas d'usage concrets / guide pratique
+  - Liens internes posés vers /articles/recherchev-doublons-erreur-silencieuse/ (existe), /articles/tableau-croise-dynamique-pandas-vs-excel/ (existe),
+    /articles/python-vs-power-query/ (existe), /articles/python-vs-vba-reporting-controle-de-gestion/ (existe),
+    /articles/excel-et-python-combiner/ (existe), et /articles/ (page d'index/hub, existe désormais —
+    l'ancienne "page pilier" séparée a été fusionnée avec cette page d'index).
+  - Schema.org : HowTo (au lieu d'Article, contenu structuré en 6 étapes) + FAQPage + BreadcrumbList inclus en bas de page.
+  - Date de publication (datePublished) non applicable au schema HowTo ; à ajouter manuellement si besoin ailleurs.
+  - 7 blocs de code au total (6 étapes + script complet en fin d'article) : tous en Python, un seul composant Prism nécessaire.
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ — CONSENTEMENT COOKIES / GOOGLE ANALYTICS
+     ════════════════════════════════════════════ -->
+<script>window.GA_MEASUREMENT_ID = 'G-DTYTEVQHKY';</script>
+<script src="/assets/consent.js" defer></script>
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ — CONSENTEMENT COOKIES
+     ════════════════════════════════════════════ -->
+
+<link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg">
+<link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+<link rel="manifest" href="/assets/favicon/site.webmanifest">
+
+<title>Automatiser un reporting mensuel en Python : le guide</title>
+<meta name="description" content="Le guide étape par étape pour automatiser un reporting mensuel en Python : lecture des fichiers, nettoyage, agrégation, alertes, export Excel.">
+<link rel="canonical" href="https://python-pour-les-metiers.fr/articles/automatiser-reporting-mensuel-python/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://python-pour-les-metiers.fr/articles/automatiser-reporting-mensuel-python/">
+<meta property="og:title" content="Automatiser un reporting mensuel en Python : le guide">
+<meta property="og:description" content="Le guide étape par étape pour automatiser un reporting mensuel en Python : lecture des fichiers, nettoyage, agrégation, alertes, export Excel.">
+<meta property="og:image" content="https://python-pour-les-metiers.fr/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="fr_FR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://python-pour-les-metiers.fr/articles/automatiser-reporting-mensuel-python/">
+<meta name="twitter:title" content="Automatiser un reporting mensuel en Python : le guide">
+<meta name="twitter:description" content="Le guide étape par étape pour automatiser un reporting mensuel en Python : lecture des fichiers, nettoyage, agrégation, alertes, export Excel.">
+<meta name="twitter:image" content="https://python-pour-les-metiers.fr/assets/og-image.jpg">
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
+<link rel="stylesheet" href="/assets/shared.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+<style>
+  /* ── ARTICLE HERO ── */
+  .art-hero { position:relative; background:var(--navy); padding:3rem 2rem 2.75rem; }
+  .art-hero-inner { max-width:800px; margin:0 auto; }
+  .breadcrumb { font-size:0.8rem; color:#64748b; margin-bottom:1.75rem; }
+  .breadcrumb a { color:#94a3b8; text-decoration:none; }
+  .breadcrumb a:hover { color:var(--white); }
+  .art-label { display:inline-block; font-family:'Montserrat',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--blue-mid); background:rgba(37,99,235,0.08); border:1px solid rgba(37,99,235,0.25); padding:0.3rem 0.9rem; border-radius:100px; margin-bottom:1.25rem; }
+  .art-hero h1 { font-size:clamp(1.7rem,4vw,2.5rem); font-weight:800; color:var(--white); letter-spacing:-0.02em; line-height:1.25; margin-bottom:1.1rem; }
+  .art-standfirst { font-size:1.05rem; color:#94a3b8; line-height:1.75; max-width:640px; }
+  .art-meta { font-size:0.8rem; color:#64748b; margin-top:1.75rem; }
+
+  /* ── ARTICLE BODY ── */
+  .art-body { max-width:800px; margin:0 auto; padding:4rem 2rem 1rem; }
+  .art-lede { font-size:1.15rem; color:var(--text-mid); line-height:1.8; margin-bottom:1.4rem; }
+  .art-body p { font-size:1.05rem; line-height:1.85; color:var(--text-dark); margin-bottom:1.4rem; }
+  .art-body h2 { font-size:1.5rem; font-weight:800; color:var(--dark); margin:3rem 0 1.25rem; letter-spacing:-0.01em; }
+  .art-body ul { margin:0 0 1.4rem 0; padding-left:0; list-style:none; }
+  .art-body ul li { position:relative; padding-left:1.6rem; margin-bottom:0.9rem; font-size:1.02rem; line-height:1.75; color:var(--text-dark); }
+  .art-body ul li::before { content:'→'; position:absolute; left:0; color:var(--gold-text); font-weight:700; }
+  .art-body strong { color:var(--dark); font-weight:700; }
+  .art-body a { color:var(--blue-mid); text-decoration:underline; text-decoration-color:rgba(37,99,235,0.35); text-underline-offset:2px; }
+  .art-body a:hover { text-decoration-color:var(--blue-mid); }
+  .art-body code { font-family:'Menlo','Consolas','Monaco',monospace; font-size:0.9em; background:var(--surface); border:1px solid var(--border-light); border-radius:4px; padding:0.1rem 0.4rem; color:var(--dark); }
+
+  /* ── ÉTAPES NUMÉROTÉES ── */
+  .step-num { display:inline-flex; align-items:center; justify-content:center; width:1.9rem; height:1.9rem; border-radius:50%; background:var(--dark); color:var(--yellow); font-family:'Montserrat',sans-serif; font-weight:800; font-size:0.9rem; margin-right:0.7rem; flex-shrink:0; vertical-align:middle; }
+
+  /* ── CODE BLOCKS ── */
+  .code-panel { border-radius:12px; overflow:hidden; border:1px solid var(--border-dark); margin:0.5rem 0 2rem; background:#1d1f21; }
+  .code-panel-head { display:flex; align-items:center; justify-content:space-between; padding:0.6rem 1.1rem; background:#161b22; border-bottom:1px solid var(--border-dark); }
+  .code-panel-lang { font-family:'Montserrat',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#64748b; }
+  .code-panel-dots { display:flex; gap:6px; }
+  .code-panel-dots span { width:9px; height:9px; border-radius:50%; background:#3b4a5a; display:block; }
+  .code-panel pre[class*="language-"] { margin:0!important; padding:1.25rem 1.5rem!important; background:transparent!important; font-size:0.83rem!important; }
+  .code-panel code[class*="language-"] { font-family:'Menlo','Consolas','Monaco',monospace!important; background:none!important; border:none!important; padding:0!important; border-radius:0!important; color:#ccc!important; }
+
+  .art-divider { border:none; border-top:1px solid var(--border-light); margin:2.5rem 0 3rem; }
+
+  /* ── FAQ (repris tel quel du site) ── */
+  .faq-section { background:var(--surface); padding:4.5rem 2rem; }
+  .faq-inner { max-width:800px; margin:0 auto; }
+  .faq-list { margin-top:1.5rem; display:flex; flex-direction:column; gap:0.6rem; }
+  .faq-item { border:1px solid var(--border-light); border-radius:12px; background:var(--white); overflow:hidden; transition:box-shadow 0.2s; }
+  .faq-item:hover { box-shadow:0 4px 16px rgba(0,0,0,0.06); }
+  .faq-q { width:100%; background:none; border:none; text-align:left; padding:1.3rem 1.6rem; cursor:pointer; font-family:'Montserrat',sans-serif; font-size:0.925rem; font-weight:700; color:var(--dark); display:flex; justify-content:space-between; align-items:center; gap:1rem; transition:background 0.15s; }
+  .faq-q:hover { background:var(--surface); }
+  .faq-arrow { font-size:0.65rem; color:var(--text-light); transition:transform 0.25s; flex-shrink:0; }
+  .faq-item.open .faq-arrow { transform:rotate(180deg); }
+  .faq-a { max-height:0; overflow:hidden; transition:max-height 0.3s ease; }
+  .faq-item.open .faq-a { max-height:600px; }
+  .faq-a-inner { padding:0 1.6rem 1.3rem; font-size:0.9rem; color:var(--text-mid); line-height:1.75; }
+  .faq-a-inner code { font-family:'Menlo','Consolas','Monaco',monospace; font-size:0.9em; background:var(--white); border:1px solid var(--border-light); border-radius:4px; padding:0.1rem 0.4rem; color:var(--dark); }
+
+  /* ── CTA ── */
+  .art-cta { background:var(--dark); text-align:center; padding:4.5rem 2rem; }
+  .art-cta p { font-size:1.2rem; color:var(--white); max-width:560px; margin:0 auto 2rem; line-height:1.6; font-family:'Montserrat',sans-serif; font-weight:600; }
+  .btn-primary { display:inline-block; background:var(--yellow); color:var(--dark); font-weight:700; font-size:1rem; padding:0.95rem 2.25rem; border-radius:8px; text-decoration:none; transition:transform 0.15s, box-shadow 0.15s; box-shadow:0 4px 24px rgba(255,212,59,0.35); font-family:'Montserrat',sans-serif; }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 36px rgba(255,212,59,0.45); }
+
+  @media(max-width:600px){
+    .art-body, .art-hero-inner, .faq-inner { padding-left:1.25rem; padding-right:1.25rem; }
+    section, .art-hero, .faq-section, .art-cta { padding-left:1.25rem; padding-right:1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ HTML — NAVIGATION (voir _includes/nav.html)
+     ════════════════════════════════════════════ -->
+{% include nav.html %}
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ HTML — NAVIGATION
+     ════════════════════════════════════════════ -->
+
+<!-- ══ ARTICLE HERO ══ -->
+<header class="art-hero">
+  <div class="art-hero-inner">
+    <div class="breadcrumb">
+      <a href="/">Accueil</a> / <a href="/articles/">Articles</a> / Automatiser un reporting mensuel
+    </div>
+    <h1>Automatiser un reporting mensuel en Python : le guide étape par étape</h1>
+    <p class="art-standfirst">Un cas concret, un reporting de dépenses par centre de coûts, construit étape par étape jusqu'au script complet.</p>
+    <p class="art-meta">7 min de lecture</p>
+  </div>
+</header>
+
+<!-- ══ CORPS DE L'ARTICLE ══ -->
+<main class="art-body">
+
+  <p class="art-lede">Un reporting mensuel construit à la main à partir de plusieurs exports Excel suit presque toujours la même mécanique : lire les fichiers, les assembler, les croiser avec une référence, calculer un résultat, vérifier qu'il est cohérent, puis le livrer dans un format partageable. Cette mécanique, une fois écrite en Python, se rejoue à l'identique chaque mois, en quelques secondes plutôt qu'en plusieurs heures.</p>
+
+  <p>Voici comment construire ce script étape par étape, à partir d'un cas concret : un reporting de dépenses par centre de coûts.</p>
+
+  <h2>Le scénario</h2>
+  <p>Chaque mois, plusieurs fichiers de commandes arrivent dans un dossier partagé, un par semaine ou par système source. Un fichier séparé fait la correspondance entre les codes de centre de coûts et leur nom lisible, utilisé pour la présentation du rapport. Un troisième fichier liste le budget alloué à chaque centre de coûts. L'objectif : produire un rapport consolidé des dépenses par centre de coûts, fiable, avec une alerte automatique si l'un d'eux dépasse son budget.</p>
+
+  <h2><span class="step-num">1</span>Lire tous les fichiers nécessaires</h2>
+
+  <div class="code-panel">
+    <div class="code-panel-head">
+      <span class="code-panel-lang">python</span>
+      <span class="code-panel-dots"><span></span><span></span><span></span></span>
+    </div>
+    <pre class="line-numbers"><code class="language-python">import pandas as pd
+from pathlib import Path
+
+dossier_source = Path("commandes_mensuelles")
+df_commandes = pd.concat([pd.read_excel(f) for f in dossier_source.glob("*.xlsx")], ignore_index=True)
+
+df_centres_de_cout = pd.read_excel("referentiel_centres_de_cout.xlsx")
+df_budgets = pd.read_excel("budgets_centres_de_cout.xlsx")</code></pre>
+  </div>
+
+  <p>Toutes les lectures de fichiers sont regroupées ici, au tout début du script : ça permet de voir en un coup d'œil toutes les sources utilisées, sans avoir à parcourir le script pour les retrouver.</p>
+
+  <h2><span class="step-num">2</span>Vérifier la qualité des données</h2>
+  <p>Avant d'aller plus loin, mieux vaut vérifier qu'aucune ligne n'est dupliquée par erreur, un fichier importé deux fois par exemple :</p>
+
+  <div class="code-panel">
+    <div class="code-panel-head">
+      <span class="code-panel-lang">python</span>
+      <span class="code-panel-dots"><span></span><span></span><span></span></span>
+    </div>
+    <pre class="line-numbers"><code class="language-python">if df_commandes.duplicated().any():
+    print("Attention : des lignes dupliquées ont été détectées.")</code></pre>
+  </div>
+
+  <p>Ce contrôle prend une ligne, et évite qu'une erreur de ce type ne passe inaperçue dans le reste du traitement.</p>
+
+  <h2><span class="step-num">3</span>Croiser avec le référentiel des centres de coûts</h2>
+
+  <div class="code-panel">
+    <div class="code-panel-head">
+      <span class="code-panel-lang">python</span>
+      <span class="code-panel-dots"><span></span><span></span><span></span></span>
+    </div>
+    <pre class="line-numbers"><code class="language-python">df_commandes_enrichies = df_commandes.merge(
+    df_centres_de_cout,
+    on="id_centre_de_cout",
+    how="left",
+    validate="many_to_one",
+)</code></pre>
+  </div>
+
+  <p>Le paramètre <code>validate="many_to_one"</code> garantit que chaque code de centre de coûts est bien unique dans le référentiel. S'il ne l'est pas, une erreur explicite est levée avant même de produire un résultat, plutôt qu'un chiffre silencieusement faux — le même principe que celui détaillé dans notre article sur <a href="/articles/recherchev-doublons-erreur-silencieuse/">les doublons silencieux d'une RECHERCHEV</a>.</p>
+
+  <h2><span class="step-num">4</span>Agréger les dépenses</h2>
+
+  <div class="code-panel">
+    <div class="code-panel-head">
+      <span class="code-panel-lang">python</span>
+      <span class="code-panel-dots"><span></span><span></span><span></span></span>
+    </div>
+    <pre class="line-numbers"><code class="language-python">df_rapport = (
+    df_commandes_enrichies
+    .groupby("nom_centre_de_cout", as_index=False)
+    .agg({"montant": "sum"})
+)</code></pre>
+  </div>
+
+  <p>Cette agrégation reprend en une ligne ce que ferait un tableau croisé dynamique sous Excel, avec un avantage direct : le résultat reste un DataFrame comme un autre, qu'on peut enrichir librement à l'étape suivante, sans passer par un outil distinct comme Power Pivot (voir notre article dédié aux <a href="/articles/tableau-croise-dynamique-pandas-vs-excel/">tableaux croisés dynamiques en pandas</a>).</p>
+
+  <h2><span class="step-num">5</span>Ajouter une alerte budgétaire</h2>
+
+  <div class="code-panel">
+    <div class="code-panel-head">
+      <span class="code-panel-lang">python</span>
+      <span class="code-panel-dots"><span></span><span></span><span></span></span>
+    </div>
+    <pre class="line-numbers"><code class="language-python">df_rapport = df_rapport.merge(df_budgets, on="nom_centre_de_cout", how="left")
+
+for _, ligne in df_rapport.iterrows():
+    if ligne["montant"] > ligne["budget"]:
+        print(f"Alerte : {ligne['nom_centre_de_cout']} dépasse son budget ({ligne['montant']} € pour {ligne['budget']} € prévus).")</code></pre>
+  </div>
+
+  <p>Cette vérification, difficile à automatiser nativement dans un tableau croisé dynamique ou dans <a href="/articles/python-vs-power-query/">Power Query</a> (voir aussi notre comparatif <a href="/articles/python-vs-vba-reporting-controle-de-gestion/">Python vs VBA</a>), tient ici en trois lignes.</p>
+
+  <h2><span class="step-num">6</span>Exporter le résultat</h2>
+
+  <div class="code-panel">
+    <div class="code-panel-head">
+      <span class="code-panel-lang">python</span>
+      <span class="code-panel-dots"><span></span><span></span><span></span></span>
+    </div>
+    <pre class="line-numbers"><code class="language-python">from datetime import date
+
+aujourdhui = date.today()
+annee, mois = aujourdhui.year, aujourdhui.month - 1
+
+if mois == 0:
+    mois = 12
+    annee = annee - 1
+
+nom_fichier = f"rapport_mensuel_{annee}-{mois:02d}.xlsx"
+df_rapport.to_excel(nom_fichier, index=False, sheet_name="Synthèse")</code></pre>
+  </div>
+
+  <p>Le nom du fichier reprend le mois et l'année concernés par le reporting, celui du mois précédent, en supposant que le reporting du mois M se fait en général au tout début du mois M+1. Le fichier obtenu est <a href="/articles/excel-et-python-combiner/">un Excel classique</a>, que n'importe quel collègue peut ouvrir, filtrer ou présenter, sans avoir besoin de connaître Python.</p>
+
+  <h2>Rendre ce script réutilisable d'un mois sur l'autre</h2>
+  <p>Ce script fonctionne tel quel, mais gagne à être structuré un minimum pour être repris facilement : quelques commentaires expliquant le rôle de chaque bloc, et un nommage cohérent des fichiers de sortie, ici par mois et année, plutôt que d'écraser le même fichier à chaque exécution. Ces quelques précautions font toute la différence entre un script utilisé une fois et un script réellement adopté dans la durée.</p>
+
+  <h2>Le script complet</h2>
+
+  <div class="code-panel">
+    <div class="code-panel-head">
+      <span class="code-panel-lang">python</span>
+      <span class="code-panel-dots"><span></span><span></span><span></span></span>
+    </div>
+    <pre class="line-numbers"><code class="language-python">import pandas as pd
+from pathlib import Path
+from datetime import date
+
+# --- Lecture de tous les fichiers ---
+dossier_source = Path("commandes_mensuelles")
+df_commandes = pd.concat(
+    [pd.read_excel(f) for f in dossier_source.glob("*.xlsx")],
+    ignore_index=True,
+)
+df_centres_de_cout = pd.read_excel("referentiel_centres_de_cout.xlsx")
+df_budgets = pd.read_excel("budgets_centres_de_cout.xlsx")
+
+# --- Contrôle qualité ---
+if df_commandes.duplicated().any():
+    print("Attention : des lignes dupliquées ont été détectées.")
+
+# --- Croisement avec le référentiel ---
+df_commandes_enrichies = df_commandes.merge(
+    df_centres_de_cout, on="id_centre_de_cout", how="left", validate="many_to_one"
+)
+
+# --- Agrégation ---
+df_rapport = (
+    df_commandes_enrichies
+    .groupby("nom_centre_de_cout", as_index=False)
+    .agg({"montant": "sum"})
+)
+
+# --- Alerte budgétaire ---
+df_rapport = df_rapport.merge(df_budgets, on="nom_centre_de_cout", how="left")
+
+for _, ligne in df_rapport.iterrows():
+    if ligne["montant"] > ligne["budget"]:
+        print(f"Alerte : {ligne['nom_centre_de_cout']} dépasse son budget.")
+
+# --- Export, nommé selon le mois précédent ---
+aujourdhui = date.today()
+annee, mois = aujourdhui.year, aujourdhui.month - 1
+
+if mois == 0:
+    mois = 12
+    annee = annee - 1
+
+nom_fichier = f"rapport_mensuel_{annee}-{mois:02d}.xlsx"
+df_rapport.to_excel(nom_fichier, index=False, sheet_name="Synthèse")</code></pre>
+  </div>
+
+  <h2>En résumé</h2>
+  <ul>
+    <li>Un reporting mensuel automatisé suit une mécanique constante : lire, vérifier, croiser, agréger, alerter, exporter.</li>
+    <li>Une fois ce script écrit, il se rejoue à l'identique chaque mois, en quelques secondes.</li>
+    <li>Quelques précautions (commentaires, nommage cohérent des fichiers) font la différence entre un script utilisé une fois et un script adopté durablement.</li>
+  </ul>
+
+  <p>Retrouvez l'ensemble de nos articles sur <a href="/articles/">Python pour les métiers</a>.</p>
+
+</main>
+
+<!-- ══ FAQ ══ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="art-label">Questions fréquentes</div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Faut-il réécrire ce script chaque mois ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Non, c'est justement l'intérêt : une fois écrit, il se rejoue à l'identique sur les nouveaux fichiers, sans modification.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Que faire si le format des fichiers sources change ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Le script devra être ajusté à ce moment-là, mais cette maintenance reste ponctuelle, sans commune mesure avec un traitement manuel refait chaque mois.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Peut-on faire ce même travail avec Power Query ou Excel seul ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">En partie, mais avec certaines limites, notamment sur l'étape d'alerte budgétaire, qui sort du cadre de ce que ces outils permettent nativement (voir nos comparatifs dédiés à <a href="/articles/python-vs-power-query/">Power Query</a> et à <a href="/articles/python-vs-vba-reporting-controle-de-gestion/">VBA</a>).</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="art-cta">
+  <p>Vous voulez apprendre à construire ce type de script vous-même, adapté à votre reporting ?</p>
+  <a href="https://python-pour-les-metiers.fr/" class="btn-primary">Découvrir Python pour les métiers →</a>
+</section>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ HTML — FOOTER (voir _includes/footer.html)
+     ════════════════════════════════════════════ -->
+{% include footer.html %}
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ HTML — FOOTER
+     ════════════════════════════════════════════ -->
+
+
+<!-- ══ SCHEMA.ORG ══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Automatiser un reporting mensuel en Python : le guide étape par étape",
+  "description": "Le guide étape par étape pour automatiser un reporting mensuel en Python : lecture des fichiers, nettoyage, agrégation, alertes, export Excel.",
+  "step": [
+    { "@type": "HowToStep", "position": 1, "name": "Lire tous les fichiers nécessaires", "text": "Regrouper au début du script la lecture de tous les fichiers sources : commandes du mois, référentiel des centres de coûts, budgets." },
+    { "@type": "HowToStep", "position": 2, "name": "Vérifier la qualité des données", "text": "Contrôler qu'aucune ligne n'est dupliquée par erreur avant de poursuivre le traitement." },
+    { "@type": "HowToStep", "position": 3, "name": "Croiser avec le référentiel des centres de coûts", "text": "Fusionner les commandes avec le référentiel, avec une validation garantissant l'unicité de la clé côté référentiel." },
+    { "@type": "HowToStep", "position": 4, "name": "Agréger les dépenses", "text": "Regrouper les montants par centre de coûts, comme le ferait un tableau croisé dynamique, en conservant un DataFrame manipulable." },
+    { "@type": "HowToStep", "position": 5, "name": "Ajouter une alerte budgétaire", "text": "Comparer les montants agrégés aux budgets alloués et signaler les dépassements." },
+    { "@type": "HowToStep", "position": 6, "name": "Exporter le résultat", "text": "Générer un fichier Excel nommé selon le mois concerné, prêt à être partagé avec des interlocuteurs non techniques." }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://python-pour-les-metiers.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://python-pour-les-metiers.fr/articles/" },
+    { "@type": "ListItem", "position": 3, "name": "Automatiser un reporting mensuel", "item": "https://python-pour-les-metiers.fr/articles/automatiser-reporting-mensuel-python/" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Faut-il réécrire ce script chaque mois ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Non, c'est justement l'intérêt : une fois écrit, il se rejoue à l'identique sur les nouveaux fichiers, sans modification." }
+    },
+    {
+      "@type": "Question",
+      "name": "Que faire si le format des fichiers sources change ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Le script devra être ajusté à ce moment-là, mais cette maintenance reste ponctuelle, sans commune mesure avec un traitement manuel refait chaque mois." }
+    },
+    {
+      "@type": "Question",
+      "name": "Peut-on faire ce même travail avec Power Query ou Excel seul ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "En partie, mais avec certaines limites, notamment sur l'étape d'alerte budgétaire, qui sort du cadre de ce que ces outils permettent nativement." }
+    }
+  ]
+}
+</script>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ JS — NAV BURGER & FAQ
+     ════════════════════════════════════════════ -->
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+  function toggleFaq(btn) {
+    var item = btn.parentElement;
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+    if (!isOpen) item.classList.add('open');
+  }
+  function toggleNav(){
+    document.getElementById('navBurger').classList.toggle('open');
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  function closeNav(){
+    document.getElementById('navBurger').classList.remove('open');
+    document.querySelector('.nav-links').classList.remove('open');
+  }
+</script>
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ JS
+     ════════════════════════════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+</body>
+</html>

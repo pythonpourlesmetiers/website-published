@@ -1,0 +1,322 @@
+---
+---
+<!--
+  Métadonnées internes (ne s'affichent pas sur la page) :
+  - Mot-clé principal : python pour les métiers
+  - Cluster : Page hub / index — nœud central du maillage interne, linkée depuis les 15 autres articles
+    et censée être ajoutée à la navigation principale du site (lien "Articles" déjà présent dans le nav de
+    chaque page, pointant vers /articles/ — donc déjà en place une fois cette page mise en ligne).
+  - Cette page remplace ce que les 15 autres articles appelaient jusqu'ici la "page pilier"
+    (/articles/pourquoi-python-devient-incontournable/) : ce lien a été retiré de tous les autres articles
+    et remplacé par un lien unique vers /articles/, qui est désormais à la fois la page pilier et la page d'index.
+  - Les 15 liens ci-dessous pointent tous vers des articles déjà existants (aucun lien cassé sur cette page).
+  - Schema.org : CollectionPage (au lieu d'Article, cette page n'est pas un article mais une collection organisée)
+    + FAQPage + BreadcrumbList inclus en bas de page.
+  - Pas de section "En résumé" : retirée volontairement, elle ferait doublon avec la page elle-même (cf. notes de prod).
+  - Pas de "temps de lecture" en meta du hero : peu pertinent pour une page d'index. Remplacé par un compteur
+    "14 articles disponibles", plus utile ici. À ajuster si de nouveaux articles s'ajoutent au fil du temps.
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ — CONSENTEMENT COOKIES / GOOGLE ANALYTICS
+     ════════════════════════════════════════════ -->
+<script>window.GA_MEASUREMENT_ID = 'G-DTYTEVQHKY';</script>
+<script src="/assets/consent.js" defer></script>
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ — CONSENTEMENT COOKIES
+     ════════════════════════════════════════════ -->
+
+<link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg">
+<link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+<link rel="manifest" href="/assets/favicon/site.webmanifest">
+
+<title>Pourquoi Python en tant que professionnel métier : vue d'ensemble</title>
+<meta name="description" content="Comparatifs d'outils, cas d'usage, tendances IA, opportunités de carrière : retrouvez tous nos articles sur Python pour les métiers, classés par thème.">
+<link rel="canonical" href="https://python-pour-les-metiers.fr/articles/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://python-pour-les-metiers.fr/articles/">
+<meta property="og:title" content="Pourquoi Python en tant que professionnel métier : vue d'ensemble">
+<meta property="og:description" content="Comparatifs d'outils, cas d'usage, tendances IA, opportunités de carrière : retrouvez tous nos articles sur Python pour les métiers, classés par thème.">
+<meta property="og:image" content="https://python-pour-les-metiers.fr/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="fr_FR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://python-pour-les-metiers.fr/articles/">
+<meta name="twitter:title" content="Pourquoi Python en tant que professionnel métier : vue d'ensemble">
+<meta name="twitter:description" content="Comparatifs d'outils, cas d'usage, tendances IA, opportunités de carrière : retrouvez tous nos articles sur Python pour les métiers, classés par thème.">
+<meta name="twitter:image" content="https://python-pour-les-metiers.fr/assets/og-image.jpg">
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
+<link rel="stylesheet" href="/assets/shared.css">
+
+<style>
+  /* ── ARTICLE HERO ── */
+  .art-hero { position:relative; background:var(--navy); padding:3rem 2rem 2.75rem; }
+  .art-hero-inner { max-width:800px; margin:0 auto; }
+  .breadcrumb { font-size:0.8rem; color:#64748b; margin-bottom:1.75rem; }
+  .breadcrumb a { color:#94a3b8; text-decoration:none; }
+  .breadcrumb a:hover { color:var(--white); }
+  .art-label { display:inline-block; font-family:'Montserrat',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--blue-mid); background:rgba(37,99,235,0.08); border:1px solid rgba(37,99,235,0.25); padding:0.3rem 0.9rem; border-radius:100px; margin-bottom:1.25rem; }
+  .art-hero h1 { font-size:clamp(1.7rem,4vw,2.5rem); font-weight:800; color:var(--white); letter-spacing:-0.02em; line-height:1.25; margin-bottom:1.1rem; }
+  .art-standfirst { font-size:1.05rem; color:#94a3b8; line-height:1.75; max-width:640px; }
+  .art-meta { font-size:0.8rem; color:#64748b; margin-top:1.75rem; }
+
+  /* ── ARTICLE BODY ── */
+  .art-body { max-width:800px; margin:0 auto; padding:4rem 2rem 1rem; }
+  .art-lede { font-size:1.15rem; color:var(--text-mid); line-height:1.8; margin-bottom:1.4rem; }
+  .art-body p { font-size:1.05rem; line-height:1.85; color:var(--text-dark); margin-bottom:1.4rem; }
+  .art-body h2 { font-size:1.5rem; font-weight:800; color:var(--dark); margin:3rem 0 0.6rem; letter-spacing:-0.01em; }
+  .cluster-intro { font-size:0.98rem; color:var(--text-mid); margin-bottom:1.1rem; }
+  .art-body ul { margin:0 0 1.4rem 0; padding-left:0; list-style:none; }
+  .art-body ul li { position:relative; padding-left:1.6rem; margin-bottom:0.9rem; font-size:1.05rem; line-height:1.75; color:var(--text-dark); }
+  .art-body ul li::before { content:'→'; position:absolute; left:0; color:var(--gold-text); font-weight:700; }
+  .art-body ul li a { font-weight:600; }
+  .art-body strong { color:var(--dark); font-weight:700; }
+  .art-body a { color:var(--blue-mid); text-decoration:underline; text-decoration-color:rgba(37,99,235,0.35); text-underline-offset:2px; }
+  .art-body a:hover { text-decoration-color:var(--blue-mid); }
+  .art-body code { font-family:'Menlo','Consolas','Monaco',monospace; font-size:0.9em; background:var(--surface); border:1px solid var(--border-light); border-radius:4px; padding:0.1rem 0.4rem; color:var(--dark); }
+
+  .art-divider { border:none; border-top:1px solid var(--border-light); margin:2.5rem 0 3rem; }
+
+  /* ── FAQ (repris tel quel du site) ── */
+  .faq-section { background:var(--surface); padding:4.5rem 2rem; }
+  .faq-inner { max-width:800px; margin:0 auto; }
+  .faq-list { margin-top:1.5rem; display:flex; flex-direction:column; gap:0.6rem; }
+  .faq-item { border:1px solid var(--border-light); border-radius:12px; background:var(--white); overflow:hidden; transition:box-shadow 0.2s; }
+  .faq-item:hover { box-shadow:0 4px 16px rgba(0,0,0,0.06); }
+  .faq-q { width:100%; background:none; border:none; text-align:left; padding:1.3rem 1.6rem; cursor:pointer; font-family:'Montserrat',sans-serif; font-size:0.925rem; font-weight:700; color:var(--dark); display:flex; justify-content:space-between; align-items:center; gap:1rem; transition:background 0.15s; }
+  .faq-q:hover { background:var(--surface); }
+  .faq-arrow { font-size:0.65rem; color:var(--text-light); transition:transform 0.25s; flex-shrink:0; }
+  .faq-item.open .faq-arrow { transform:rotate(180deg); }
+  .faq-a { max-height:0; overflow:hidden; transition:max-height 0.3s ease; }
+  .faq-item.open .faq-a { max-height:600px; }
+  .faq-a-inner { padding:0 1.6rem 1.3rem; font-size:0.9rem; color:var(--text-mid); line-height:1.75; }
+  .faq-a-inner code { font-family:'Menlo','Consolas','Monaco',monospace; font-size:0.9em; background:var(--white); border:1px solid var(--border-light); border-radius:4px; padding:0.1rem 0.4rem; color:var(--dark); }
+
+  /* ── CTA ── */
+  .art-cta { background:var(--dark); text-align:center; padding:4.5rem 2rem; }
+  .art-cta p { font-size:1.2rem; color:var(--white); max-width:560px; margin:0 auto 2rem; line-height:1.6; font-family:'Montserrat',sans-serif; font-weight:600; }
+  .btn-primary { display:inline-block; background:var(--yellow); color:var(--dark); font-weight:700; font-size:1rem; padding:0.95rem 2.25rem; border-radius:8px; text-decoration:none; transition:transform 0.15s, box-shadow 0.15s; box-shadow:0 4px 24px rgba(255,212,59,0.35); font-family:'Montserrat',sans-serif; }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 36px rgba(255,212,59,0.45); }
+
+  @media(max-width:600px){
+    .art-body, .art-hero-inner, .faq-inner { padding-left:1.25rem; padding-right:1.25rem; }
+    section, .art-hero, .faq-section, .art-cta { padding-left:1.25rem; padding-right:1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ HTML — NAVIGATION (voir _includes/nav.html)
+     ════════════════════════════════════════════ -->
+{% include nav.html %}
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ HTML — NAVIGATION
+     ════════════════════════════════════════════ -->
+
+<!-- ══ HERO ══ -->
+<header class="art-hero">
+  <div class="art-hero-inner">
+    <div class="breadcrumb">
+      <a href="/">Accueil</a> / Articles
+    </div>
+    <h1>Python en tant que métier : vue d'ensemble</h1>
+    <p class="art-standfirst">Tous nos articles sur Python pour les métiers, classés par thème : à vous de piocher selon ce qui vous concerne le plus directement.</p>
+    <p class="art-meta">15 articles disponibles</p>
+  </div>
+</header>
+
+<!-- ══ CORPS ══ -->
+<main class="art-body">
+
+  <p class="art-lede">Python devient incontournable pour les profils analytiques côté métier : contrôle de gestion, business analyst, marketing, sales, RH, achats... Ce n'est pas une mode passagère portée par l'engouement pour l'IA, mais la conjonction de deux mouvements de fond : l'exigence croissante sur la manipulation de données, et une IA qui rend le code plus accessible que jamais.</p>
+
+  <p>Cette page rassemble, classés par thème, tous les articles du site sur le sujet : à vous de piocher selon ce qui vous concerne le plus directement.</p>
+
+  <h2>Comparatifs d'outils</h2>
+  <p class="cluster-intro">Un profil métier dispose déjà de plusieurs outils pour manipuler des données. Python les complète ou les remplace lorsqu'ils montrent leurs limites : sur les gros volumes, la fiabilité, ou tout ce qui dépasse la simple transformation de données.</p>
+  <ul>
+    <li><a href="/articles/python-vs-vba-reporting-controle-de-gestion/">Python vs VBA pour un reporting de contrôle de gestion</a></li>
+    <li><a href="/articles/python-vs-power-query/">Python vs Power Query</a></li>
+    <li><a href="/articles/python-vs-sql-profil-metier/">Python vs SQL pour un profil métier</a></li>
+    <li><a href="/articles/excel-et-python-combiner/">Excel et Python : comment les combiner au quotidien</a></li>
+  </ul>
+
+  <h2>Cas d'usage concrets</h2>
+  <p class="cluster-intro">Trois besoins parlants côté métier : fiabiliser une RECHERCHEV face aux doublons, dépasser les limites d'un tableau croisé dynamique, et automatiser un reporting récurrent de bout en bout.</p>
+  <ul>
+    <li><a href="/articles/recherchev-doublons-erreur-silencieuse/">RECHERCHEV : le piège des doublons</a></li>
+    <li><a href="/articles/tableau-croise-dynamique-pandas-vs-excel/">Tableau croisé dynamique en Python</a></li>
+    <li><a href="/articles/automatiser-reporting-mensuel-python/">Automatiser un reporting mensuel : le guide étape par étape</a></li>
+  </ul>
+
+  <h2>Tendances IA</h2>
+  <p class="cluster-intro">L'IA change la donne sur deux points : elle rend l'argument du no-code obsolète, et elle démocratise l'accès au code sans dispenser de le comprendre.</p>
+  <ul>
+    <li><a href="/articles/no-code-piege-ere-ia/">Pourquoi le no-code est un piège à l'ère de l'IA</a></li>
+    <li><a href="/articles/pourquoi-vibe-coder-ne-suffit-pas/">Pourquoi vibe-coder ne suffit pas pour un projet durable</a></li>
+  </ul>
+
+  <h2>Prise en main</h2>
+  <p class="cluster-intro">Il n'existe pas de délai universel pour devenir autonome, mais un palier précis, atteignable en quelques semaines avec la bonne méthode et le bon environnement de travail.</p>
+  <ul>
+    <li><a href="/articles/combien-de-temps-python-autonome-excel/">Combien de temps pour être autonome sur Python</a></li>
+    <li><a href="/articles/jupyter-notebook-pour-les-metiers/">Jupyter Notebook : l'interface Python adaptée aux métiers</a></li>
+  </ul>
+
+  <h2>Pour qui</h2>
+  <p class="cluster-intro">Cette évolution touche des profils variés, avec un momentum de carrière réel pour qui s'y met maintenant plutôt que plus tard.</p>
+  <ul>
+    <li><a href="/articles/python-business-analyst/">Python pour Business Analyst</a></li>
+    <li><a href="/articles/python-marketing-digital/">Python en marketing : pourquoi malgré les outils no-code</a></li>
+    <li><a href="/articles/python-opportunites-carriere-metier/">Python, un levier d'opportunités professionnelles côté métier</a></li>
+    <li><a href="/articles/python-finance-de-marche/">Python en finance de marché : déjà là, mais pas partout</a></li>
+  </ul>
+
+</main>
+
+<!-- ══ FAQ ══ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="art-label">Questions fréquentes</div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Python remplace-t-il Excel ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Non, et ce n'est pas sa vocation : Python prend en charge ce qu'Excel n'a jamais été conçu pour faire, Excel reste la référence pour le partage et la visualisation.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Combien de temps pour voir des résultats concrets ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Compter environ deux mois, à raison d'une heure par jour ouvré, avec un accompagnement structuré.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Quels profils métiers ont-ils à gagner à apprendre Python ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Tout profil métier qui manipule des données ou cherche à automatiser des traitements récurrents tire profit de Python, avec un réel levier d'évolution de carrière à la clé : business analysts, contrôleurs de gestion, Sales Ops, marketeurs, RH, achats...</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="art-cta">
+  <p>Vous voulez franchir le pas, avec un parcours structuré plutôt qu'une collection d'articles épars ?</p>
+  <a href="https://python-pour-les-metiers.fr/" class="btn-primary">Découvrir Python pour les métiers →</a>
+</section>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ HTML — FOOTER (voir _includes/footer.html)
+     ════════════════════════════════════════════ -->
+{% include footer.html %}
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ HTML — FOOTER
+     ════════════════════════════════════════════ -->
+
+
+<!-- ══ SCHEMA.ORG ══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Python en tant que métier : vue d'ensemble",
+  "description": "Comparatifs d'outils, cas d'usage, tendances IA, opportunités de carrière : retrouvez tous nos articles sur Python pour les métiers, classés par thème.",
+  "url": "https://python-pour-les-metiers.fr/articles/",
+  "hasPart": [
+    { "@type": "Article", "headline": "Python vs VBA pour un reporting de contrôle de gestion", "url": "https://python-pour-les-metiers.fr/articles/python-vs-vba-reporting-controle-de-gestion/" },
+    { "@type": "Article", "headline": "Python vs Power Query", "url": "https://python-pour-les-metiers.fr/articles/python-vs-power-query/" },
+    { "@type": "Article", "headline": "Python vs SQL pour un profil métier", "url": "https://python-pour-les-metiers.fr/articles/python-vs-sql-profil-metier/" },
+    { "@type": "Article", "headline": "Excel et Python : comment les combiner au quotidien", "url": "https://python-pour-les-metiers.fr/articles/excel-et-python-combiner/" },
+    { "@type": "Article", "headline": "RECHERCHEV : le piège des doublons", "url": "https://python-pour-les-metiers.fr/articles/recherchev-doublons-erreur-silencieuse/" },
+    { "@type": "Article", "headline": "Tableau croisé dynamique en Python", "url": "https://python-pour-les-metiers.fr/articles/tableau-croise-dynamique-pandas-vs-excel/" },
+    { "@type": "Article", "headline": "Automatiser un reporting mensuel : le guide étape par étape", "url": "https://python-pour-les-metiers.fr/articles/automatiser-reporting-mensuel-python/" },
+    { "@type": "Article", "headline": "Pourquoi le no-code est un piège à l'ère de l'IA", "url": "https://python-pour-les-metiers.fr/articles/no-code-piege-ere-ia/" },
+    { "@type": "Article", "headline": "Pourquoi vibe-coder ne suffit pas pour un projet durable", "url": "https://python-pour-les-metiers.fr/articles/pourquoi-vibe-coder-ne-suffit-pas/" },
+    { "@type": "Article", "headline": "Combien de temps pour être autonome sur Python", "url": "https://python-pour-les-metiers.fr/articles/combien-de-temps-python-autonome-excel/" },
+    { "@type": "Article", "headline": "Jupyter Notebook : l'interface Python adaptée aux métiers", "url": "https://python-pour-les-metiers.fr/articles/jupyter-notebook-pour-les-metiers/" },
+    { "@type": "Article", "headline": "Python pour Business Analyst", "url": "https://python-pour-les-metiers.fr/articles/python-business-analyst/" },
+    { "@type": "Article", "headline": "Python en marketing : pourquoi malgré les outils no-code", "url": "https://python-pour-les-metiers.fr/articles/python-marketing-digital/" },
+    { "@type": "Article", "headline": "Python, un levier d'opportunités professionnelles côté métier", "url": "https://python-pour-les-metiers.fr/articles/python-opportunites-carriere-metier/" },
+    { "@type": "Article", "headline": "Python en finance de marché : déjà là, mais pas partout", "url": "https://python-pour-les-metiers.fr/articles/python-finance-de-marche/" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://python-pour-les-metiers.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://python-pour-les-metiers.fr/articles/" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Python remplace-t-il Excel ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Non, et ce n'est pas sa vocation : Python prend en charge ce qu'Excel n'a jamais été conçu pour faire, Excel reste la référence pour le partage et la visualisation." }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps pour voir des résultats concrets ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Compter environ deux mois, à raison d'une heure par jour ouvré, avec un accompagnement structuré." }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels profils métiers ont-ils à gagner à apprendre Python ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Tout profil métier qui manipule des données ou cherche à automatiser des traitements récurrents tire profit de Python : business analysts, contrôleurs de gestion, Sales Ops, marketeurs, RH, achats..." }
+    }
+  ]
+}
+</script>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ JS — NAV BURGER & FAQ
+     ════════════════════════════════════════════ -->
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+  function toggleFaq(btn) {
+    var item = btn.parentElement;
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+    if (!isOpen) item.classList.add('open');
+  }
+  function toggleNav(){
+    document.getElementById('navBurger').classList.toggle('open');
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  function closeNav(){
+    document.getElementById('navBurger').classList.remove('open');
+    document.querySelector('.nav-links').classList.remove('open');
+  }
+</script>
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ JS
+     ════════════════════════════════════════════ -->
+
+</body>
+</html>

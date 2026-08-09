@@ -1,0 +1,343 @@
+---
+---
+<!--
+  Métadonnées internes (ne s'affichent pas sur la page) :
+  - Mot-clé principal : python finance de marché
+  - Persona : profils finance de marché (front/middle office, gestion des risques, gestion d'actifs), début de carrière
+  - Cluster : Personas
+  - Liens internes posés vers /articles/python-vs-vba-reporting-controle-de-gestion/ (existe),
+    /articles/recherchev-doublons-erreur-silencieuse/ (existe), /articles/combien-de-temps-python-autonome-excel/ (existe),
+    et /articles/ (page hub/index, existe).
+  - Cet article est le 16e du site : à ajouter dans la section "Pour qui" de la page hub (/articles/),
+    et à intégrer au schema CollectionPage de cette page (hasPart) ainsi qu'à son compteur "X articles disponibles".
+  - Schema.org : Article + FAQPage + BreadcrumbList inclus en bas de page.
+  - Date de publication (datePublished) mise à un placeholder : à corriger avec la vraie date de mise en ligne.
+  - 2 blocs de code Python.
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ — CONSENTEMENT COOKIES / GOOGLE ANALYTICS
+     ════════════════════════════════════════════ -->
+<script>window.GA_MEASUREMENT_ID = 'G-DTYTEVQHKY';</script>
+<script src="/assets/consent.js" defer></script>
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ — CONSENTEMENT COOKIES
+     ════════════════════════════════════════════ -->
+
+<link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg">
+<link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+<link rel="manifest" href="/assets/favicon/site.webmanifest">
+
+<title>Python en finance de marché : déjà là, mais pas partout</title>
+<meta name="description" content="Python est utilisé en finance de marché depuis plus longtemps qu'ailleurs, mais tout le monde n'a pas encore fait le pas. Où se situe la vraie marge.">
+<link rel="canonical" href="https://python-pour-les-metiers.fr/articles/python-finance-de-marche/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://python-pour-les-metiers.fr/articles/python-finance-de-marche/">
+<meta property="og:title" content="Python en finance de marché : déjà là, mais pas partout">
+<meta property="og:description" content="Python est utilisé en finance de marché depuis plus longtemps qu'ailleurs, mais tout le monde n'a pas encore fait le pas. Où se situe la vraie marge.">
+<meta property="og:image" content="https://python-pour-les-metiers.fr/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="fr_FR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://python-pour-les-metiers.fr/articles/python-finance-de-marche/">
+<meta name="twitter:title" content="Python en finance de marché : déjà là, mais pas partout">
+<meta name="twitter:description" content="Python est utilisé en finance de marché depuis plus longtemps qu'ailleurs, mais tout le monde n'a pas encore fait le pas. Où se situe la vraie marge.">
+<meta name="twitter:image" content="https://python-pour-les-metiers.fr/assets/og-image.jpg">
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
+<link rel="stylesheet" href="/assets/shared.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+<style>
+  /* ── ARTICLE HERO ── */
+  .art-hero { position:relative; background:var(--navy); padding:3rem 2rem 2.75rem; }
+  .art-hero-inner { max-width:800px; margin:0 auto; }
+  .breadcrumb { font-size:0.8rem; color:#64748b; margin-bottom:1.75rem; }
+  .breadcrumb a { color:#94a3b8; text-decoration:none; }
+  .breadcrumb a:hover { color:var(--white); }
+  .art-label { display:inline-block; font-family:'Montserrat',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--blue-mid); background:rgba(37,99,235,0.08); border:1px solid rgba(37,99,235,0.25); padding:0.3rem 0.9rem; border-radius:100px; margin-bottom:1.25rem; }
+  .art-hero h1 { font-size:clamp(1.7rem,4vw,2.5rem); font-weight:800; color:var(--white); letter-spacing:-0.02em; line-height:1.25; margin-bottom:1.1rem; }
+  .art-standfirst { font-size:1.05rem; color:#94a3b8; line-height:1.75; max-width:640px; }
+  .art-meta { font-size:0.8rem; color:#64748b; margin-top:1.75rem; }
+
+  /* ── ARTICLE BODY ── */
+  .art-body { max-width:800px; margin:0 auto; padding:4rem 2rem 1rem; }
+  .art-lede { font-size:1.15rem; color:var(--text-mid); line-height:1.8; margin-bottom:1.4rem; }
+  .art-body p { font-size:1.05rem; line-height:1.85; color:var(--text-dark); margin-bottom:1.4rem; }
+  .art-body h2 { font-size:1.5rem; font-weight:800; color:var(--dark); margin:3rem 0 1.25rem; letter-spacing:-0.01em; }
+  .art-body ul { margin:0 0 1.4rem 0; padding-left:0; list-style:none; }
+  .art-body ul li { position:relative; padding-left:1.6rem; margin-bottom:0.9rem; font-size:1.02rem; line-height:1.75; color:var(--text-dark); }
+  .art-body ul li::before { content:'→'; position:absolute; left:0; color:var(--gold-text); font-weight:700; }
+  .art-body strong { color:var(--dark); font-weight:700; }
+  .art-body a { color:var(--blue-mid); text-decoration:underline; text-decoration-color:rgba(37,99,235,0.35); text-underline-offset:2px; }
+  .art-body a:hover { text-decoration-color:var(--blue-mid); }
+  .art-body code { font-family:'Menlo','Consolas','Monaco',monospace; font-size:0.9em; background:var(--surface); border:1px solid var(--border-light); border-radius:4px; padding:0.1rem 0.4rem; color:var(--dark); }
+
+  /* ── CODE BLOCKS ── */
+  .code-panel { border-radius:12px; overflow:hidden; border:1px solid var(--border-dark); margin:0.5rem 0 2rem; background:#1d1f21; }
+  .code-panel-head { display:flex; align-items:center; justify-content:space-between; padding:0.6rem 1.1rem; background:#161b22; border-bottom:1px solid var(--border-dark); }
+  .code-panel-lang { font-family:'Montserrat',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#64748b; }
+  .code-panel-dots { display:flex; gap:6px; }
+  .code-panel-dots span { width:9px; height:9px; border-radius:50%; background:#3b4a5a; display:block; }
+  .code-panel pre[class*="language-"] { margin:0!important; padding:1.25rem 1.5rem!important; background:transparent!important; font-size:0.83rem!important; }
+  .code-panel code[class*="language-"] { font-family:'Menlo','Consolas','Monaco',monospace!important; background:none!important; border:none!important; padding:0!important; border-radius:0!important; color:#ccc!important; }
+
+  .art-divider { border:none; border-top:1px solid var(--border-light); margin:2.5rem 0 3rem; }
+
+  /* ── FAQ (repris tel quel du site) ── */
+  .faq-section { background:var(--surface); padding:4.5rem 2rem; }
+  .faq-inner { max-width:800px; margin:0 auto; }
+  .faq-list { margin-top:1.5rem; display:flex; flex-direction:column; gap:0.6rem; }
+  .faq-item { border:1px solid var(--border-light); border-radius:12px; background:var(--white); overflow:hidden; transition:box-shadow 0.2s; }
+  .faq-item:hover { box-shadow:0 4px 16px rgba(0,0,0,0.06); }
+  .faq-q { width:100%; background:none; border:none; text-align:left; padding:1.3rem 1.6rem; cursor:pointer; font-family:'Montserrat',sans-serif; font-size:0.925rem; font-weight:700; color:var(--dark); display:flex; justify-content:space-between; align-items:center; gap:1rem; transition:background 0.15s; }
+  .faq-q:hover { background:var(--surface); }
+  .faq-arrow { font-size:0.65rem; color:var(--text-light); transition:transform 0.25s; flex-shrink:0; }
+  .faq-item.open .faq-arrow { transform:rotate(180deg); }
+  .faq-a { max-height:0; overflow:hidden; transition:max-height 0.3s ease; }
+  .faq-item.open .faq-a { max-height:600px; }
+  .faq-a-inner { padding:0 1.6rem 1.3rem; font-size:0.9rem; color:var(--text-mid); line-height:1.75; }
+  .faq-a-inner code { font-family:'Menlo','Consolas','Monaco',monospace; font-size:0.9em; background:var(--white); border:1px solid var(--border-light); border-radius:4px; padding:0.1rem 0.4rem; color:var(--dark); }
+
+  /* ── CTA ── */
+  .art-cta { background:var(--dark); text-align:center; padding:4.5rem 2rem; }
+  .art-cta p { font-size:1.2rem; color:var(--white); max-width:560px; margin:0 auto 2rem; line-height:1.6; font-family:'Montserrat',sans-serif; font-weight:600; }
+  .btn-primary { display:inline-block; background:var(--yellow); color:var(--dark); font-weight:700; font-size:1rem; padding:0.95rem 2.25rem; border-radius:8px; text-decoration:none; transition:transform 0.15s, box-shadow 0.15s; box-shadow:0 4px 24px rgba(255,212,59,0.35); font-family:'Montserrat',sans-serif; }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 36px rgba(255,212,59,0.45); }
+
+  @media(max-width:600px){
+    .art-body, .art-hero-inner, .faq-inner { padding-left:1.25rem; padding-right:1.25rem; }
+    section, .art-hero, .faq-section, .art-cta { padding-left:1.25rem; padding-right:1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ HTML — NAVIGATION (voir _includes/nav.html)
+     ════════════════════════════════════════════ -->
+{% include nav.html %}
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ HTML — NAVIGATION
+     ════════════════════════════════════════════ -->
+
+<!-- ══ ARTICLE HERO ══ -->
+<header class="art-hero">
+  <div class="art-hero-inner">
+    <div class="breadcrumb">
+      <a href="/">Accueil</a> / <a href="/articles/">Articles</a> / Python en finance de marché
+    </div>
+    <h1>Python en finance de marché : déjà là, mais pas partout</h1>
+    <p class="art-standfirst">Les équipes quantitatives et de gestion des risques l'utilisent depuis plus d'une décennie. La vraie marge de progression est ailleurs.</p>
+    <p class="art-meta">5 min de lecture</p>
+  </div>
+</header>
+
+<!-- ══ CORPS DE L'ARTICLE ══ -->
+<main class="art-body">
+
+  <p class="art-lede">Python n'a rien d'un nouveau venu en finance de marché. Les équipes quantitatives et de gestion des risques l'utilisent depuis plus d'une décennie, bien avant que d'autres fonctions analytiques, comme le contrôle de gestion, ne s'y intéressent sérieusement. On le retrouve aussi bien en front office, pour la recherche et la modélisation, qu'en middle office, sur des activités comme le suivi des risques.</p>
+
+  <p>Cette avance ne veut pas dire que tout le monde a fait le pas. Une bonne partie des équipes, en front comme en middle office, continue de travailler au quotidien sous Excel et VBA, pour du reporting, des rapprochements, ou des calculs répétitifs. C'est là, bien plus que sur n'importe quel outil en particulier, que se trouve la vraie marge de progression technique du secteur.</p>
+
+  <h2>Ce qui a déjà basculé</h2>
+  <p>Deux usages illustrent bien cette avance. Les séries temporelles de marché d'abord : cours, rendements, volatilités, des données qui s'indexent naturellement par date, exactement ce pour quoi pandas a été conçu.</p>
+
+  <div class="code-panel">
+    <div class="code-panel-head">
+      <span class="code-panel-lang">python</span>
+      <span class="code-panel-dots"><span></span><span></span><span></span></span>
+    </div>
+    <pre class="line-numbers"><code class="language-python">rendements = cours["prix"].pct_change()
+volatilite_glissante = rendements.rolling(window=20).std()</code></pre>
+  </div>
+
+  <p>Un calcul de rendement ou de volatilité glissante sur plusieurs années de cours tient en deux lignes, quand la même opération dans Excel suppose des formules imbriquées qui ralentissent dès que l'historique s'allonge.</p>
+  <p>Les calculs de risque ensuite : une VaR, un stress test sur un portefeuille, une matrice de corrélation entre actifs. Ce sont des calculs vectorisés, que numpy et pandas gèrent nativement, mais qui passent mal en formules Excel répétées cellule par cellule au-delà de quelques dizaines de positions.</p>
+  <p>Ces deux usages n'ont pas vocation à concurrencer ce que font des langages comme C++ ou Rust sur les moteurs de pricing et d'exécution, où chaque microseconde compte : ce sont des besoins différents, avec des contraintes différentes. Python s'est imposé sur l'analyse et la modélisation du quotidien, pas sur l'infrastructure d'exécution la plus critique, et ce n'est pas son rôle de le faire.</p>
+  <p>Cette adoption ne s'est pas arrêtée à ces deux usages. Une fois équipées de Python pour ce qu'il faisait mieux que n'importe quel autre outil, les équipes quantitatives et de gestion des risques l'ont naturellement étendu au reste de leur travail : consolider un rapport, croiser des fichiers, automatiser une tâche répétitive. Et cette habitude s'est diffusée aux équipes voisines, souvent par simple proximité avec des collègues qui l'utilisaient déjà au quotidien.</p>
+
+  <h2>Ce qui n'a pas encore basculé</h2>
+  <p>Cette diffusion n'a pourtant pas touché tout le monde. Beaucoup de tâches, un rapprochement de positions, un reporting réglementaire, un contrôle de cohérence entre deux sources, continuent souvent de passer par Excel, par des macros VBA, ou parfois par des outils de RPA quand une interface doit être automatisée faute d'accès direct aux données. Ce sont, à peu de choses près, les mêmes tâches que celles décrites dans notre article sur <a href="/articles/python-vs-vba-reporting-controle-de-gestion/">VBA et le contrôle de gestion</a>, simplement transposées à la finance de marché.</p>
+  <p>Voici, par exemple, à quoi ressemble un rapprochement de positions une fois automatisé — une logique proche de celle décrite dans notre article sur <a href="/articles/recherchev-doublons-erreur-silencieuse/">les doublons silencieux d'une RECHERCHEV</a> :</p>
+
+  <div class="code-panel">
+    <div class="code-panel-head">
+      <span class="code-panel-lang">python</span>
+      <span class="code-panel-dots"><span></span><span></span><span></span></span>
+    </div>
+    <pre class="line-numbers"><code class="language-python">import pandas as pd
+
+positions_front = pd.read_excel("positions_front_office.xlsx")
+positions_custodian = pd.read_excel("positions_custodian.xlsx")
+
+rapprochement = positions_front.merge(
+    positions_custodian,
+    on="isin",
+    how="outer",
+    validate="one_to_one",
+    indicator=True,
+)
+
+ecarts = rapprochement[rapprochement["_merge"] != "both"]
+if not ecarts.empty:
+    print(f"Alerte : {len(ecarts)} position(s) non rapprochée(s).")</code></pre>
+  </div>
+
+  <p>Rien ici ne demande une expertise quantitative poussée : c'est le même socle Python qui sert à n'importe quel profil analytique côté métier.</p>
+
+  <h2>Un vrai désavantage pour qui démarre sans cette compétence</h2>
+  <p>C'est précisément ce qui rend la situation particulière pour un début de carrière dans ce secteur. Là où d'autres métiers peuvent encore considérer Python comme un vrai plus différenciant, en finance de marché, son absence commence à se voir comme un manque, sur une bonne partie des postes analytiques : risque, gestion de portefeuille, recherche. Le secteur a intégré cette compétence depuis assez longtemps pour qu'elle soit attendue, pas simplement appréciée. Notre article sur <a href="/articles/combien-de-temps-python-autonome-excel/">le temps nécessaire pour devenir autonome</a> donne un ordre de grandeur concret pour rattraper ce retard.</p>
+
+  <h2>En résumé</h2>
+  <ul>
+    <li>Python est utilisé en finance de marché depuis plus longtemps que dans la plupart des autres équipes métiers, notamment sur les séries temporelles et les calculs de risque, y compris en middle office.</li>
+    <li>Cette adoption s'est étendue naturellement, d'abord au reste du travail de ces mêmes équipes, puis aux équipes voisines.</li>
+    <li>Ces usages ne concurrencent pas des langages comme C++ ou Rust, dédiés à des besoins d'exécution très différents.</li>
+    <li>La vraie marge de progression se situe chez les professionnels, en front comme en middle office, qui travaillent encore au quotidien sous Excel et VBA, RPA compris pour certaines tâches.</li>
+    <li>Pour un début de carrière, l'absence de cette compétence se remarque désormais comme un manque plutôt que comme une simple absence d'avantage.</li>
+  </ul>
+
+  <p>Retrouvez l'ensemble de nos articles sur <a href="/articles/">Python pour les métiers</a>.</p>
+
+</main>
+
+<!-- ══ FAQ ══ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="art-label">Questions fréquentes</div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Python est-il présent en middle office, ou seulement dans les équipes quantitatives ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Il est déjà bien présent en middle office, notamment sur des activités comme le suivi des risques, pas seulement dans les équipes de recherche quantitative.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Python va-t-il remplacer C++ ou Rust en finance de marché ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Non, ce sont des besoins différents : Python domine l'analyse et la modélisation du quotidien, C++ et Rust restent utilisés sur les moteurs de pricing et d'exécution où la vitesse est critique.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Où se trouve la plus grande marge de progression dans le secteur ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Chez les professionnels, en front comme en middle office, qui travaillent encore sous Excel et VBA pour des tâches comme le reporting ou les rapprochements.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="art-cta">
+  <p>Vous voulez combler l'écart avec les équipes qui ont déjà fait le pas vers Python ?</p>
+  <a href="https://python-pour-les-metiers.fr/" class="btn-primary">Découvrir Python pour les métiers →</a>
+</section>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ HTML — FOOTER (voir _includes/footer.html)
+     ════════════════════════════════════════════ -->
+{% include footer.html %}
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ HTML — FOOTER
+     ════════════════════════════════════════════ -->
+
+
+<!-- ══ SCHEMA.ORG ══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Python en finance de marché : déjà là, mais pas partout",
+  "description": "Python est utilisé en finance de marché depuis plus longtemps qu'ailleurs, mais tout le monde n'a pas encore fait le pas. Où se situe la vraie marge.",
+  "mainEntityOfPage": "https://python-pour-les-metiers.fr/articles/python-finance-de-marche/",
+  "author": { "@type": "Person", "name": "Erwan Delanne" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Python pour les métiers",
+    "logo": { "@type": "ImageObject", "url": "https://python-pour-les-metiers.fr/assets/og-image.jpg" }
+  },
+  "datePublished": "2026-08-06",
+  "dateModified": "2026-08-06",
+  "image": "https://python-pour-les-metiers.fr/assets/og-image.jpg"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://python-pour-les-metiers.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://python-pour-les-metiers.fr/articles/" },
+    { "@type": "ListItem", "position": 3, "name": "Python en finance de marché", "item": "https://python-pour-les-metiers.fr/articles/python-finance-de-marche/" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Python est-il présent en middle office, ou seulement dans les équipes quantitatives ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Il est déjà bien présent en middle office, notamment sur des activités comme le suivi des risques, pas seulement dans les équipes de recherche quantitative." }
+    },
+    {
+      "@type": "Question",
+      "name": "Python va-t-il remplacer C++ ou Rust en finance de marché ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Non, ce sont des besoins différents : Python domine l'analyse et la modélisation du quotidien, C++ et Rust restent utilisés sur les moteurs de pricing et d'exécution où la vitesse est critique." }
+    },
+    {
+      "@type": "Question",
+      "name": "Où se trouve la plus grande marge de progression dans le secteur ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Chez les professionnels, en front comme en middle office, qui travaillent encore sous Excel et VBA pour des tâches comme le reporting ou les rapprochements." }
+    }
+  ]
+}
+</script>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ JS — NAV BURGER & FAQ
+     ════════════════════════════════════════════ -->
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+  function toggleFaq(btn) {
+    var item = btn.parentElement;
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+    if (!isOpen) item.classList.add('open');
+  }
+  function toggleNav(){
+    document.getElementById('navBurger').classList.toggle('open');
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  function closeNav(){
+    document.getElementById('navBurger').classList.remove('open');
+    document.querySelector('.nav-links').classList.remove('open');
+  }
+</script>
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ JS
+     ════════════════════════════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+</body>
+</html>

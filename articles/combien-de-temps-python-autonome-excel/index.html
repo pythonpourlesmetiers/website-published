@@ -1,0 +1,337 @@
+---
+---
+<!--
+  Métadonnées internes (ne s'affichent pas sur la page) :
+  - Mot-clé principal : combien de temps python autonome
+  - Persona : toute personne côté métier hésitant à se lancer, en particulier utilisateurs Excel avancés
+  - Cluster : Prise en main / accessibilité
+  - Liens internes posés vers /articles/pourquoi-vibe-coder-ne-suffit-pas/ (futur article, à créer),
+    /#programme (existe déjà sur la home), et /articles/ (page d'index/hub, existe désormais — l'ancienne
+    "page pilier" séparée a été fusionnée avec cette page d'index).
+  - Schema.org : Article + FAQPage + BreadcrumbList inclus en bas de page.
+  - Date de publication (datePublished) mise à un placeholder : à corriger avec la vraie date de mise en ligne.
+  - Pas de bloc de code ni de tableau dans cet article : gabarit texte pur (hero + prose + listes + FAQ).
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ — CONSENTEMENT COOKIES / GOOGLE ANALYTICS
+     ════════════════════════════════════════════ -->
+<script>window.GA_MEASUREMENT_ID = 'G-DTYTEVQHKY';</script>
+<script src="/assets/consent.js" defer></script>
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ — CONSENTEMENT COOKIES
+     ════════════════════════════════════════════ -->
+
+<link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg">
+<link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+<link rel="manifest" href="/assets/favicon/site.webmanifest">
+
+<title>Combien de temps pour être autonome sur Python depuis Excel ?</title>
+<meta name="description" content="Le temps pour devenir autonome sur Python dépend surtout de la méthode. Quel palier d'autonomie viser, et comment l'atteindre en deux mois.">
+<link rel="canonical" href="https://python-pour-les-metiers.fr/articles/combien-de-temps-python-autonome-excel/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://python-pour-les-metiers.fr/articles/combien-de-temps-python-autonome-excel/">
+<meta property="og:title" content="Combien de temps pour être autonome sur Python depuis Excel ?">
+<meta property="og:description" content="Le temps pour devenir autonome sur Python dépend surtout de la méthode. Quel palier d'autonomie viser, et comment l'atteindre en deux mois.">
+<meta property="og:image" content="https://python-pour-les-metiers.fr/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="fr_FR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://python-pour-les-metiers.fr/articles/combien-de-temps-python-autonome-excel/">
+<meta name="twitter:title" content="Combien de temps pour être autonome sur Python depuis Excel ?">
+<meta name="twitter:description" content="Le temps pour devenir autonome sur Python dépend surtout de la méthode. Quel palier d'autonomie viser, et comment l'atteindre en deux mois.">
+<meta name="twitter:image" content="https://python-pour-les-metiers.fr/assets/og-image.jpg">
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
+<link rel="stylesheet" href="/assets/shared.css">
+
+<style>
+  /* ── ARTICLE HERO ── */
+  .art-hero { position:relative; background:var(--navy); padding:3rem 2rem 2.75rem; }
+  .art-hero-inner { max-width:800px; margin:0 auto; }
+  .breadcrumb { font-size:0.8rem; color:#64748b; margin-bottom:1.75rem; }
+  .breadcrumb a { color:#94a3b8; text-decoration:none; }
+  .breadcrumb a:hover { color:var(--white); }
+  .art-label { display:inline-block; font-family:'Montserrat',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--blue-mid); background:rgba(37,99,235,0.08); border:1px solid rgba(37,99,235,0.25); padding:0.3rem 0.9rem; border-radius:100px; margin-bottom:1.25rem; }
+  .art-hero h1 { font-size:clamp(1.7rem,4vw,2.5rem); font-weight:800; color:var(--white); letter-spacing:-0.02em; line-height:1.25; margin-bottom:1.1rem; }
+  .art-standfirst { font-size:1.05rem; color:#94a3b8; line-height:1.75; max-width:640px; }
+  .art-meta { font-size:0.8rem; color:#64748b; margin-top:1.75rem; }
+
+  /* ── ARTICLE BODY ── */
+  .art-body { max-width:800px; margin:0 auto; padding:4rem 2rem 1rem; }
+  .art-lede { font-size:1.15rem; color:var(--text-mid); line-height:1.8; margin-bottom:1.4rem; }
+  .art-body p { font-size:1.05rem; line-height:1.85; color:var(--text-dark); margin-bottom:1.4rem; }
+  .art-body h2 { font-size:1.5rem; font-weight:800; color:var(--dark); margin:3rem 0 1.25rem; letter-spacing:-0.01em; }
+  .art-body ul { margin:0 0 1.4rem 0; padding-left:0; list-style:none; }
+  .art-body ul li { position:relative; padding-left:1.6rem; margin-bottom:0.9rem; font-size:1.02rem; line-height:1.75; color:var(--text-dark); }
+  .art-body ul li::before { content:'→'; position:absolute; left:0; color:var(--gold-text); font-weight:700; }
+  .art-body strong { color:var(--dark); font-weight:700; }
+  .art-body a { color:var(--blue-mid); text-decoration:underline; text-decoration-color:rgba(37,99,235,0.35); text-underline-offset:2px; }
+  .art-body a:hover { text-decoration-color:var(--blue-mid); }
+  .art-body code { font-family:'Menlo','Consolas','Monaco',monospace; font-size:0.9em; background:var(--surface); border:1px solid var(--border-light); border-radius:4px; padding:0.1rem 0.4rem; color:var(--dark); }
+
+  .art-divider { border:none; border-top:1px solid var(--border-light); margin:2.5rem 0 3rem; }
+
+  /* ── FAQ (repris tel quel du site) ── */
+  .faq-section { background:var(--surface); padding:4.5rem 2rem; }
+  .faq-inner { max-width:800px; margin:0 auto; }
+  .faq-list { margin-top:1.5rem; display:flex; flex-direction:column; gap:0.6rem; }
+  .faq-item { border:1px solid var(--border-light); border-radius:12px; background:var(--white); overflow:hidden; transition:box-shadow 0.2s; }
+  .faq-item:hover { box-shadow:0 4px 16px rgba(0,0,0,0.06); }
+  .faq-q { width:100%; background:none; border:none; text-align:left; padding:1.3rem 1.6rem; cursor:pointer; font-family:'Montserrat',sans-serif; font-size:0.925rem; font-weight:700; color:var(--dark); display:flex; justify-content:space-between; align-items:center; gap:1rem; transition:background 0.15s; }
+  .faq-q:hover { background:var(--surface); }
+  .faq-arrow { font-size:0.65rem; color:var(--text-light); transition:transform 0.25s; flex-shrink:0; }
+  .faq-item.open .faq-arrow { transform:rotate(180deg); }
+  .faq-a { max-height:0; overflow:hidden; transition:max-height 0.3s ease; }
+  .faq-item.open .faq-a { max-height:600px; }
+  .faq-a-inner { padding:0 1.6rem 1.3rem; font-size:0.9rem; color:var(--text-mid); line-height:1.75; }
+  .faq-a-inner code { font-family:'Menlo','Consolas','Monaco',monospace; font-size:0.9em; background:var(--white); border:1px solid var(--border-light); border-radius:4px; padding:0.1rem 0.4rem; color:var(--dark); }
+
+  /* ── CTA ── */
+  .art-cta { background:var(--dark); text-align:center; padding:4.5rem 2rem; }
+  .art-cta p { font-size:1.2rem; color:var(--white); max-width:560px; margin:0 auto 2rem; line-height:1.6; font-family:'Montserrat',sans-serif; font-weight:600; }
+  .btn-primary { display:inline-block; background:var(--yellow); color:var(--dark); font-weight:700; font-size:1rem; padding:0.95rem 2.25rem; border-radius:8px; text-decoration:none; transition:transform 0.15s, box-shadow 0.15s; box-shadow:0 4px 24px rgba(255,212,59,0.35); font-family:'Montserrat',sans-serif; }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 36px rgba(255,212,59,0.45); }
+
+  @media(max-width:600px){
+    .art-body, .art-hero-inner, .faq-inner { padding-left:1.25rem; padding-right:1.25rem; }
+    section, .art-hero, .faq-section, .art-cta { padding-left:1.25rem; padding-right:1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ HTML — NAVIGATION (voir _includes/nav.html)
+     ════════════════════════════════════════════ -->
+{% include nav.html %}
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ HTML — NAVIGATION
+     ════════════════════════════════════════════ -->
+
+<!-- ══ ARTICLE HERO ══ -->
+<header class="art-hero">
+  <div class="art-hero-inner">
+    <div class="breadcrumb">
+      <a href="/">Accueil</a> / <a href="/articles/">Articles</a> / Temps pour devenir autonome
+    </div>
+    <h1>Combien de temps pour être autonome sur Python quand on vient d'Excel ?</h1>
+    <p class="art-standfirst">Quel palier d'autonomie viser, ce qui influence réellement le temps pour l'atteindre, et pourquoi la manière de s'y prendre change presque tout.</p>
+    <p class="art-meta">7 min de lecture</p>
+  </div>
+</header>
+
+<!-- ══ CORPS DE L'ARTICLE ══ -->
+<main class="art-body">
+
+  <p class="art-lede">Il n'existe pas de délai universel pour "apprendre Python" : tout dépend du palier visé, et de la méthode employée pour l'atteindre. Ce qui est certain, en revanche, c'est qu'on n'a pas besoin d'atteindre un niveau d'expert pour tirer profit de Python au quotidien côté métier. Il existe un palier intermédiaire, ni débutant ni expert, qui permet à la fois de traiter et d'automatiser l'essentiel de ce qui prend du temps dans Excel, et d'aller au-delà : de nouveaux cas d'usages comme se connecter à une API, automatiser des séries d'actions dans un navigateur avec Selenium ou produire des visualisations interactives, et une fiabilité qu'Excel, pensé pour d'autres usages, n'a pas vocation à apporter. C'est précisément le palier visé par Python pour les métiers, proposé à raison d'une heure d'implication par jour ouvré, sur une durée de deux mois.</p>
+
+  <p>Voici ce que recouvre concrètement ce palier, ce qui influence réellement le temps pour l'atteindre, et pourquoi la manière de s'y prendre change presque tout.</p>
+
+  <h2>Ce que recouvre le mot "autonome"</h2>
+  <p>Être autonome sur Python ne veut pas dire tout savoir, ni écrire n'importe quel programme sans jamais chercher d'aide. Ça veut dire être capable de :</p>
+  <ul>
+    <li>Comprendre la structure de Python, afin de pouvoir lire et adapter un script, y compris ceux générés par une IA, et d'aller au-delà des champs d'application de Python que l'on maîtrise déjà</li>
+    <li>Réaliser les traitements de données usuels, qui reviennent quotidiennement, de manière autonome</li>
+    <li>Fiabiliser ce qu'on produit : vérifier une hypothèse avec une condition plutôt que de la supposer, gérer une erreur avec un bloc <code>try/except</code> plutôt que de laisser un script planter silencieusement</li>
+    <li>Structurer et documenter son code selon des bonnes pratiques adaptées à un contexte métier, pour qu'il reste compréhensible par soi-même dans six mois, et reprenable par un collègue sans explication</li>
+    <li>Rédiger un bon prompt pour une IA, comprendre sa réponse et la challenger, jusqu'à obtenir un script robuste et cohérent avec les conventions du projet dans lequel il s'inscrit</li>
+  </ul>
+  <p>Ce dernier point compte particulièrement. Utiliser une IA sans comprendre ni challenger ce qu'elle produit n'est pas de l'autonomie, c'est du <a href="/articles/pourquoi-vibe-coder-ne-suffit-pas/">vibe-coding</a>, qui tient rarement dans la durée : on obtient un résultat sans être en mesure d'en garantir la justesse, ni de le faire évoluer.</p>
+
+  <h2>La notion de paliers en programmation</h2>
+  <p>Apprendre à programmer ne se résume pas à un point de départ, le néophyte, et un point d'arrivée, l'expert. Entre les deux existe une multitude de paliers, chacun ouvrant des possibilités concrètes :</p>
+  <ul>
+    <li>Dès les premiers paliers, on peut déjà réaliser des traitements de données simples plus facilement qu'avec d'autres outils, et comprendre un script écrit par quelqu'un d'autre</li>
+    <li>À un palier intermédiaire, on gagne en autonomie sur des besoins récurrents : croiser des fichiers, nettoyer des données, structurer un traitement reproductible</li>
+    <li>Aux paliers avancés, on touche à des sujets qui dépassent largement les besoins d'un profil métier : architecture logicielle, optimisation poussée, développement d'applications complexes</li>
+  </ul>
+  <p>Viser l'expertise n'a aucun sens pour un besoin métier : ce serait viser bien plus loin que nécessaire, pour un temps d'investissement sans commune mesure avec le bénéfice réel.</p>
+  <p>Le palier pertinent à viser pour un profil métier ne doit cependant pas être vu comme un stade moins avancé sur l'échelle d'un développeur professionnel. En complexité technique, il l'est effectivement : intermédiaire, pas expert. Mais il s'accompagne de compétences qu'un développeur expert généraliste n'a pas forcément : des bonnes pratiques pensées pour un contexte métier, la capacité à identifier ce qui compte réellement dans une situation donnée, et à produire un résultat directement exploitable dans son poste métier. C'est précisément le palier visé par Python pour les métiers : intermédiaire en complexité technique, mais spécialisé sur des compétences propres aux métiers, suffisant pour dépasser largement ce que permettent les pratiques existantes, en qualité de production comme en possibilités, et pour accroître concrètement la performance délivrée dans son poste.</p>
+
+  <h2>Pourquoi l'expérience Excel est un vrai accélérateur</h2>
+  <p>Contrairement à une incompréhension fréquente, venir d'Excel n'est pas un point de départ neutre : c'est un avantage réel. Quelqu'un qui manipule déjà des formules imbriquées, des recherches conditionnelles ou des macros VBA a déjà, sans le savoir, manipulé des concepts qui structurent n'importe quel langage de programmation :</p>
+  <ul>
+    <li>Une cellule dont la valeur peut changer, c'est déjà une variable</li>
+    <li>Une formule SI(), c'est déjà une condition</li>
+    <li>Une formule recopiée sur toute une colonne, c'est déjà une forme de boucle</li>
+    <li>Un tableau structuré, c'est déjà une façon de penser les données en lignes et en colonnes, comme le fait un DataFrame en Python</li>
+  </ul>
+  <p>Ce socle ne dispense pas d'apprendre la syntaxe Python, mais il évite l'obstacle le plus difficile à franchir pour un vrai débutant : apprendre à penser de façon structurée. C'est ce qui explique qu'un profil Excel progresse en général plus vite que quelqu'un qui découvre à la fois la logique de programmation et le langage lui-même.</p>
+
+  <h2>Seul ou accompagné : une différence qui change tout</h2>
+  <p>La façon de s'y prendre a plus d'impact sur ce délai que n'importe quel autre facteur. Seul, sans accompagnement, atteindre le palier d'autonomie décrit plus haut peut se compter en années : le temps de trouver les bonnes ressources, d'écarter celles qui ne conviennent pas à un profil métier (la plupart des contenus disponibles visent de futurs développeurs), de comprendre pourquoi une erreur survient sans personne à qui la montrer, et de structurer soi-même un parcours cohérent plutôt qu'une succession de tutoriels sans lien entre eux.</p>
+  <p>Avec un accompagnement pensé pour ce palier précis, ce même résultat s'obtient en quelques semaines. C'est un déroulement logique et sans détour, qui sépare ce qui est indispensable de ce qui ne l'est pas pour un profil métier, et qui transmet des bonnes pratiques pensées pour ce contexte, plutôt que des bonnes pratiques génériques conçues pour de futurs développeurs, à charge pour chacun de les adapter seul.</p>
+
+  <h2>Ce que propose concrètement Python pour les métiers</h2>
+  <p>Avec une heure d'implication par jour ouvré en moyenne, soit environ cinq heures par semaine, <a href="/">Python pour les métiers</a> est construit pour amener un profil venant d'Excel, sans aucune expérience de programmation, au palier d'autonomie décrit plus haut en deux mois. Concrètement, la progression suit ce chemin (détail complet du <a href="/#programme">programme</a>) :</p>
+  <ul>
+    <li><strong>Les premiers jours :</strong> installation de l'environnement, Python et Jupyter Notebook (l'interface la plus adaptée à un usage métier : accessible, structurée, facile à partager en équipe), et prise en main.</li>
+    <li><strong>Les semaines suivantes :</strong> les fondamentaux du langage (variables, types, conditions, boucles, fonctions), pour vraiment comprendre ce qu'on écrit plutôt que le survoler.</li>
+    <li><strong>Le cœur du parcours :</strong> la manipulation de données avec pandas, la librairie de référence pour nettoyer, transformer, croiser et agréger des fichiers, ancrée à chaque étape dans des cas métier concrets.</li>
+    <li><strong>Les dernières semaines :</strong> les bonnes pratiques (structurer, documenter, faire relire un script), puis des cas complets inspirés de situations réelles, du fichier brut au livrable prêt à partager.</li>
+  </ul>
+  <p>C'est cette dernière étape qui marque vraiment le passage à l'autonomie : mobiliser tout ce qui a été appris sur un cas proche de ce qu'on rencontre réellement au travail. Une fois ce socle acquis, un parcours complémentaire à la carte permet d'aller plus loin selon les besoins : automatisation de navigateur, connexion à des API, visualisations avancées, génération de PDF, et plus encore.</p>
+
+  <h2>Et si on a moins d'une heure par jour disponible ?</h2>
+  <p>Le rythme d'une heure par jour ouvré n'a rien d'obligatoire. Avec moins de temps disponible, le délai s'allonge, mais l'avantage de l'accompagnement reste le même : pas de fausse piste, pas de blocage qui traîne sans réponse. L'accès à vie à la formation permet justement d'avancer à son propre rythme, sans pression de délai.</p>
+
+  <h2>En résumé</h2>
+  <ul>
+    <li>Il n'existe pas de délai universel pour "apprendre Python" : tout dépend du palier visé. Python pour les métiers en vise un précis : intermédiaire en complexité technique, mais spécialisé sur des compétences propres aux métiers qu'un développeur expert généraliste n'a pas forcément.</li>
+    <li>Être autonome, c'est croiser et fiabiliser des données, aller au-delà d'Excel (API, navigateur, visualisations), appliquer de bonnes pratiques métier, et savoir utiliser une IA en la challengeant plutôt qu'en la subissant.</li>
+    <li>L'expérience Excel (formules, VBA) accélère réellement la progression vers ce palier.</li>
+    <li>La manière de s'y prendre change presque tout : seul, ce résultat peut se compter en années ; avec un accompagnement structuré et pensé pour un profil métier, il s'obtient en quelques semaines.</li>
+    <li>Avec une heure d'implication par jour ouvré, Python pour les métiers est construit pour atteindre ce palier en deux mois.</li>
+  </ul>
+
+  <p>Pour une vision d'ensemble, retrouvez l'ensemble de nos articles sur <a href="/articles/">Python pour les métiers</a>.</p>
+
+</main>
+
+<!-- ══ FAQ ══ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="art-label">Questions fréquentes</div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Faut-il des bases en programmation pour se lancer ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Non. Les concepts déjà manipulés dans Excel (formules conditionnelles, tableaux, parfois VBA) transfèrent bien vers les fondamentaux de Python.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Combien de temps par jour Python pour les métiers demande-t-il ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Environ une heure par jour ouvré, sur deux mois, pour atteindre le palier d'autonomie visé par la formation. Ce rythme reste indicatif : l'accès est à vie, et chacun avance à sa propre vitesse.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Faut-il viser la maîtrise complète de Python pour être utile côté métier ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Non. Un palier intermédiaire, atteignable en quelques semaines à quelques mois selon la méthode, suffit pour dépasser largement les pratiques Excel existantes. Viser l'expertise demande un investissement sans commune mesure avec le bénéfice réel pour ce type de besoin.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Être autonome sur Python veut-il dire ne plus avoir besoin de l'IA ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Non, au contraire : cela comprend justement de savoir utiliser une IA efficacement, avec un bon prompt et un regard critique sur ce qu'elle propose, plutôt que de copier une réponse sans la comprendre.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="art-cta">
+  <p>Vous voulez atteindre ce palier sans y passer des mois, voire des années, seul, à hésiter entre des ressources qui ne visent pas votre profil ?</p>
+  <a href="https://python-pour-les-metiers.fr/" class="btn-primary">Découvrir Python pour les métiers →</a>
+</section>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ HTML — FOOTER (voir _includes/footer.html)
+     ════════════════════════════════════════════ -->
+{% include footer.html %}
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ HTML — FOOTER
+     ════════════════════════════════════════════ -->
+
+
+<!-- ══ SCHEMA.ORG ══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Combien de temps pour être autonome sur Python quand on vient d'Excel ?",
+  "description": "Le temps pour devenir autonome sur Python dépend surtout de la méthode. Quel palier d'autonomie viser, et comment l'atteindre en deux mois.",
+  "mainEntityOfPage": "https://python-pour-les-metiers.fr/articles/combien-de-temps-python-autonome-excel/",
+  "author": { "@type": "Person", "name": "Erwan Delanne" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Python pour les métiers",
+    "logo": { "@type": "ImageObject", "url": "https://python-pour-les-metiers.fr/assets/og-image.jpg" }
+  },
+  "datePublished": "2026-08-01",
+  "dateModified": "2026-08-01",
+  "image": "https://python-pour-les-metiers.fr/assets/og-image.jpg"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://python-pour-les-metiers.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://python-pour-les-metiers.fr/articles/" },
+    { "@type": "ListItem", "position": 3, "name": "Temps pour devenir autonome", "item": "https://python-pour-les-metiers.fr/articles/combien-de-temps-python-autonome-excel/" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Faut-il des bases en programmation pour se lancer ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Non. Les concepts déjà manipulés dans Excel (formules conditionnelles, tableaux, parfois VBA) transfèrent bien vers les fondamentaux de Python." }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps par jour Python pour les métiers demande-t-il ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Environ une heure par jour ouvré, sur deux mois, pour atteindre le palier d'autonomie visé par la formation. Ce rythme reste indicatif : l'accès est à vie, et chacun avance à sa propre vitesse." }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il viser la maîtrise complète de Python pour être utile côté métier ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Non. Un palier intermédiaire, atteignable en quelques semaines à quelques mois selon la méthode, suffit pour dépasser largement les pratiques Excel existantes." }
+    },
+    {
+      "@type": "Question",
+      "name": "Être autonome sur Python veut-il dire ne plus avoir besoin de l'IA ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Non, au contraire : cela comprend justement de savoir utiliser une IA efficacement, avec un bon prompt et un regard critique sur ce qu'elle propose, plutôt que de copier une réponse sans la comprendre." }
+    }
+  ]
+}
+</script>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ JS — NAV BURGER & FAQ
+     ════════════════════════════════════════════ -->
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+  function toggleFaq(btn) {
+    var item = btn.parentElement;
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+    if (!isOpen) item.classList.add('open');
+  }
+  function toggleNav(){
+    document.getElementById('navBurger').classList.toggle('open');
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  function closeNav(){
+    document.getElementById('navBurger').classList.remove('open');
+    document.querySelector('.nav-links').classList.remove('open');
+  }
+</script>
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ JS
+     ════════════════════════════════════════════ -->
+
+</body>
+</html>

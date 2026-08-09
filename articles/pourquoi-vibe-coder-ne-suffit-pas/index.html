@@ -1,0 +1,301 @@
+---
+---
+<!--
+  Métadonnées internes (ne s'affichent pas sur la page) :
+  - Mot-clé principal : vibe-coding ne suffit pas
+  - Persona : tout profil métier tenté par le vibe-coding pour construire un projet sans apprendre à coder
+  - Cluster : Tendances IA
+  - Cette page est celle référencée depuis les articles "Combien de temps pour être autonome..." et
+    "Pourquoi le no-code est un piège à l'ère de l'IA" sous le slug pourquoi-vibe-coder-ne-suffit-pas — cohérent ici.
+  - Liens internes posés vers /articles/no-code-piege-ere-ia/ (existe) et /articles/ (page d'index/hub,
+    existe désormais — l'ancienne "page pilier" séparée a été fusionnée avec cette page d'index).
+  - Schema.org : Article + FAQPage + BreadcrumbList inclus en bas de page.
+  - Date de publication (datePublished) mise à un placeholder : à corriger avec la vraie date de mise en ligne.
+  - Pas de bloc de code ni de tableau dans cet article : gabarit texte pur.
+  - Contenu factuel sur Satya Nadella et Pieter Levels repris tel que fourni dans le markdown (reformulé, sans citation
+    directe pour Nadella, à vérifier/sourcer par tes soins avant publication si tu veux citer des propos exacts).
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ — CONSENTEMENT COOKIES / GOOGLE ANALYTICS
+     ════════════════════════════════════════════ -->
+<script>window.GA_MEASUREMENT_ID = 'G-DTYTEVQHKY';</script>
+<script src="/assets/consent.js" defer></script>
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ — CONSENTEMENT COOKIES
+     ════════════════════════════════════════════ -->
+
+<link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg">
+<link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+<link rel="manifest" href="/assets/favicon/site.webmanifest">
+
+<title>Pourquoi vibe-coder ne suffit pas pour un projet durable</title>
+<meta name="description" content="Le vibe-coding produit des résultats impressionnants en quelques heures, mais rarement des projets qui durent. Voici pourquoi, et ce qui change la donne.">
+<link rel="canonical" href="https://python-pour-les-metiers.fr/articles/pourquoi-vibe-coder-ne-suffit-pas/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://python-pour-les-metiers.fr/articles/pourquoi-vibe-coder-ne-suffit-pas/">
+<meta property="og:title" content="Pourquoi vibe-coder ne suffit pas pour un projet durable">
+<meta property="og:description" content="Le vibe-coding produit des résultats impressionnants en quelques heures, mais rarement des projets qui durent. Voici pourquoi, et ce qui change la donne.">
+<meta property="og:image" content="https://python-pour-les-metiers.fr/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="fr_FR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://python-pour-les-metiers.fr/articles/pourquoi-vibe-coder-ne-suffit-pas/">
+<meta name="twitter:title" content="Pourquoi vibe-coder ne suffit pas pour un projet durable">
+<meta name="twitter:description" content="Le vibe-coding produit des résultats impressionnants en quelques heures, mais rarement des projets qui durent. Voici pourquoi, et ce qui change la donne.">
+<meta name="twitter:image" content="https://python-pour-les-metiers.fr/assets/og-image.jpg">
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
+<link rel="stylesheet" href="/assets/shared.css">
+
+<style>
+  /* ── ARTICLE HERO ── */
+  .art-hero { position:relative; background:var(--navy); padding:3rem 2rem 2.75rem; }
+  .art-hero-inner { max-width:800px; margin:0 auto; }
+  .breadcrumb { font-size:0.8rem; color:#64748b; margin-bottom:1.75rem; }
+  .breadcrumb a { color:#94a3b8; text-decoration:none; }
+  .breadcrumb a:hover { color:var(--white); }
+  .art-label { display:inline-block; font-family:'Montserrat',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--blue-mid); background:rgba(37,99,235,0.08); border:1px solid rgba(37,99,235,0.25); padding:0.3rem 0.9rem; border-radius:100px; margin-bottom:1.25rem; }
+  .art-hero h1 { font-size:clamp(1.7rem,4vw,2.5rem); font-weight:800; color:var(--white); letter-spacing:-0.02em; line-height:1.25; margin-bottom:1.1rem; }
+  .art-standfirst { font-size:1.05rem; color:#94a3b8; line-height:1.75; max-width:640px; }
+  .art-meta { font-size:0.8rem; color:#64748b; margin-top:1.75rem; }
+
+  /* ── ARTICLE BODY ── */
+  .art-body { max-width:800px; margin:0 auto; padding:4rem 2rem 1rem; }
+  .art-lede { font-size:1.15rem; color:var(--text-mid); line-height:1.8; margin-bottom:1.4rem; }
+  .art-body p { font-size:1.05rem; line-height:1.85; color:var(--text-dark); margin-bottom:1.4rem; }
+  .art-body h2 { font-size:1.5rem; font-weight:800; color:var(--dark); margin:3rem 0 1.25rem; letter-spacing:-0.01em; }
+  .art-body ul { margin:0 0 1.4rem 0; padding-left:0; list-style:none; }
+  .art-body ul li { position:relative; padding-left:1.6rem; margin-bottom:0.9rem; font-size:1.02rem; line-height:1.75; color:var(--text-dark); }
+  .art-body ul li::before { content:'→'; position:absolute; left:0; color:var(--gold-text); font-weight:700; }
+  .art-body strong { color:var(--dark); font-weight:700; }
+  .art-body a { color:var(--blue-mid); text-decoration:underline; text-decoration-color:rgba(37,99,235,0.35); text-underline-offset:2px; }
+  .art-body a:hover { text-decoration-color:var(--blue-mid); }
+  .art-body code { font-family:'Menlo','Consolas','Monaco',monospace; font-size:0.9em; background:var(--surface); border:1px solid var(--border-light); border-radius:4px; padding:0.1rem 0.4rem; color:var(--dark); }
+
+  .art-divider { border:none; border-top:1px solid var(--border-light); margin:2.5rem 0 3rem; }
+
+  /* ── FAQ (repris tel quel du site) ── */
+  .faq-section { background:var(--surface); padding:4.5rem 2rem; }
+  .faq-inner { max-width:800px; margin:0 auto; }
+  .faq-list { margin-top:1.5rem; display:flex; flex-direction:column; gap:0.6rem; }
+  .faq-item { border:1px solid var(--border-light); border-radius:12px; background:var(--white); overflow:hidden; transition:box-shadow 0.2s; }
+  .faq-item:hover { box-shadow:0 4px 16px rgba(0,0,0,0.06); }
+  .faq-q { width:100%; background:none; border:none; text-align:left; padding:1.3rem 1.6rem; cursor:pointer; font-family:'Montserrat',sans-serif; font-size:0.925rem; font-weight:700; color:var(--dark); display:flex; justify-content:space-between; align-items:center; gap:1rem; transition:background 0.15s; }
+  .faq-q:hover { background:var(--surface); }
+  .faq-arrow { font-size:0.65rem; color:var(--text-light); transition:transform 0.25s; flex-shrink:0; }
+  .faq-item.open .faq-arrow { transform:rotate(180deg); }
+  .faq-a { max-height:0; overflow:hidden; transition:max-height 0.3s ease; }
+  .faq-item.open .faq-a { max-height:600px; }
+  .faq-a-inner { padding:0 1.6rem 1.3rem; font-size:0.9rem; color:var(--text-mid); line-height:1.75; }
+  .faq-a-inner code { font-family:'Menlo','Consolas','Monaco',monospace; font-size:0.9em; background:var(--white); border:1px solid var(--border-light); border-radius:4px; padding:0.1rem 0.4rem; color:var(--dark); }
+
+  /* ── CTA ── */
+  .art-cta { background:var(--dark); text-align:center; padding:4.5rem 2rem; }
+  .art-cta p { font-size:1.2rem; color:var(--white); max-width:560px; margin:0 auto 2rem; line-height:1.6; font-family:'Montserrat',sans-serif; font-weight:600; }
+  .btn-primary { display:inline-block; background:var(--yellow); color:var(--dark); font-weight:700; font-size:1rem; padding:0.95rem 2.25rem; border-radius:8px; text-decoration:none; transition:transform 0.15s, box-shadow 0.15s; box-shadow:0 4px 24px rgba(255,212,59,0.35); font-family:'Montserrat',sans-serif; }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 36px rgba(255,212,59,0.45); }
+
+  @media(max-width:600px){
+    .art-body, .art-hero-inner, .faq-inner { padding-left:1.25rem; padding-right:1.25rem; }
+    section, .art-hero, .faq-section, .art-cta { padding-left:1.25rem; padding-right:1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ HTML — NAVIGATION (voir _includes/nav.html)
+     ════════════════════════════════════════════ -->
+{% include nav.html %}
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ HTML — NAVIGATION
+     ════════════════════════════════════════════ -->
+
+<!-- ══ ARTICLE HERO ══ -->
+<header class="art-hero">
+  <div class="art-hero-inner">
+    <div class="breadcrumb">
+      <a href="/">Accueil</a> / <a href="/articles/">Articles</a> / Vibe-coding
+    </div>
+    <h1>Pourquoi vibe-coder ne suffit pas pour un projet durable</h1>
+    <p class="art-standfirst">L'IA catalyse une expertise déjà là, elle n'en crée pas une à partir de rien.</p>
+    <p class="art-meta">4 min de lecture</p>
+  </div>
+</header>
+
+<!-- ══ CORPS DE L'ARTICLE ══ -->
+<main class="art-body">
+
+  <p class="art-lede">Le vibe-coding, construire un projet en laissant une IA seule générer le code, permet de produire des résultats impressionnants en quelques heures. C'est vrai, et ce n'est pas à balayer d'un revers de main. Mais ce même projet tient rarement dans la durée si personne n'est capable de comprendre, challenger et orienter techniquement ce que l'IA produit. L'IA catalyse une expertise déjà là, elle n'en crée pas une à partir de rien.</p>
+
+  <h2>Ce que le vibe-coding permet vraiment</h2>
+  <p>Il faut être honnête sur ce point : on peut aujourd'hui construire un site, un script, voire un SaaS entier, en quelques heures, avec une IA générative, sans écrire soi-même la moindre ligne de code. Ce n'est pas une exagération, ni un mythe marketing. C'est devenu accessible à peu près à tout le monde.</p>
+
+  <h2>Ce que le vibe-coding ne permet pas</h2>
+  <p>Le problème n'apparaît pas au lancement, il apparaît après : quand on doit penser en terme d'infrastructure, quand une fonctionnalité doit évoluer, quand un comportement inattendu doit être corrigé sans tout casser autour. À ce moment-là, il faut être capable de poser un cadre précis à l'IA, de lire ce qu'elle a généré, d'en comprendre la logique, d'identifier ce qui cloche, et de corriger précisément le bon endroit. Sans ça, chaque nouvelle demande à l'IA revient à rejouer une loterie : parfois ça corrige le problème, parfois ça en crée un nouveau ailleurs, sans qu'on soit en mesure de le voir venir.</p>
+  <p>C'est la raison pour laquelle tant de projets vibe-codés ne dépassent jamais quelques mois d'existence : parce que personne n'était en mesure de les faire tenir une fois les premières limites atteintes.</p>
+
+  <h2>Non, il n'est pas pour autant nécessaire d'être développeur depuis dix ans</h2>
+  <p>Ce constat n'est pas un plaidoyer pour renoncer à l'IA, ni un appel à se former jusqu'à devenir expert avant de s'y risquer. Challenger ce que produit une IA ne demande pas une décennie d'expérience en développement : ça demande de comprendre les bases (ce qu'est une variable, une boucle, une fonction, comment lire un message d'erreur), et la posture qui va avec, celle qui consiste à vérifier et anticiper plutôt qu'à accepter par défaut.</p>
+  <p>Un développeur avec dix ans d'expérience obtiendra sans doute de meilleurs résultats qu'un débutant formé depuis un mois, avec la même IA. Mais ça ne change rien à l'essentiel : en se formant sérieusement, même sur une base de quelques semaines, on devient rapidement capable de produire des projets réellement solides avec une IA, largement au-delà de ce qu'un usage non formé permettrait.</p>
+
+  <h2>Un paradoxe : l'IA a rendu les compétences de développeur plus précieuses, pas obsolètes</h2>
+  <p>On entend souvent que l'IA a tué le développement. C'est l'inverse qui se produit : elle a provoqué un essor sans précédent de la programmation, en la rendant accessible à des personnes qui n'auraient jamais osé s'y risquer autrement. Mais tout le monde n'est pas en mesure de faire tenir ces projets dans la durée, parce que ça suppose justement de penser comme un développeur, d'orienter l'IA comme le ferait un développeur, et parfois de corriger soi-même ce qu'elle ne sait pas faire.</p>
+  <p>Pieter Levels en est un exemple parlant. Cet entrepreneur néerlandais, devenu multimillionnaire en lançant des dizaines de logiciels en ligne (Nomad List, Remote OK, Photo AI, entre autres), programmait déjà depuis des années avant l'essor de l'IA. Et c'est précisément cette expertise acquise en amont qui lui a permis d'utiliser l'IA pour accélérer sa production, pas l'inverse. L'IA catalyse une expertise déjà là, elle ne transforme pas un novice en expert du jour au lendemain.</p>
+
+  <h2>Même Microsoft le dit</h2>
+  <p>Satya Nadella, le PDG de Microsoft, a lui-même reconnu que l'IA permet aujourd'hui à quasiment n'importe qui de développer un logiciel, mais tout en rappelant que les compétences et l'expérience restent indispensables pour aller au bout d'un projet durable. Si même le dirigeant d'une des plus grandes entreprises technologiques au monde tient ce discours, difficile de croire que le vibe-coding, seul, suffit.</p>
+
+  <h2>Le bon ordre des choses</h2>
+  <p>Ça ne veut pas dire qu'il faut renoncer à l'ambition de construire vite, avec l'aide de l'IA. Ça veut dire respecter un ordre : se former d'abord, expérimenter ensuite, et seulement à ce moment-là viser des projets ambitieux. Inverser cet ordre, se lancer dans l'ambition avant la formation, est précisément ce qui explique pourquoi tant de projets vibe-codés ne voient jamais leur premier anniversaire.</p>
+
+  <h2>En résumé</h2>
+  <ul>
+    <li>Le vibe-coding permet réellement de produire des résultats impressionnants en quelques heures, ce n'est pas un mythe.</li>
+    <li>Mais un projet ne tient dans la durée que si quelqu'un est capable de comprendre, challenger et orienter ce que l'IA produit.</li>
+    <li>Pas besoin d'une décennie d'expérience pour ça : quelques semaines de formation sérieuse suffisent à changer radicalement la qualité des résultats obtenus avec une IA.</li>
+    <li>L'IA catalyse une expertise déjà là, elle n'en crée pas une à partir de rien : mieux vaut se former d'abord, expérimenter ensuite.</li>
+  </ul>
+
+  <p>Ce constat rejoint celui de notre article <a href="/articles/no-code-piege-ere-ia/">Pourquoi le no-code est un piège à l'ère de l'IA</a> : comprendre ce qu'on utilise plutôt que le subir change tout, que ce soit face à une interface no-code ou face au code généré par une IA. Retrouvez l'ensemble de nos articles sur <a href="/articles/">Python pour les métiers</a>.</p>
+
+</main>
+
+<!-- ══ FAQ ══ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="art-label">Questions fréquentes</div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Le vibe-coding est-il voué à l'échec ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Non, mais un projet construit ainsi tient rarement dans la durée sans que personne ne soit capable de comprendre et corriger ce que l'IA a produit.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Faut-il des années d'expérience pour challenger correctement le code généré par une IA ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Non. Comprendre les bases (variables, boucles, fonctions, lecture d'un message d'erreur) et adopter une posture de vérification suffit à changer radicalement la qualité des résultats obtenus.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">L'IA rend-elle les compétences de développeur inutiles ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Non, c'est l'inverse : elle les rend plus précieuses, en démocratisant l'accès au code tout en révélant, par la pratique, la valeur de savoir challenger ce qui est produit.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="art-cta">
+  <p>Vous voulez utiliser l'IA pour construire des projets qui tiennent vraiment dans la durée ?</p>
+  <a href="https://python-pour-les-metiers.fr/" class="btn-primary">Découvrir Python pour les métiers →</a>
+</section>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ HTML — FOOTER (voir _includes/footer.html)
+     ════════════════════════════════════════════ -->
+{% include footer.html %}
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ HTML — FOOTER
+     ════════════════════════════════════════════ -->
+
+
+<!-- ══ SCHEMA.ORG ══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Pourquoi vibe-coder ne suffit pas pour un projet durable",
+  "description": "Le vibe-coding produit des résultats impressionnants en quelques heures, mais rarement des projets qui durent. Voici pourquoi, et ce qui change la donne.",
+  "mainEntityOfPage": "https://python-pour-les-metiers.fr/articles/pourquoi-vibe-coder-ne-suffit-pas/",
+  "author": { "@type": "Person", "name": "Erwan Delanne" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Python pour les métiers",
+    "logo": { "@type": "ImageObject", "url": "https://python-pour-les-metiers.fr/assets/og-image.jpg" }
+  },
+  "datePublished": "2026-08-01",
+  "dateModified": "2026-08-01",
+  "image": "https://python-pour-les-metiers.fr/assets/og-image.jpg"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://python-pour-les-metiers.fr/" },
+    { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://python-pour-les-metiers.fr/articles/" },
+    { "@type": "ListItem", "position": 3, "name": "Vibe-coding", "item": "https://python-pour-les-metiers.fr/articles/pourquoi-vibe-coder-ne-suffit-pas/" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Le vibe-coding est-il voué à l'échec ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Non, mais un projet construit ainsi tient rarement dans la durée sans que personne ne soit capable de comprendre et corriger ce que l'IA a produit." }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il des années d'expérience pour challenger correctement le code généré par une IA ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Non. Comprendre les bases (variables, boucles, fonctions, lecture d'un message d'erreur) et adopter une posture de vérification suffit à changer radicalement la qualité des résultats obtenus." }
+    },
+    {
+      "@type": "Question",
+      "name": "L'IA rend-elle les compétences de développeur inutiles ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Non, c'est l'inverse : elle les rend plus précieuses, en démocratisant l'accès au code tout en révélant, par la pratique, la valeur de savoir challenger ce qui est produit." }
+    }
+  ]
+}
+</script>
+
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ JS — NAV BURGER & FAQ
+     ════════════════════════════════════════════ -->
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+  function toggleFaq(btn) {
+    var item = btn.parentElement;
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+    if (!isOpen) item.classList.add('open');
+  }
+  function toggleNav(){
+    document.getElementById('navBurger').classList.toggle('open');
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  function closeNav(){
+    document.getElementById('navBurger').classList.remove('open');
+    document.querySelector('.nav-links').classList.remove('open');
+  }
+</script>
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ JS
+     ════════════════════════════════════════════ -->
+
+</body>
+</html>

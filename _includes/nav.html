@@ -1,0 +1,17 @@
+<nav>
+  <a href="/" class="nav-logo">Python <span>pour les métiers</span></a>
+  <ul class="nav-links">
+    <li><a href="/#programme" onclick="closeNav()">Programme</a></li>
+    <li><a href="/#temoignage" onclick="closeNav()">Témoignages</a></li>
+    <li><a href="/#formateur" onclick="closeNav()">Le formateur</a></li>
+    <li><a href="/articles/" onclick="closeNav()">Articles</a></li>
+    {% if include.show_faq %}
+    <li><a href="/#faq" onclick="closeNav()">FAQ</a></li>
+    {% endif %}
+    <li><a href="https://systeme.python-pour-les-metiers.fr/school/course/formation" class="nav-login" onclick="closeNav()">Se connecter</a></li>
+    <li><a href="/#offre" class="nav-cta" onclick="closeNav()">Rejoindre la formation →</a></li>
+  </ul>
+  <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>

@@ -1,5 +1,5 @@
 <nav>
-  <a href="/" class="nav-logo">Python <span>pour les métiers</span></a>
+  <a href="{% if page.url == '/' %}#{% else %}/{% endif %}" class="nav-logo">Python <span>pour les métiers</span></a>
   <ul class="nav-links">
     <li><a href="/#programme" onclick="closeNav()">Programme</a></li>
     <li><a href="/#temoignage" onclick="closeNav()">Témoignages</a></li>

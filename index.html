@@ -1,13 +1,19 @@
+---
+---
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ══ CONSENTEMENT COOKIES / GOOGLE ANALYTICS ══ -->
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ — CONSENTEMENT COOKIES / GOOGLE ANALYTICS
+     ════════════════════════════════════════════ -->
 <script>window.GA_MEASUREMENT_ID = 'G-DTYTEVQHKY';</script>
 <script src="/assets/consent.js" defer></script>
-<!-- ══ /CONSENTEMENT COOKIES ══ -->
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ — CONSENTEMENT COOKIES
+     ════════════════════════════════════════════ -->
 
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg">
 <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
@@ -37,58 +43,19 @@
 <meta name="twitter:description" content="Formation Python pensée pour les profils métiers (contrôle de gestion, growth, logistique...). Aucun prérequis en programmation. Analysez mieux et automatisez plus, dans la continuité de vos outils actuels.">
 <meta name="twitter:image" content="https://python-pour-les-metiers.fr/assets/og-image.jpg">
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ — POLICES
+     ════════════════════════════════════════════ -->
+<link rel="stylesheet" href="/assets/shared.css">
+<!-- Police additionnelle propre à cette page (élément manuscrit) -->
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
 <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
 <style>
-  :root {
-    --dark:        #1E2229;
-    --dark-soft:   #252B34;
-    --navy:        #0f1a2e;
-    --yellow:      #FFD43B;
-    --yellow-pale: #FFF9E6;
-    --yellow-dim:  rgba(255,212,59,0.12);
-    --blue-mid:    #2563eb;
-    --blue-light:  #93c5fd;
-    --text-dark:   #1e293b;
-    --text-mid:    #475569;
-    --text-light:  #94a3b8;
-    --white:       #ffffff;
-    --border-dark: rgba(255,255,255,0.08);
-    --border-light:#e2e8f0;
-    --green:       #10b981;
-    --surface:     #f8fafc;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Open Sans', sans-serif;
-    color: var(--text-dark);
-    background: var(--white);
-    line-height: 1.7;
-    -webkit-font-smoothing: antialiased;
-  }
-  .page-wrapper { overflow-x: hidden; }
-  h1,h2,h3,h4 { font-family: 'Montserrat', sans-serif; line-height: 1.2; }
-
-  /* ── NAV (HEADER) ── */
-  nav {
-    position: sticky; top: 0; z-index: 200;
-    background: rgba(30,34,41,0.97);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-dark);
-    padding: 0 2.5rem;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 66px;
-  }
-  .nav-logo { font-family:'Montserrat',sans-serif; font-weight:800; font-size:1rem; color:var(--white); text-decoration:none; }
-  .nav-logo span { color:var(--yellow); }
-  .nav-links { display:flex; gap:2rem; list-style:none; align-items:center; }
-  .nav-links a { text-decoration:none; color:var(--text-light); font-size:0.875rem; font-weight:500; transition:color 0.2s; }
-  .nav-links a:hover { color:var(--white); }
-  .nav-cta { background:var(--yellow)!important; color:var(--dark)!important; padding:0.5rem 1.35rem!important; border-radius:6px!important; font-weight:700!important; }
-  .nav-login { border:1px solid rgba(255,255,255,0.25); border-radius:6px; padding:0.45rem 1rem!important; }
-  .nav-login:hover { border-color:rgba(255,255,255,0.5); }
+  .page-wrapper { overflow-x: hidden; } /* propre à cette page : protège des débordements horizontaux des éléments décoratifs */
 
   /* ── HERO ── */
   .hero { position:relative; overflow:hidden; background:var(--navy); padding:7rem 2rem 6rem; text-align:center; }
@@ -683,40 +650,6 @@
   .final-cta h2 .hl { color:var(--yellow); }
   .final-cta p { color:#94a3b8; font-size:1.05rem; max-width:480px; margin:0 auto 2.5rem; line-height:1.75; }
 
-  /* ── FOOTER ── */
-  footer { background:#131720; color:#475569; text-align:center; padding:2.25rem; font-size:0.8rem; }
-  footer a { color:#475569; text-decoration:none; margin:0 0.5rem; transition:color 0.2s; }
-  footer a:hover { color:#94a3b8; }
-
-  /* ── BURGER ── */
-  .nav-burger { display:none; flex-direction:column; justify-content:center; gap:5px; background:none; border:none; cursor:pointer; padding:0.4rem; z-index:201; }
-  .nav-burger span { display:block; width:22px; height:2px; background:var(--white); border-radius:2px; transition:transform 0.25s, opacity 0.25s; }
-  .nav-burger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
-  .nav-burger.open span:nth-child(2) { opacity:0; }
-  .nav-burger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
-
-  /* ── RESPONSIVE NAV (HEADER) ── */
-  @media(max-width:1095px){
-    nav { padding:0 1.25rem; }
-    .nav-burger { display:flex; }
-    .nav-links {
-      display:none;
-      position:absolute; top:66px; left:0; right:0;
-      background:rgba(30,34,41,0.98);
-      flex-direction:column;
-      gap:0;
-      padding:0.5rem 0 1rem;
-      border-bottom:1px solid var(--border-dark);
-      z-index:199;
-    }
-    .nav-links.open { display:flex; }
-    .nav-links li { width:100%; }
-    .nav-links a { display:block; padding:0.85rem 1.5rem; font-size:0.95rem; color:var(--text-light); }
-    .nav-links a:hover { color:var(--white); background:rgba(255,255,255,0.04); }
-    .nav-links .nav-cta { margin:0.5rem 1.5rem 0; display:block; text-align:center; border-radius:6px; }
-    .nav-links .nav-login { margin:0.5rem 1.5rem 0; display:block; text-align:center; padding:0.6rem 1rem!important; }
-  }
-
   @media(max-width:600px){
     section { padding:3.5rem 1.25rem; }
     .hero { padding:4.5rem 1.25rem 0.7rem; }
@@ -899,21 +832,13 @@
 </head>
 <body>
 
-<!-- ══ NAV (HEADER) ══ -->
-<nav>
-  <a href="#" class="nav-logo">Python <span>pour les métiers</span></a>
-  <ul class="nav-links">
-    <li><a href="#programme" onclick="closeNav()">Programme</a></li>
-    <li><a href="#temoignage" onclick="closeNav()">Témoignages</a></li>
-    <li><a href="#formateur" onclick="closeNav()">Le formateur</a></li>
-    <li><a href="#faq" onclick="closeNav()">FAQ</a></li>
-    <li><a href="https://systeme.python-pour-les-metiers.fr/school/course/formation" class="nav-login" onclick="closeNav()">Se connecter</a></li>
-    <li><a href="#offre" class="nav-cta" onclick="closeNav()">Rejoindre la formation →</a></li>
-  </ul>
-  <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleNav()">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ HTML — NAVIGATION (voir _includes/nav.html)
+     ════════════════════════════════════════════ -->
+{% include nav.html show_faq=true %}
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ HTML — NAVIGATION
+     ════════════════════════════════════════════ -->
 <div class="page-wrapper">
 
 <!-- ══ HERO ══ -->
@@ -1873,19 +1798,34 @@
   </div>
 </section>
 
-<!-- ══ FOOTER ══ -->
-<footer>
-  <p>
-    © <span id="footer-year"></span> Erwan Delanne — Training & Consulting &nbsp;·&nbsp;
-    <a href="cgu/">CGU</a><a href="cgv/">CGV</a><a href="mentions-legales/">Mentions légales</a><a href="politique-confidentialite/">Politique de confidentialité</a><a href="contact/">Contact</a><a href="#" onclick="openCookiePrefs(event)">Gérer les cookies</a>
-  </p>
-</footer>
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ HTML — FOOTER (voir _includes/footer.html)
+     ════════════════════════════════════════════ -->
+{% include footer.html %}
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ HTML — FOOTER
+     ════════════════════════════════════════════ -->
 
-<!-- ══ SCRIPTS ══ -->
+<!-- ════════════════════════════════════════════
+     BLOC PARTAGÉ JS — NAV BURGER
+     ════════════════════════════════════════════ -->
 <script>
-  // YEAR
   document.querySelectorAll('.current-year').forEach(function(el){ el.textContent = new Date().getFullYear(); });
+  function toggleNav(){
+    document.getElementById('navBurger').classList.toggle('open');
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  function closeNav(){
+    document.getElementById('navBurger').classList.remove('open');
+    document.querySelector('.nav-links').classList.remove('open');
+  }
+</script>
+<!-- ════════════════════════════════════════════
+     FIN DU BLOC PARTAGÉ JS
+     ════════════════════════════════════════════ -->
 
+<!-- ══ SCRIPTS SPÉCIFIQUES À CETTE PAGE (graphique CAC40, témoignages, FAQ, autoplay vidéo) ══ -->
+<script>
   // CAC40 scatter
   const cac40 = [
     { name:"LVMH",            s:"Luxe",           ca:-2,   cours:-14, cap:310 },
@@ -2127,15 +2067,6 @@
   }
 </script>
 <script>
-  function toggleNav(){
-    document.getElementById('navBurger').classList.toggle('open');
-    document.querySelector('.nav-links').classList.toggle('open');
-  }
-  function closeNav(){
-    document.getElementById('navBurger').classList.remove('open');
-    document.querySelector('.nav-links').classList.remove('open');
-  }
-
   // Autoplay vidéo au scroll (contourne la restriction iOS/Safari)
   document.querySelectorAll('video[autoplay]').forEach(function(video) {
     var observer = new IntersectionObserver(function(entries) {

@@ -44,6 +44,10 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:4rem 
 
 .back-link{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.8rem;color:var(--text-light);text-decoration:none;font-family:'Montserrat',sans-serif;font-weight:600;margin-bottom:1.75rem;transition:color 0.15s;}
 .back-link:hover{color:var(--text-mid);}
+.card-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem 0.75rem;margin-bottom:1.75rem;}
+.card-top .back-link,.card-top .contact-tag{margin-bottom:0;}
+.card-top .contact-tag{margin-left:auto;}
+@media(max-width:520px){.tag-long{display:none;}}
 .contact-tag{display:inline-block;background:rgba(16,185,129,0.08);color:#065f46;border:1px solid rgba(16,185,129,0.2);padding:0.3rem 1rem;border-radius:100px;font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1.25rem;font-family:'Montserrat',sans-serif;}
 .contact-card h1{font-size:clamp(1.4rem,2.8vw,1.85rem);font-weight:800;color:var(--dark);letter-spacing:-0.02em;margin-bottom:0.6rem;}
 .contact-card h1 span{color:var(--yellow);}
@@ -105,9 +109,10 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:4rem 
 <main>
   <div class="contact-card">
 
-    <a href="/" class="back-link">← Retour</a>
-
-    <div class="contact-tag">Échange de 30 minutes · Sans engagement</div>
+    <div class="card-top">
+      <a href="/" class="back-link">← Retour</a>
+      <div class="contact-tag"><span class="tag-long">Échange de 30 minutes · </span>Sans engagement</div>
+    </div>
 
     <h1>Python est-il la bonne solution <span>pour vous&#8239;?</span></h1>
     <p class="subtitle"><strong>Ce n'est pas un appel de vente.</strong> Cet échange sert à comprendre votre profil et à voir ensemble si Python répond à votre besoin, ou si une autre piste vous conviendrait mieux. Aucun engagement, quelle que soit la conclusion.</p>

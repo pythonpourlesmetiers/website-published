@@ -74,7 +74,7 @@
   }
   .hero-sub { font-size:1.1rem; color:#94a3b8; max-width:580px; margin:0 auto 1.1rem; line-height:1.75; }
   .hero-sub2 { font-size:0.975rem; color:#64748b; max-width:520px; margin:0 auto 2.75rem; font-style:italic; }
-  .hero-ctas { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-bottom:3.5rem; }
+  .hero-ctas { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-bottom:1.25rem; }
   .btn-primary {
     display:inline-block; background:var(--yellow); color:var(--dark);
     font-weight:700; font-size:1rem; padding:0.95rem 2.25rem; border-radius:8px; text-decoration:none;
@@ -88,7 +88,10 @@
     transition:border-color 0.2s, background 0.2s;
   }
   .btn-ghost:hover { border-color:rgba(255,255,255,0.45); background:rgba(255,255,255,0.05); }
-  .hero-pills { display:flex; justify-content:center; flex-wrap:wrap; gap:1.5rem; }
+  .hero-pills { display:flex; justify-content:center; flex-wrap:wrap; gap:0.6rem 1.5rem; max-width:660px; margin:0 auto; } /* largeur bornée : les pastilles passent sur 2 lignes et ne touchent pas la photo en bas à droite */
+  .hero p.hero-direct { font-size:0.875rem; color:#94a3b8; margin:0 0 3.5rem; }
+  .hero p.hero-direct a { color:var(--white); text-decoration:underline; text-underline-offset:3px; text-decoration-color:rgba(255,255,255,0.35); transition:text-decoration-color 0.2s; }
+  .hero p.hero-direct a:hover { text-decoration-color:var(--yellow); }
   .hero-pills span { font-size:0.82rem; color:#64748b; display:flex; align-items:center; gap:0.4rem; }
   .hero-pills span::before { content:'✓'; color:var(--green); font-weight:700; }
 
@@ -503,10 +506,17 @@
   .offre-list li::before { content:'✓'; color:var(--green); font-weight:700; flex-shrink:0; margin-top:0.05rem; }
   .offre-card { background:var(--white); border-radius:18px; padding:2.25rem; box-shadow:0 20px 60px rgba(0,0,0,0.25); }
   .offre-card-name { font-family:'Montserrat',sans-serif; font-size:1rem; font-weight:800; color:var(--dark); margin-bottom:0.5rem; }
-  .offre-price { font-family:'Montserrat',sans-serif; font-size:2.75rem; font-weight:800; color:var(--dark); margin:1rem 0 0.25rem; letter-spacing:-0.03em; }
+  .offre-price { font-family:'Montserrat',sans-serif; font-size:1.75rem; font-weight:800; color:var(--dark); margin:0 0 0.15rem; letter-spacing:-0.03em; }
   .offre-price-sub { font-size:0.825rem; color:var(--text-mid); margin-bottom:0rem; }
   .mention-tva { font-size:0.75rem; font-style:italic; color:#64748b; margin-top:0; margin-bottom:1.25rem; line-height:1.6; }
-  .offre-card .btn-primary { width:100%; text-align:center; margin-bottom:0.9rem; }
+  .offre-card .btn-primary { width:100%; text-align:center; margin-bottom:0.6rem; }
+  .offre-intro { font-size:0.875rem; color:var(--text-mid); line-height:1.65; margin:0.25rem 0 1.25rem; }
+  .offre-reassure { font-size:0.78rem; color:var(--text-mid); text-align:center; line-height:1.5; margin-bottom:0; font-weight:600; }
+  .offre-or { display:flex; align-items:center; gap:0.75rem; margin:1.5rem 0 1.25rem; font-family:'Montserrat',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-light); }
+  .offre-or::before, .offre-or::after { content:''; flex:1; height:1px; background:var(--border-light); }
+  .offre-price-ssub { font-size:0.825rem; color:var(--text-mid); margin-bottom:0; }
+  .btn-secondary-light { display:block; width:100%; text-align:center; border:1.5px solid #cbd5e1; color:var(--dark); font-family:'Montserrat',sans-serif; font-weight:700; font-size:0.9rem; padding:0.85rem 1.5rem; border-radius:8px; text-decoration:none; margin-bottom:0.9rem; transition:background 0.15s, color 0.15s, border-color 0.15s; }
+  .btn-secondary-light:hover { background:var(--dark); border-color:var(--dark); color:var(--white); }
   .offre-guarantee { font-size:0.78rem; color:var(--text-mid); text-align:center; line-height:1.55; }
   .offre-details { margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid var(--border-light); display:flex; flex-direction:column; gap:0.6rem; }
   .offre-detail { display:flex; align-items:center; gap:0.5rem; font-size:0.825rem; color:var(--text-mid); }
@@ -649,6 +659,9 @@
   .final-cta h2 { color:var(--white); font-size:clamp(1.6rem,3.5vw,2.4rem); margin-bottom:1rem; }
   .final-cta h2 .hl { color:var(--yellow); }
   .final-cta p { color:#94a3b8; font-size:1.05rem; max-width:480px; margin:0 auto 2.5rem; line-height:1.75; }
+  .final-cta p.final-cta-direct { font-size:0.875rem; max-width:none; margin:1.25rem auto 0; }
+  .final-cta p.final-cta-direct a { color:var(--white); text-decoration:underline; text-underline-offset:3px; text-decoration-color:rgba(255,255,255,0.35); transition:text-decoration-color 0.2s; }
+  .final-cta p.final-cta-direct a:hover { text-decoration-color:var(--yellow); }
 
   @media(max-width:600px){
     section { padding:3.5rem 1.25rem; }
@@ -656,7 +669,8 @@
     .hero h1 { font-size:1.6rem; line-height:1.25; }
     .hero-sub { font-size:0.95rem; margin-bottom:0.9rem; }
     .hero-sub2 { font-size:0.85rem; margin-bottom:1.75rem; }
-    .hero-ctas { margin-bottom:2.5rem; }
+    .hero-ctas { margin-bottom:1rem; }
+    .hero p.hero-direct { margin-bottom:2.5rem; }
     .btn-primary, .btn-ghost { font-size:0.9rem; padding:0.85rem 1.5rem; }
     .hero-pills { gap:0.75rem 1.25rem; }
   }
@@ -857,10 +871,12 @@
       La formation Python pensée pour les profils métiers analytiques, et créée par l'un d'entre eux. Aucun prérequis en programmation.
     </p>
     <div class="hero-ctas">
-      <a href="#offre" class="btn-primary">Accéder à la formation →</a>
+      <a href="/echange/" class="btn-primary">Réserver un échange →</a>
       <a href="#programme" class="btn-ghost">Voir le programme</a>
     </div>
+    <p class="hero-direct">Déjà décidé&#8239;? <a href="/inscription/">Accéder directement à la formation</a></p>
     <div class="hero-pills">
+      <span>Échange sans engagement</span>
       <span>Aucun prérequis en programmation</span>
       <span>Compatible Windows & Mac</span>
       <span>Python 100 % gratuit</span>
@@ -1178,7 +1194,7 @@
         <p>Ce que Power Query, Make, ou votre outil de marketing automation font séparément, avec leurs abonnements, leurs limites et leurs boîtes noires, <strong>Python permet d'en centraliser une grande partie, dans un même environnement flexible, avec une syntaxe que vous connaissez déjà</strong>.</p>
       </div>
       <div style="margin-top:2rem;">
-        <a href="#offre" class="btn-primary">Accéder à de nouvelles possibilités →</a>
+        <a href="/echange/" class="btn-primary">Réserver un échange →</a>
       </div>
     </div>
   </div>
@@ -1279,7 +1295,7 @@
         <p>Pas de théorie abstraite. Pas d'apprentissage non réplicable. <strong>Une progression pensée pour vous permettre de prendre en main Python comme un outil métier</strong>, et qui s'insère dans votre quotidien.</p>
       </div>
       <div style="margin-top:2rem;">
-        <a href="#offre" class="btn-primary">Accéder à un nouveau cap →</a>
+        <a href="/echange/" class="btn-primary">Réserver un échange →</a>
       </div>
     </div>
   </div>
@@ -1502,7 +1518,7 @@
 
     </div>
     <div style="margin-top:2rem;">
-      <a href="#offre" class="btn-primary">Accéder à de nouvelles opportunités →</a>
+      <a href="/echange/" class="btn-primary">Réserver un échange →</a>
     </div>
   </div>
 </section>
@@ -1649,17 +1665,15 @@
       </div>
       <div class="offre-card">
         <div class="offre-card-name">Python pour les métiers</div>
+        <p class="offre-intro">Pas sûr que Python soit la bonne solution pour vous&#8239;? Décrivez-moi votre contexte&#8239;: sous 24&#8239;h, je vous propose un appel de 30 minutes, ou je vous dis honnêtement si Python n'est pas la bonne piste.</p>
+        <a href="/echange/" class="btn-primary">Réserver un échange →</a>
+        <p class="offre-reassure">Échange de 30 minutes · Pas un appel de vente · Sans engagement</p>
+        <div class="offre-or">Déjà décidé&#8239;?</div>
         <div class="offre-price">1690 €</div>
         <div class="offre-price-ssub">Paiement unique · Accès à vie</div>
         <p class="mention-tva">Le prix affiché est le prix effectivement facturé, toutes taxes comprises lorsqu'applicables.</p>
-        <a href="/inscription/" class="btn-primary">Accéder à la formation →</a>
+        <a href="/inscription/" class="btn-secondary-light">Accéder à la formation →</a>
         <div class="offre-guarantee">Le nombre mensuel d'ouverture de places est limité pour garantir un suivi de qualité</div>
-        <div class="offre-details">
-          <div class="offre-detail">Garantie satisfait ou remboursé 30 jours</div>
-          <div class="offre-detail">Python 100 % gratuit - pas de licence</div>
-          <div class="offre-detail">Compatible Windows & Mac</div>
-          <div class="offre-detail">Aucune compétence technique requise</div>
-        </div>
       </div>
     </div>
   </div>
@@ -1671,6 +1685,10 @@
     <div class="label label-blue">Questions fréquentes</div>
     <h2 class="section-title title-dark">Vous hésitez encore ?</h2>
     <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Comment savoir si cette formation est faite pour moi ?<span class="faq-arrow">▼</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Le plus simple est d'en discuter. Je propose un <a href="/echange/">échange de 30 minutes</a>, sans engagement et sans démarche commerciale : vous m'expliquez votre métier, vos outils et ce que vous voulez mieux faire, et nous voyons ensemble si Python est la bonne réponse. Si ce n'est pas le cas, je vous le dis franchement, et je vous oriente vers une autre piste si je peux.</div></div>
+      </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Je n'ai jamais programmé de ma vie. C'est vraiment accessible ?<span class="faq-arrow">▼</span></button>
         <div class="faq-a"><div class="faq-a-inner">Oui, et c'est précisément pour ce profil que cette formation a été conçue. Elle commence depuis zéro, avec un vocabulaire accessible et une progression qui ne suppose aucune connaissance préalable.</div></div>
@@ -1716,6 +1734,14 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Comment savoir si cette formation est faite pour moi ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le plus simple est d'en discuter. Je propose un échange de 30 minutes, sans engagement et sans démarche commerciale : vous m'expliquez votre métier, vos outils et ce que vous voulez mieux faire, et nous voyons ensemble si Python est la bonne réponse. Si ce n'est pas le cas, je vous le dis franchement, et je vous oriente vers une autre piste si je peux."
+      }
+    },
     {
       "@type": "Question",
       "name": "Je n'ai jamais programmé de ma vie. C'est vraiment accessible ?",
@@ -1790,11 +1816,12 @@
   <div class="final-cta-overlay"></div>
   <div class="container final-cta-inner">
     <h2>
-      Prêt à <span class="text-highlight">passer au niveau supérieur</span><br>
-      dans l'exploitation de vos données ?
+      Pas sûr que Python soit fait pour vous&#8239;?<br>
+      <span class="text-highlight">Échangeons 30 minutes.</span>
     </h2>
-    <p>Rejoignez la formation et transformez votre façon de travailler avec la donnée et d'automatiser, en tant que professionnel métier.</p>
-    <a href="#offre" class="btn-primary">Accéder à la formation →</a>
+    <p>Décrivez-moi votre situation&#8239;: je vous dis honnêtement si Python peut vous aider, ou si une autre piste répondrait mieux à votre besoin. Sans engagement.</p>
+    <a href="/echange/" class="btn-primary">Réserver un échange →</a>
+    <p class="final-cta-direct">Déjà décidé&#8239;? <a href="/inscription/">Accéder directement à la formation</a></p>
   </div>
 </section>
 
